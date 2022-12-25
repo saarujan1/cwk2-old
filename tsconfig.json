@@ -6,7 +6,10 @@
     "jsx": "react-jsx",
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "allowSyntheticDefaultImports": true
+    // to spare us from writing 'import * as React from "react"'
+    "allowSyntheticDefaultImports": true,
+    // to handle variable containing errors since we don't know their type beforehand
+    "useUnknownInCatchVariables": false
   },
   "exclude": [
     "node_modules",
