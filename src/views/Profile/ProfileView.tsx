@@ -3,7 +3,7 @@ import { useCallback } from "react"
 
 // TODO: remove this example later on
 // REF1: https://reactrouter.com/en/main/start/tutorial#the-root-route
-export default function Profile() {
+export default function ProfileView() {
   const profile = {
     first: "My",
     last: "Name",

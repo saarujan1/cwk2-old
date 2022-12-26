@@ -1,15 +1,18 @@
 import React, { useCallback } from "react"
 import ReactDOM from "react-dom/client"
-import "./styles/index.css"
-// import "./styles/styles.scss";
+import "./assets/styles/index.css"
+// import "./assets/styles/styles.scss";
 // import ErrorPage from "./error";
-import Home from './routes/Home'
-import Messages from './routes/Messages'
-import Matches from './routes/Matches'
+import FiltersView from "./views/FiltersView"
+import DiscoverView from './views/DiscoverView'
+import MessagesView from './views/MessagesView'
+import MatchesView from './views/MatchesView'
+import ProfileView from './views/Profile/ProfileView'
+import SettingsView from './views/Profile/SettingsView'
 import Sidebar from './components/Sidebar'
 import Content from './components/Content'
 // import AboutPage from './routes/AboutPage'
-import Profile from './routes/Profile'
+
 import { createRef, useEffect, useState } from 'react'
 import {
   createBrowserRouter,
@@ -19,26 +22,39 @@ import {
 } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+
 const routes = [
-  { path: '/', name: 'Home', element: <Home />, nodeRef: createRef() },
+  { path: '/', name: 'Discover', element: <DiscoverView />, nodeRef: createRef() },
   {
     path: '/profiles/:profileID',
     name: 'Profile',
-    element: <Profile />,
+    element: <ProfileView />,
     nodeRef: createRef(),
+    children: [
+      {
+        path: "settings",
+        element: <SettingsView />,
+      },
+    ],
   },
   {
-    path: '/Matches/',
+    path: '/matches/',
     name: 'Matches',
-    element: <Matches />,
+    element: <MatchesView />,
     nodeRef: createRef(),
   },
   {
     path: '/messages/',
     name: 'Messages',
-    element: <Messages />,
+    element: <MessagesView />,
     nodeRef: createRef(),
   },
+  {
+    path: '/filters/',
+    name: 'Filters',
+    element: <FiltersView />,
+    nodeRef: createRef(),
+  }
 ]
 
 // REF2
