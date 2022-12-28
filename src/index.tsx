@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import ReactDOM from 'react-dom/client'
-import './assets/styles/index.css'
+import './assets/styles/main.css'
 // import "./assets/styles/styles.scss";
 // import ErrorPage from "./error";
 import FiltersView from './views/FiltersView'

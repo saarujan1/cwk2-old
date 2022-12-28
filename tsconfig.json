@@ -3,6 +3,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "target": "ES2020",
+    // to avoid importing React
     "jsx": "react-jsx",
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -11,8 +12,6 @@
     // to handle variable containing errors since we don't know their type beforehand
     "useUnknownInCatchVariables": false
   },
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*"
-  ]
+  "exclude": ["node_modules", "**/node_modules/*"],
+  "files": ["custom.d.ts"]
 }
