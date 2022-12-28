@@ -4,7 +4,7 @@
   background-color: blueviolet;
 }
 
-//old page exiting, hides it underneath (bottom) 
+//old page exiting, hides it underneath (bottom)
 .pageSlider-exit > .page {
   z-index: 1;
 }
@@ -24,14 +24,14 @@
 .pageSlider-exit.left > .page {
   transform: translate3d(-100%, 0, 0);
 }
-//old exit right direction 
+//old exit right direction
 .pageSlider-exit.right > .page {
   transform: translate3d(100%, 0, 0);
 }
-//Enter is active (Page has finished transitioning) make it settle down 
+//Enter is active (Page has finished transitioning) make it settle down
 .pageSlider-enter.pageSlider-enter-active > .page {
   transform: translate3d(0, 0, 0);
-  //Apply all transitions 
+  //Apply all transitions
   transition: all 800ms ease-in-out;
 }
 // END OF REF1

@@ -1,5 +1,7 @@
 export default function MatchesView() {
   return (
-    <div><p>Your matches.</p></div>
-  );
+    <div>
+      <p>Your matches.</p>
+    </div>
+  )
 }

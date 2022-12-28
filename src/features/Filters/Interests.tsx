@@ -1,5 +1,7 @@
 export default function Interests() {
   return (
-    <div><p>Interests.</p></div>
-  );
+    <div>
+      <p>Interests.</p>
+    </div>
+  )
 }

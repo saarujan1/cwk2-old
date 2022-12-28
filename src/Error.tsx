@@ -20,6 +20,5 @@
 // TODO
 // https://stackoverflow.com/questions/56485202/argument-of-type-unknown-is-not-assignable-to-parameter-of-type
 
-
 // REFERENCES
 // REF1, adapted from the React Router tutorial: https://reactrouter.com/en/main/start/tutorial#the-root-route
