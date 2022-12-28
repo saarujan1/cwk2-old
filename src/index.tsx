@@ -98,8 +98,12 @@ function Transition() {
 
   return (
     <>
-      <Sidebar routes={routes}></Sidebar>
-      <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
+      <div className="container-fluid">
+        <div className="row">
+          <Sidebar routes={routes}></Sidebar>
+          <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
+        </div>
+      </div>
     </>
   )
 }

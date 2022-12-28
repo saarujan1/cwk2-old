@@ -1,12 +1,12 @@
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import { Container, Navbar, Nav } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 
 export default function Content(props) {
   return (
     <>
       {/* REF1 */}
       {/* <Container className={getPathDepth() - prevDepth >= 0 ? "container left" : "container right"}> */}
-      <Container className="container">
+      <Container className="col-sm p-3 min-vh-100">
         <SwitchTransition>
           <CSSTransition
             key={props.location.pathname}
