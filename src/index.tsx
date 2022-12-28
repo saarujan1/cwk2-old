@@ -11,7 +11,10 @@ import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
 import Sidebar from './components/Sidebar'
 import Content from './components/Content'
+import * as mdb from 'mdb-ui-kit';
+import 'mdb-ui-kit/css/mdb.min.css';
 // import AboutPage from './routes/AboutPage'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { createRef, useEffect, useState } from 'react'
 import {
@@ -20,7 +23,6 @@ import {
   useLocation,
   useOutlet,
 } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 const routes = [
@@ -96,8 +98,7 @@ function Transition() {
   // }, [prevDepth, getPathDepth])
 
   return (
-    <>
-    <Sidebar routes={routes}></Sidebar>
+    <>    <Sidebar routes={routes}></Sidebar>
     <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
     </>
   )
