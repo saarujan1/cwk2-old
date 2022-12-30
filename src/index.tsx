@@ -1,23 +1,25 @@
-import React, { useCallback } from 'react'
+import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
+
+// STYLESHEETS
+import 'mdb-ui-kit/css/mdb.min.css'
 import './assets/styles/main.css'
 // import "./assets/styles/styles.scss";
-// import ErrorPage from "./error";
+// import 'bootstrap/dist/css/bootstrap.min.css'
+
+// VIEWS
 import FiltersView from './views/FiltersView'
 import DiscoverView from './views/DiscoverView'
 import MessagesView from './views/MessagesView'
 import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
+// import ErrorView from "./error";
+
+// COMPONENTS
 import Sidebar from './components/Sidebar'
 import Content from './components/Content'
-import * as mdb from 'mdb-ui-kit'
-import 'mdb-ui-kit/css/mdb.min.css'
-// import AboutPage from './routes/AboutPage'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-
-import { createRef, useEffect, useState } from 'react'
-import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
 
 const routes = [
   {
