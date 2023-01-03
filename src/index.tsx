@@ -100,7 +100,7 @@ function Transition() {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid bg-tb">
         <div className="row">
           <Sidebar routes={routes}></Sidebar>
           <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
