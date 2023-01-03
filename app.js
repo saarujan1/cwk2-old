@@ -18,6 +18,12 @@
 
 'use strict';
 
+const { CommunicationIdentityClient } = require('@azure/communication-identity');
+//connects to communcation resource
+const connectionString = process.env['COMMUNICATION_SERVICES_CONNECTION_STRING'];
+// Instantiate the identity client
+const identityClient = new CommunicationIdentityClient(connectionString);
+
 const { rejects } = require('assert');
 //Set up express
 const express = require('express');
@@ -32,10 +38,11 @@ const request = require('request');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-// TODO change this to work with React.js
+// TODO change this to work with React.js -- Maybe change to tsx -- MAY NEED TO CHANGE SERVER TO JSX
 //Setup static page handling
 app.set('view engine', 'ejs');
 app.use('/static', express.static('public'));
+
 
 let usersToSockets = new Map();
 let socketsToUsers = new Map();
@@ -70,6 +77,7 @@ async function handleRegister(socket, message) {
 
   let path = '/api/register?';
 
+  message = JSON.stringify('communicationID',createIdentity());
   // Calls the Azure function to register a new user
   let promise = new Promise((resolve, reject) => getAzure(resolve, path, message));
   let resp = await promise;
@@ -104,7 +112,7 @@ async function handleLogin(socket, message) {
 
   } else {
 
-    addNewuser(socket, resp);
+    addNewUser(socket, resp);
 
   }
 
@@ -140,12 +148,12 @@ async function handleNextMatch(socket, message){
 
     let path = '/api/request?';
 
-    message = JSON.stringify({"id": id, "n": 10})
+    message = JSON.stringify({"id": id, "n": 10});
 
     let promise = new Promise((resolve, reject) => getAzure(resolve, path, message));
     let resp = await promise;
 
-    usersToMatches(id) = resp.ids
+    usersToMatches(id) = resp.ids;
     getNext(id);
 
   }
@@ -175,6 +183,13 @@ async function getNext(id){
 
   }
 
+}
+
+//This func is for creating communication ID may need to be within backend function
+async function createIdentity(){
+  let identityResponse = await identityClient.createUser();
+  console.log(`\nCreated an identity with ID: ${identityResponse.communicationUserId}`);
+  return identityResponse.communicationUserId;
 }
 
 function removeSensitive(account){
@@ -227,6 +242,14 @@ function getAzure(resolve, path, strjson){
   );
 
 }
+async function handleTokenRequest(comID){
+  // Issue an access token with a validity of 24 hours and the "chat" scope for an identity
+  let tokenResponse = await identityClient.getToken(comID, ["chat"]);
+  let { token, expiresOn } = tokenResponse;
+  console.log(`\nIssued an access token with 'chat' scope that expires at ${expiresOn}:`);
+  console.log(token);
+  socket.emit('token',token)
+}
 
 function getID(socket){
 
@@ -250,6 +273,12 @@ io.on('connection', socket => {
   socket.on('next match', message => {
     handleNextMatch(socket, message);
   })
+
+  //handle communication token request
+  socket.on('token', (communicationID) => {
+    handleTokenRequest(communicationID);
+  });
+
   
   
 
