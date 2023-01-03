@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
+import Panel from './Panel'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import '../assets/styles/sidebars.css'
 // const discover: string = require('../assets/icons/discover.svg').default
@@ -16,8 +17,8 @@ export default function Sidebar(props) {
   return (
     <>
       {/* REF2, REF3 */}
-      <div className="col-sm-auto bg-light sticky-top">
-        <div className="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+      <Panel padding={3} color="bg-bg" width="col-sm-1" height="vh-100" className="sticky-top">
+        <div className="d-flex flex-sm-column flex-row flex-nowrap align-items-center rounded">
           {/* <a href="/" className="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
                 <img src={discover} className="fs-1" alt="logo" width="24" height="24" />
               </a> */}
@@ -64,12 +65,11 @@ export default function Sidebar(props) {
                 </li> */}
           </ul>
         </div>
-      </div>
-      {/* REF2, REF3 */}
+        {/* REF2, REF3 */}
 
-      {/* TODO: remove this example later on */}
-      {/* REF1 */}
-      {/* <div id="sidebar">
+        {/* TODO: remove this example later on */}
+        {/* REF1 */}
+        {/* <div id="sidebar">
         <div>
           <form id="search-form" role="search">
             <input id="q" aria-label="Search profiles" placeholder="Search" type="search" name="q" />
@@ -102,7 +102,8 @@ export default function Sidebar(props) {
           ))}
         </nav>
       </div> */}
-      {/* END OF REF1 */}
+        {/* END OF REF1 */}
+      </Panel>
     </>
   )
 }

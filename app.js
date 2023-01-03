@@ -38,9 +38,7 @@ const request = require('request');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-// TODO change this to work with React.js -- Maybe change to tsx -- MAY NEED TO CHANGE SERVER TO JSX
-//Setup static page handling
-app.set('view engine', 'ejs');
+app.set('view engine', 'tsx');
 app.use('/static', express.static('public'));
 
 
@@ -52,7 +50,7 @@ let users = new Array();
 
 //Handle client interface on /
 app.get('/', (req, res) => {
-  res.render('client');
+  res.render('index');
 });
 
 //Start the server
