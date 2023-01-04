@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js"
+    "build": "npm install && cd client && npm install",
+    "start": "npm run start-server & npm run start-client",
+    "start-server": "node server/server.js",
+    "start-client": "cd client && npm start"
   },
   "keywords": [],
   "author": "",
