@@ -8,6 +8,8 @@ import './assets/styles/main.css'
 // import "./assets/styles/styles.scss";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
+import App from './App'
+
 // VIEWS
 import FiltersView from './views/FiltersView'
 import DiscoverView from './views/DiscoverView'
@@ -16,11 +18,6 @@ import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
 // import ErrorView from "./error";
-
-// COMPONENTS
-import Sidebar from './components/Sidebar'
-import Content from './components/Content'
-import SetupPage from './components/SetupPage'
 
 const routes = [
   {
@@ -65,7 +62,7 @@ const routes = [
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Transition />,
+    element: <Home />,
     children: routes.map((route) => ({
       index: route.path === '/',
       path: route.path === '/' ? undefined : route.path,
@@ -75,7 +72,7 @@ const router = createBrowserRouter([
 ])
 // END OF REF2
 
-function Transition() {
+function Home() {
   const location = useLocation()
   const currentOutlet = useOutlet()
 
@@ -101,13 +98,7 @@ function Transition() {
 
   return (
     <>
-      <div className="container-fluid bg-tb">
-        <div className="row">
-            {/* <Sidebar routes={routes}></Sidebar>
-           <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content> */}
-           <SetupPage />
-        </div>
-      </div>
+      <App></App>
     </>
   )
 }

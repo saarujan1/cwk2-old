@@ -18,24 +18,25 @@
 
 'use strict';
 
-const { CommunicationIdentityClient } = require('@azure/communication-identity');
+import { CommunicationIdentityClient } from '@azure/communication-identity'
 //connects to communcation resource
 const connectionString = process.env['COMMUNICATION_SERVICES_CONNECTION_STRING'];
 // Instantiate the identity client
-const identityClient = new CommunicationIdentityClient(connectionString);
+// const identityClient = new CommunicationIdentityClient(connectionString);
 
-const { rejects } = require('assert');
+import rejects from 'assert';
 //Set up express
-const express = require('express');
+import express from 'express';
 const app = express();
 
 // Setup http requests
-var http = require('https');
-const { resolve } = require('path');
-const request = require('request');
+import http from 'https';
+import resolve from 'path';
+import request from 'request';
+import socket from 'so'
 
 //Setup socket.io
-const server = require('http').Server(app);
+const server = http.Server(app);
 const io = require('socket.io')(server);
 
 app.set('view engine', 'tsx');
