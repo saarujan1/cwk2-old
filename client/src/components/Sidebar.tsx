@@ -27,12 +27,12 @@ export default function Sidebar(props) {
             {props.routes.map((route) => {
               console.log('route ', route.name)
               const lowercaseRoute = route.name.toLowerCase()
-              const icon = require('../assets/icons/' + lowercaseRoute + '.svg') as string
+              // const icon = require('../assets/icons/' + lowercaseRoute + '.svg') as string
               return (
                 <li className="nav-item" key={route.path}>
                   <Nav.Link as={NavLink} to={route.path} href="#" className="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Profile">
                     {/* const photo = string = require('../assets/icons/discover.svg').default */}
-                    <img src={icon} className="fs-1" alt={route.name} width="24" height="24" aria-label={route.name} />
+                    {/* <img src={icon} className="fs-1" alt={route.name} width="24" height="24" aria-label={route.name} /> */}
                   </Nav.Link>
                 </li>
               )

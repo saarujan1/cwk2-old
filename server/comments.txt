@@ -1,0 +1,16 @@
+// Proposed message format from client
+//
+// All messages between client and server should be stringified JSONs
+// CLIENT -> SERVER messages
+// 'register' - {"username": , "password": , "email": } - returns 'failed auth' or ('set account' and 'set filters' and 'set state')
+// 'login' - {"username": , "password"} - returns 'failed auth' or ('set account' and 'set filters' and 'set state')
+// 'next match' - {} - returns a message in form of 'set next match'
+//
+//
+// SERVER -> CLIENT messages
+// 'failed auth' - {"msg": }    this one is optional if frontend want the reason you can't register / login
+// 'set account' - {"id": , "password": , "email": , "profile_pic_id": , "phone": , "bio": , "hobbies": [],
+//                  "accepted": [], "rejected": []}
+// 'set filters' - {"id": , "university": , "course": , "year": , "language": , "study_method": , "study_time": }
+// 'set state' - {"stateNum": int} - 1 - logged in
+// 'set next match' - {"id": , "profile_pic_id": , "bio": , "hobbies": []}
