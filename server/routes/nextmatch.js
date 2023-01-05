@@ -4,12 +4,12 @@ import express from 'express'
 export const nextMatchRouter = express.Router()
 
 nextMatchRouter.use((req, res, next) => {
-  console.log(Date.now(), ': Routing to nextmatch')
+  console.log(Date.now(), ': Calling the nextmatch API')
   next()
 })
 
 nextMatchRouter.get('/nextmatch', function (req, res, next) {
-  res.json({ message: 'next match.' })
+  res.json({ message: 'next match' })
 })
 
 export async function handleNextMatch(socket, message) {

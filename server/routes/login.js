@@ -5,12 +5,12 @@ import express from 'express'
 export const logInRouter = express.Router()
 
 logInRouter.use((req, res, next) => {
-  console.log(Date.now(), ': Routing to login')
+  console.log(Date.now(), ': Calling the login API')
   next()
 })
 
 logInRouter.get('/login', function (req, res, next) {
-  res.json({ message: 'logged in.' })
+  res.json({ message: "I'm logged in" })
 })
 
 export async function handleLogin(socket, message) {

@@ -1,9 +1,9 @@
 {
   "name": "cwk2-test",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "build": "npm install && cd client && npm install",
+    "build": "npm install && cd client && npm install && npm run build",
     "start": "npm run start-server & npm run start-client",
     "start-server": "node server/server.js",
     "start-client": "cd client && npm start"
@@ -14,6 +14,7 @@
   "description": "",
   "dependencies": {
     "@azure/communication-identity": "^1.2.0",
+    "cors": "^2.8.5",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "https": "^1.0.0",

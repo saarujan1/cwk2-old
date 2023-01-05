@@ -4,12 +4,12 @@ import express from 'express'
 export const nextUserRouter = express.Router()
 
 nextUserRouter.use((req, res, next) => {
-  console.log(Date.now(), ': Routing to nextuser')
+  console.log(Date.now(), ': Calling the nextuser API')
   next()
 })
 
 nextUserRouter.get('/nextuser', function (req, res, next) {
-  res.json({ message: 'next user.' })
+  res.json({ message: 'next user' })
 })
 
 export async function getNext(id) {

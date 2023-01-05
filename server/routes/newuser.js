@@ -3,12 +3,12 @@ import express from 'express'
 export const newUserRouter = express.Router()
 
 newUserRouter.use((req, res, next) => {
-  console.log(Date.now(), ': Routing to newuser')
+  console.log(Date.now(), ': Calling the newuser API')
   next()
 })
 
 newUserRouter.get('/newuser', function (req, res, next) {
-  res.json({ message: 'new user.' })
+  res.json({ message: 'new user' })
 })
 
 export function addNewUser(socket, resp) {

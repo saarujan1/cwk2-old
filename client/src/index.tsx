@@ -7,8 +7,12 @@ import 'mdb-ui-kit/css/mdb.min.css'
 import './assets/styles/main.css'
 // import "./assets/styles/styles.scss";
 // import 'bootstrap/dist/css/bootstrap.min.css'
+// import App from './App'
 
-import App from './App'
+// COMPONENTS
+import Sidebar from './components/Sidebar'
+import Content from './components/Content'
+import SetupPage from './components/SetupPage'
 
 // VIEWS
 import FiltersView from './views/FiltersView'
@@ -98,7 +102,15 @@ function Home() {
 
   return (
     <>
-      <App></App>
+      {
+        <div className="container-fluid bg-tb">
+          <div className="row">
+            <Sidebar routes={routes}></Sidebar>
+            <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
+            {/* <SetupPage /> */}
+          </div>
+        </div>
+      }
     </>
   )
 }

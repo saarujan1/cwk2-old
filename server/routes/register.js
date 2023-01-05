@@ -4,12 +4,12 @@ import express from 'express'
 export const registerRouter = express.Router()
 
 registerRouter.use((req, res, next) => {
-  console.log(Date.now(), ': Routing to register')
+  console.log(Date.now(), ': Calling the register API')
   next()
 })
 
 registerRouter.get('/register', function (req, res, next) {
-  res.json({ message: 'registered.' })
+  res.json({ message: "I'm registered" })
 })
 
 export async function handleRegister(socket, message) {

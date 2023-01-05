@@ -5,7 +5,7 @@ import express from 'express'
 const app = express()
 
 // routing variables
-import { homeRouter } from './routes/home.js'
+// import { homeRouter } from './routes/home.js'
 import { logInRouter, handleLogin } from './routes/login.js'
 import { newUserRouter } from './routes/newuser.js'
 import { nextMatchRouter } from './routes/nextmatch.js'
@@ -13,10 +13,13 @@ import { nextUserRouter } from './routes/nextuser.js'
 import { registerRouter } from './routes/register.js'
 
 import rejects from 'assert'
+import path from 'path'
 import https from 'https'
 import http from 'http'
+import cors from 'cors'
 import { fileURLToPath } from 'url'
 import { Server } from 'socket.io'
+import { dirname } from 'path'
 
 //-------------- SERVER -------------- //
 //Setup socket.io
@@ -24,7 +27,30 @@ const server = http.Server(app)
 const io = new Server(server)
 
 app.set('view engine', 'tsx')
-app.use('/static', express.static('public'))
+app.use(cors())
+// app.use('/static', express.static('public'))
+const __filename = fileURLToPath(import.meta.url)
+app.use(express.static(path.resolve(dirname(__filename), '../client/build')))
+// app.use(express.static('../client/public'))
+app.use(express.static(path.join(dirname(__filename), '../client/public')))
+
+// app.get('/api', (req, res) => {
+//   res.json({ message: 'Hello from server!' })
+// })
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(dirname(__filename), '../client/build', 'index.html'))
+// })
+
+// app.use((req, res, next) => {
+//   res.sendFile(path.join(dirname(__filename), '..', 'public'))
+// })
+
+// app.use((req, res, next) => {
+//   res.redirect('/')
+// const __filename = fileURLToPath(import.meta.url)
+// res.sendFile(path.join(dirname(__filename), '..', 'public'))
+// })
 
 function startServer() {
   const PORT = process.env.PORT || 8080
@@ -49,7 +75,7 @@ async function handleTokenRequest(comID) {
 
 //-------------- ROUTING -------------- //
 //Handle client interface on /
-app.get('/', homeRouter)
+// app.get('/', homeRouter)
 app.get('/register', registerRouter)
 app.get('/login', logInRouter)
 app.get('/newuser', newUserRouter)
