@@ -1,9 +1,3 @@
-import { CommunicationIdentityClient } from '@azure/communication-identity'
-//connects to communcation resource
-const connectionString = process.env['COMMUNICATION_SERVICES_CONNECTION_STRING']
-// Instantiate the identity client
-// const identityClient = new CommunicationIdentityClient(connectionString);
-
 import request from 'request'
 // import resolve from 'path'
 

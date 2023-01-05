@@ -1,5 +1,11 @@
 'use strict'
 
+import { CommunicationIdentityClient } from '@azure/communication-identity'
+//connects to communcation resource
+const connectionString = 'endpoint=https://cw2comser.communication.azure.com/;accesskey=EWDGv1/69aRUOoPYmCx76MGmKcIbwS/KVaNMWN10FM2bWn+OqinNzwZ8ExxqhqbTjMvnlOpSydixCot6HpfIXA=='
+// Instantiate the identity client
+const identityClient = new CommunicationIdentityClient(connectionString);
+
 //Set up express
 import express from 'express'
 const app = express()
@@ -10,7 +16,7 @@ import { logInRouter, handleLogin } from './routes/login.js'
 import { newUserRouter } from './routes/newuser.js'
 import { nextMatchRouter } from './routes/nextmatch.js'
 import { nextUserRouter } from './routes/nextuser.js'
-import { registerRouter } from './routes/register.js'
+import { registerRouter, handleRegister } from './routes/register.js'
 
 import rejects from 'assert'
 import path from 'path'

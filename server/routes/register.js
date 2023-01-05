@@ -1,4 +1,9 @@
 import { getAzure } from '../shared.js'
+import { CommunicationIdentityClient } from '@azure/communication-identity'
+//connects to communcation resource
+const connectionString = 'endpoint=https://cw2comser.communication.azure.com/;accesskey=EWDGv1/69aRUOoPYmCx76MGmKcIbwS/KVaNMWN10FM2bWn+OqinNzwZ8ExxqhqbTjMvnlOpSydixCot6HpfIXA=='
+// Instantiate the identity client - to create identities
+const identityClient = new CommunicationIdentityClient(connectionString);
 
 import express from 'express'
 export const registerRouter = express.Router()
