@@ -1,6 +1,7 @@
 import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
+import UniContext from "./UniContext";
 
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
@@ -103,13 +104,15 @@ function Home() {
   return (
     <>
       {
-        <div className="container-fluid bg-tb">
-          <div className="row">
-            <Sidebar routes={routes}></Sidebar>
-            <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
-            {/* <SetupPage /> */}
+        <UniContext>
+          <div className="container-fluid bg-tb">
+            <div className="row">
+              <Sidebar routes={routes}></Sidebar>
+              <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
+              {/* <SetupPage /> */}
+            </div>
           </div>
-        </div>
+        </UniContext>
       }
     </>
   )
