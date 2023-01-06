@@ -17,21 +17,25 @@ registerRouter.get('/register', function (req, res, next) {
   res.json({ message: "I'm registered" })
 })
 
-export async function handleRegister(socket, message) {
+export async function handleRegister( message) {
   console.log('Handling register: ' + message)
 
   let path = '/api/register?'
-
-  message = JSON.stringify('communicationID', createIdentity())
+  //add on commID
+  var t = new Map(Object.entries(JSON.parse(message)));
+  var cID = await createIdentity();
+  t.set("communicationID",cID);
+  var message = JSON.stringify(Object.fromEntries(t))
+  console.log(message);
   // Calls the Azure function to register a new user
   let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
   let resp = await promise
 
   if (resp.result == false) {
     console.log('Failed to register user')
-    socket.emit('failed auth', JSON.stringify({ msg: resp.msg }))
+    //socket.emit('failed auth', JSON.stringify({ msg: resp.msg }))
   } else {
-    addNewUser(socket, resp)
+    //addNewUser(socket, resp)
   }
 }
 
