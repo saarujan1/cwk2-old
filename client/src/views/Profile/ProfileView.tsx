@@ -16,6 +16,8 @@ export default function ProfileView() {
     }
   }, [])
 
+  console.log(JSON.stringify(userData))
+
   return (
     <div id="profile">
       <div>

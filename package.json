@@ -2,6 +2,9 @@
   "name": "cwk2-test",
   "version": "1.0.0",
   "main": "server.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "build": "npm install && cd client && npm install && npm run build",
     "start": "npm run start-server & npm run start-client",

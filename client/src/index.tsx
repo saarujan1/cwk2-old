@@ -1,6 +1,7 @@
 import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
+import { useAppContext } from "./UniContext";
 import UniContext from "./UniContext";
 
 // STYLESHEETS
@@ -9,6 +10,7 @@ import './assets/styles/main.css'
 // import "./assets/styles/styles.scss";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import App from './App'
+
 
 // COMPONENTS
 import Sidebar from './components/Sidebar'
@@ -22,6 +24,7 @@ import MessagesView from './views/MessagesView'
 import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
+import SignInView from './views/SignInView'
 // import ErrorView from "./error";
 
 const routes = [
@@ -67,7 +70,7 @@ const routes = [
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <ScreenContainer />,
     children: routes.map((route) => ({
       index: route.path === '/',
       path: route.path === '/' ? undefined : route.path,
@@ -76,10 +79,22 @@ const router = createBrowserRouter([
   },
 ])
 // END OF REF2
+function ScreenContainer(){
+  return(
+    <>
+    {
+      <UniContext>
+        <Home></Home>
+      </UniContext>
+    }
+    </>
+  )
+}
 
 function Home() {
-  const location = useLocation()
-  const currentOutlet = useOutlet()
+  const location = useLocation();
+  const currentOutlet = useOutlet();
+  const [userData, updateUserDate] = useAppContext();
 
   // REF1
   // TODO: determine transition direction through path depth
@@ -100,22 +115,31 @@ function Home() {
   //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
-
-  return (
-    <>
-      {
-        <UniContext>
-          <div className="container-fluid bg-tb">
-            <div className="row">
-              <Sidebar routes={routes}></Sidebar>
-              <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
-              {/* <SetupPage /> */}
+  console.log(JSON.stringify(userData));
+  if(userData.valid === true){
+    return (
+      <>
+        {
+            <div className="container-fluid bg-tb">
+              <div className="row">
+                <Sidebar routes={routes} ></Sidebar>
+                <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
+                {/* <SetupPage /> */}
+              </div>
             </div>
-          </div>
-        </UniContext>
-      }
-    </>
-  )
+        }
+      </>
+    );
+  }else{
+    return(
+      <>
+      {
+        <SignInView></SignInView>
+      }      
+      </>
+    );
+  }
+  
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

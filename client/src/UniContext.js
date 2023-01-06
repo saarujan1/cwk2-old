@@ -2,6 +2,9 @@
 import { useReducer, useContext, createContext } from "react";
 
 const contextData = {
+    error:"",
+    valid: false,
+    test:"",
     user: {
         id: "test", 
         password: "", 
@@ -11,36 +14,22 @@ const contextData = {
         bio: "test bio - remove this in UniContext", 
         hobbies: [],
         accepted: [], 
-        rejected: []
+        rejected: [],
     },
     filters: {
         id:"",
     } 
 };
-
+console.log('creating context');
 const AppContext = createContext(contextData);
+console.log('Created context');
 
 const AppReducer = (state, action) => {
   switch (action.type) {
-    case "CHANGE_EMAIL":
+    case "CHANGE":
         return {
             ...state,
-            ...action.payload
-        };
-    case "CHANGE_BIO":
-        return {
-            ...state,
-            ...action.payload
-        };
-    case "CHANGE_PHONE":
-        return {
-            ...state,
-            ...action.payload
-        };
-    case "CHANGE_HOBBIES":
-        return {
-            ...state,
-            ...action.payload
+            ...action.payload,
         };
     default:
       return state;
