@@ -23,7 +23,6 @@ import rejects from 'assert'
 import path from 'path'
 import https from 'https'
 import http from 'http'
-import cors from 'cors'
 import { fileURLToPath } from 'url'
 import { Server } from 'socket.io'
 import { dirname } from 'path'
@@ -34,7 +33,8 @@ const server = http.Server(app)
 const io = new Server(server)
 
 app.set('view engine', 'tsx')
-app.use(cors())
+//const cors = import('cors');  
+//app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 // app.use('/static', express.static('public'))
 const __filename = fileURLToPath(import.meta.url)
 app.use(express.static(path.resolve(dirname(__filename), '../client/build')))

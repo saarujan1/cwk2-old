@@ -2,6 +2,7 @@ import { useAppContext } from "../UniContext";
 import { Nav } from 'react-bootstrap'
 import { on } from "events";
 import { getAzure } from '../shared.js';
+import { response } from "express";
 export default function SignInView() {
   const [globalState, dispatch] = useAppContext();
 
@@ -44,17 +45,56 @@ export default function SignInView() {
     }
    
   }
+  type signInResponse = {
+    result: boolean,
+    accountData:{
+        id: string;
+        password: string;
+        email: string;
+        profile_pic_id: string,
+        phone: string,
+        bio:string,
+        hobbies:[string],
+        accepted:[string],
+        reject:[string]
+    },
+    filterInfo:{
+        id: string,
+        university: string,
+        course: string,
+        year: string,
+        language:string,
+        study_method:string,
+        study_time:string
+    }
+  };
 
   async function login(){
     let path = '/api/login?'
-    let message = {id:globalState.user.id,password:globalState.user.password,email:globalState.user.email}
+    let message = JSON.stringify({id:globalState.user.id,password:globalState.user.password,email:globalState.user.email});
+    console.log(message)
     // Calls the Azure function to login a user
-    let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
-    let resp = await promise
+    let promise = new Promise((resolve, reject) => getAzure(resolve, path, message));
+    let resp = await promise as any
 
-    if (resp.result == false) {
+    if (resp.result) {
         return false;
     }else{
+        //set new user values
+        return true;
+    }
+  }
+  async function register(){
+    let path = '/api/register?'
+    let message = JSON.stringify({id:globalState.user.id,password:globalState.user.password,email:globalState.user.email});
+    // Calls the Azure function to login a user
+    let promise = new Promise((resolve, reject) => getAzure(resolve, path, message));
+    let resp = await promise as any
+
+    if (resp.result == true ) {
+        return false;
+    }else{
+        //set new user values
         return true;
     }
   }
