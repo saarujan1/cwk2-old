@@ -6,8 +6,9 @@
 // 'updateAccount' - {"email": , "profile_pic_id": , "phone": , "bio": , "hobbies": []} - can do any combination of these 
 //                                                                                          <-> {"result": False} (or no resp)
 // 'updateFilters' - {"university": , "course": , "year": } - can do any combination of these <-> {"result": False} (or no resp)
-// 'getAccount' - {"id:" } <-> {"result": True / False, "account": {"id": , "password": , "email": , "profile_pic_id": ,
-//                     "phone": , "bio": , "hobbies": [], "accepted": [], "rejected": []}}
+// 'getAccount' - {"id": , "password":} <-> {"result": True / False, "account": {"id": , "password": , "email": , "profile_pic_id": ,
+//                     "phone": , "bio": , "hobbies": [], "accepted": [], "rejected": [], "communicationID": }}
+// 'lookupAccount' - {"id": } <-> {"result": True / False, "account": {"id": , "profile_pic_id": , "bio": , "hobbies": [], "accepted": [], "rejected": []}}
 // 'accept' - {"id": , "accepted_id"} <-> {"result": True / False}
 // 'reject' - {"id": , "rejected_id"} <-> {"result": True / False}
 // 
