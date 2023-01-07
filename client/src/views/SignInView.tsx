@@ -89,8 +89,8 @@ export default function SignInView() {
     // Calls the Azure function to login a user
     let promise = new Promise((resolve, reject) => getAzure(resolve, path, message));
     let resp = await promise as any
-
-    if (resp.result == true ) {
+    console.log(resp.result )
+    if (resp.result) {
         //pushes context changes to other components basically
         dispatch({
             type: "CHANGE",
@@ -111,18 +111,21 @@ export default function SignInView() {
     }
   }
   return (
-    <div >
+    <div style={{
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
         <h1>SIGN IN</h1>
-        <input value={globalState.user.valid} name="id" onChange={changeNested} />
-        <input value={globalState.user.password} name="password" onChange={changeNested} />
-        <input value={globalState.user.email} name="email" onChange={changeNested} />      
+        <div><input value={globalState.user.valid} name="id" onChange={changeNested} placeholder="username"/>         </div>
+        <div><input value={globalState.user.password} name="password" onChange={changeNested} placeholder="password"/></div>
+        <div><input value={globalState.user.email} name="email" onChange={changeNested} placeholder="email"/> </div>    
      
-        <button type="button" onClick={loginTransition} className="btn btn-info">
+        <div><button type="button" onClick={loginTransition} className="btn btn-info">
         Log in
         </button>
         <button type="button" onClick={registerTransition} className="btn btn-info">
         Register
-        </button>
+        </button></div>
     </div>
   )
 }

@@ -15,6 +15,7 @@ const contextData = {
         hobbies: [],
         accepted: [], 
         rejected: [],
+        communicationID:"",
     },
     filters: {
         id:"",

@@ -115,7 +115,6 @@ function Home() {
   //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
-  console.log(JSON.stringify(userData));
   if(userData.valid === true){
     return (
       <>
