@@ -6,9 +6,9 @@ const contextData = {
     valid: false,
     test:"",
     user: {
-        id: "test", 
+        id: "", 
         password: "", 
-        email: "testemail", 
+        email: "", 
         profile_pic_id: "", 
         phone: "", 
         bio: "test bio - remove this in UniContext", 

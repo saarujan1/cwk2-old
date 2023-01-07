@@ -17,7 +17,7 @@ import { newUserRouter } from './routes/newuser.js'
 import { nextMatchRouter } from './routes/nextmatch.js'
 import { nextUserRouter } from './routes/nextuser.js'
 import { registerRouter, handleRegister } from './routes/register.js'
-
+import { getAzure} from './shared.js'
 
 import rejects from 'assert'
 import path from 'path'
@@ -26,6 +26,7 @@ import http from 'http'
 import { fileURLToPath } from 'url'
 import { Server } from 'socket.io'
 import { dirname } from 'path'
+import axios from 'axios'
 
 //-------------- SERVER -------------- //
 //Setup socket.io
@@ -64,6 +65,7 @@ function startServer() {
   server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
   })
+
 }
 
 function newConnection(socket) {

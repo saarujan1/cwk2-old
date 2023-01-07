@@ -6,7 +6,7 @@ import { response } from "express";
 export default function SignInView() {
   const [globalState, dispatch] = useAppContext();
 
-  //hook to change nested values in global state
+  //event hook to change nested values in global state
   const changeNested = (e) => {
     var someProperty = { ...globalState.user };
     someProperty[e.target.name] = e.target.value;
@@ -17,6 +17,8 @@ export default function SignInView() {
       }
     });
   };
+  //update gameState hook
+
   //change validate value
   const validateHook = () => {
     dispatch({
@@ -37,78 +39,88 @@ export default function SignInView() {
       }
     });
   };
-
-  async function validate(){
-    if(await login()){
+  //switch to home screen after succesful login
+  async function loginTransition(){
+    if(await tryLogin()){
         globalState.valid = true;
         validateHook();
     }
    
   }
-  type signInResponse = {
-    result: boolean,
-    accountData:{
-        id: string;
-        password: string;
-        email: string;
-        profile_pic_id: string,
-        phone: string,
-        bio:string,
-        hobbies:[string],
-        accepted:[string],
-        reject:[string]
-    },
-    filterInfo:{
-        id: string,
-        university: string,
-        course: string,
-        year: string,
-        language:string,
-        study_method:string,
-        study_time:string
+  //switch to home screen after succesful register
+  async function registerTransition(){
+    if(await tryRegister()){
+        globalState.valid = true;
+        validateHook();
     }
-  };
-
-  async function login(){
+   
+}
+  async function tryLogin(){
     let path = '/api/login?'
-    let message = JSON.stringify({id:globalState.user.id,password:globalState.user.password,email:globalState.user.email});
+    let message = {username:globalState.user.id,password:globalState.user.password};
     console.log(message)
     // Calls the Azure function to login a user
     let promise = new Promise((resolve, reject) => getAzure(resolve, path, message));
     let resp = await promise as any
 
     if (resp.result) {
-        return false;
-    }else{
         //set new user values
+        dispatch({
+            type: "CHANGE",
+            payload: {
+              ['user']: resp.accountData
+            }
+        });
+        dispatch({
+            type: "CHANGE",
+            payload: {
+              ['filters']: resp.filterInfo
+            }
+        });  
         return true;
+    }else{
+        
+        return false;
     }
   }
-  async function register(){
+  async function tryRegister(){
     let path = '/api/register?'
-    let message = JSON.stringify({id:globalState.user.id,password:globalState.user.password,email:globalState.user.email});
+    let message = {username:globalState.user.id,password:globalState.user.password,email:globalState.user.email};
     // Calls the Azure function to login a user
     let promise = new Promise((resolve, reject) => getAzure(resolve, path, message));
     let resp = await promise as any
 
     if (resp.result == true ) {
-        return false;
+        //pushes context changes to other components basically
+        dispatch({
+            type: "CHANGE",
+            payload: {
+              ['user']: resp.accountData
+            }
+        });
+        //pushes context changes to other components basically
+        dispatch({
+            type: "CHANGE",
+            payload: {
+              ['filters']: resp.filterInfo
+            }
+        });  
     }else{
         //set new user values
-        return true;
+        return false;
     }
   }
   return (
-    <div>
+    <div >
         <h1>SIGN IN</h1>
         <input value={globalState.user.valid} name="id" onChange={changeNested} />
         <input value={globalState.user.password} name="password" onChange={changeNested} />
         <input value={globalState.user.email} name="email" onChange={changeNested} />      
      
-        <button type="button" onClick={validate} className="btn btn-info">
+        <button type="button" onClick={loginTransition} className="btn btn-info">
         Log in
         </button>
-        <button type="button" className="btn btn-info">
+        <button type="button" onClick={registerTransition} className="btn btn-info">
         Register
         </button>
     </div>

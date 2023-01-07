@@ -35,7 +35,7 @@ export async function getAzure(resolve,path,message){
 
   if (resp.status == 200) {
     console.log('Response Body: ' + JSON.stringify(resp.data))
-    resolve({result: true})
+    resolve(resp.data)
   } else {
     console.log(resp.statusText)
     console.log(resp.status)
