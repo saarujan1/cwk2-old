@@ -3,6 +3,7 @@ import { Nav } from 'react-bootstrap'
 import { on } from "events";
 import { getAzure } from '../shared.js';
 import { response } from "express";
+
 export default function SignInView() {
   const [globalState, dispatch] = useAppContext();
 
