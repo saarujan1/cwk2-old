@@ -7,15 +7,17 @@ export default function ChatBox(props){
     var baseVal : string[] = []
     const [theM,settheM] = React.useState('') //message that will be sent 
     const [messages, setMessages] = React.useState(baseVal) //current list of messages
-    const [timerID,setTimerID] = React.useState(0)
+    const [timerID,setTimerID] = React.useState(-1)
     React.useEffect(() =>{
         updateMessages()
-        setTimerID(window.setInterval(() =>{updateMessages()},1000))
+        var id = window.setInterval(() =>{updateMessages()},1000)
+        console.log("adding timer :" + id)
+        setTimerID(id)
         
         return function cleanup(){
-            if(timerID != 0){
-                clearInterval(timerID);
-            }
+            console.log("unmounting chatbox");
+            console.log(id.toString());
+            clearInterval(id);
         }
     },[props]);
 
@@ -62,7 +64,7 @@ export default function ChatBox(props){
 
         for await (const message of messages) { 
             if(message.type == 'text'){
-                newMessages.push(message.senderDisplayName + " <" + message.createdOn.getHours().toString() + ":" + message.createdOn.getHours().toString() + "> : "  + message.content.message);
+                newMessages.push(message.senderDisplayName + " <" + message.createdOn.getHours().toString() + ":" + message.createdOn.getMinutes().toString() + "> : "  + message.content.message);
                 mCount++;
             } //could add sender here
             if(mCount == messageLimit){break;}
@@ -82,7 +84,7 @@ export default function ChatBox(props){
         <h1>ChatID:{props.chatTC.threadId}</h1>
     </div>
     <div>
-        <ul id="chat" list-style-type="none">{listItems}</ul>
+        <ul id="chat" >{listItems}</ul>
     </div>
     <div>
         <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="message"/> 

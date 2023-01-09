@@ -22,7 +22,13 @@ export default function MessagesView() {
   async function setUp(){
     getChats(new ChatClient(endpointUrl, new AzureCommunicationTokenCredential(await getToken())));
   }
-  
+
+  const listChats = chatThreads.map((m,index) =>
+    <li><button type="button" onClick={() => {newChat(index)} } className="btn btn-info">
+    {index}
+    </button></li>
+  );
+
   async function getToken(){
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/gettoken?', {comID:globalState.user.communicationID}));
     let x = await promise as any
@@ -34,9 +40,13 @@ export default function MessagesView() {
     console.log("retrieving chats")
     const threads = cli.listChatThreads();
     updateChatThreads([]);
+    var theChatThreads : ChatThreadItem[] = [];
+
     for await (const thread of threads) {
-      updateChatThreads(chatThreads.concat(thread))
+      theChatThreads.push(thread)
     }
+
+    updateChatThreads(theChatThreads)
     clientUpdate(cli);
   }
   
@@ -44,7 +54,15 @@ export default function MessagesView() {
   if(chatThreads.length != 0){
     let chatThreadClient = ((cClient as unknown)as ChatClient).getChatThreadClient(chatThreads[currentChat].id);
     return (
-      <ChatBox chatTC={chatThreadClient}></ChatBox>
+      <>
+        <div>
+          <h2>Match Chats: </h2>
+          <ul id = "chats">
+            {listChats}
+          </ul>
+        </div>
+        <ChatBox chatTC={chatThreadClient}></ChatBox>
+      </>
     )
   }
   return(

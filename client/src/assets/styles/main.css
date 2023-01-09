@@ -106,7 +106,12 @@ form[action$='destroy'] button {
   overflow: auto;
   max-height: 80vh;
 }
-
+#chats { 
+  list-style-type: none; 
+  padding: 10px;
+  flex-direction: row; 
+  display:flex
+}
 #sidebar {
   width: 22rem;
   background-color: #f7f7f7;
@@ -384,4 +389,8 @@ i {
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+.topContainer{
+  display: flex;
+  flex-direction: row;
 }
