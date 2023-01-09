@@ -2,11 +2,11 @@ import { useAppContext } from "../UniContext";
 import { ChatClient, ChatThreadClient, ChatThreadItem } from '@azure/communication-chat';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import ChatBox from '../components/ChatBox'
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {getAzure} from '../shared.js'
 import { rejects } from "assert";
 
-const endpointUrl = ''
+const endpointUrl = 'https://cw2comser.communication.azure.com/'
 
 
 export default function MessagesView() {
@@ -14,32 +14,35 @@ export default function MessagesView() {
   const [globalState,dispatch] = useAppContext();
   const [currentChat,newChat] = useState(0);
   const [chatThreads, updateChatThreads] = useState([] as ChatThreadItem[]);
-  var cClient ;
-  setUp()
+  const [cClient,clientUpdate] = useState()
+  React.useEffect(() => {
+    setUp();
+  },[])
+
   async function setUp(){
-    newToken(await getToken());
-    cClient = new ChatClient(endpointUrl, new AzureCommunicationTokenCredential(userAccessToken));
-    getChats();
+    getChats(new ChatClient(endpointUrl, new AzureCommunicationTokenCredential(await getToken())));
   }
   
   async function getToken(){
-    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/gettoken?', {id:globalState.user.communicationID}));
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/gettoken?', {comID:globalState.user.communicationID}));
     let x = await promise as any
     console.log("token retrieved");
-    return x
+    return x.token
   }
 
-  async function getChats(){
-    const threads = cClient.listChatThreads();
+  async function getChats(cli){
+    console.log("retrieving chats")
+    const threads = cli.listChatThreads();
     updateChatThreads([]);
     for await (const thread of threads) {
       updateChatThreads(chatThreads.concat(thread))
     }
+    clientUpdate(cli);
   }
   
-
+  console.log("checking chatThreads")
   if(chatThreads.length != 0){
-    let chatThreadClient = cClient.getChatThreadClient(chatThreads[currentChat].id);
+    let chatThreadClient = ((cClient as unknown)as ChatClient).getChatThreadClient(chatThreads[currentChat].id);
     return (
       <ChatBox chatTC={chatThreadClient}></ChatBox>
     )
@@ -47,7 +50,7 @@ export default function MessagesView() {
   return(
     <>
     <div>
-      
+
     </div>
     </>
   )

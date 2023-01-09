@@ -7,6 +7,17 @@ export default function ChatBox(props){
     var baseVal : string[] = []
     const [theM,settheM] = React.useState('') //message that will be sent 
     const [messages, setMessages] = React.useState(baseVal) //current list of messages
+    const [timerID,setTimerID] = React.useState(0)
+    React.useEffect(() =>{
+        updateMessages()
+        setTimerID(window.setInterval(() =>{updateMessages()},1000))
+        
+        return function cleanup(){
+            if(timerID != 0){
+                clearInterval(timerID);
+            }
+        }
+    },[props]);
 
     //hook for clicking enter
     const handleKeyDown = (event) => {
@@ -22,8 +33,8 @@ export default function ChatBox(props){
     const listItems = messages.map((m) =>
     <li>{m}</li>
     );
-
-    updateMessages();
+    
+    
 
    
     async function sendMessage(){
@@ -47,21 +58,26 @@ export default function ChatBox(props){
         var messages = props.chatTC.listMessages();
         var newMessages : string[] = [] 
         for await (const message of messages) { 
-            if(message.type == 'text'){newMessages.push(message.content?.message as string)} //could add sender here
+            if(message.type == 'text'){newMessages.push(message.content.message)} //could add sender here
         }
+        newMessages.slice(Math.max(newMessages.length - 5, 1))
         setMessages(newMessages);
     }
+
+    
+    
 
     return (<>
     <div>
         <h1>ChatID:{props.chatTC.threadId}</h1>
     </div>
     <div>
-        <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="email"/> 
-    </div>
-    <div>
         <ul>{listItems}</ul>
     </div>
+    <div>
+        <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="email"/> 
+    </div>
+    
     
     </>)
 }
