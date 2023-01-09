@@ -21,6 +21,9 @@ export default function ChatBox(props){
         }
     },[props]);
 
+    const submitStyle = {
+        padding : "5px 5px"
+      };
     //hook for clicking enter
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -78,15 +81,16 @@ export default function ChatBox(props){
     
     
 
-    return (<>
+    return (
+    <>
     <div>
-        <h1>ChatID:{props.chatTC.ChatName}</h1>
+        <h1>Chatting with {props.chatTC.ChatName}</h1>
     </div>
     <div>
         <ul id="chat" >{listItems}</ul>
     </div>
-    <div>
-        <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="message"/> 
+    <div >
+        <input  value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="message"/> 
     </div>
     
     

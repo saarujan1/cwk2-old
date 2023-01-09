@@ -109,10 +109,18 @@ form[action$='destroy'] button {
 #chats { 
   list-style-type: none;
   flex-direction: row; 
-  display:flex
+  display:flex;
+  overflow-x: scroll;
+  max-width: 800px;
 }
 #chats li{ 
   padding: 5px 5px
+}
+#chat li:nth-child(odd) { 
+  background-color: rgba(0,0,0,0.2); 
+}
+#chat li:nth-child(even) { 
+  background-color: rgba(0,0,0,0.1); 
 }
 #sidebar {
   width: 22rem;
