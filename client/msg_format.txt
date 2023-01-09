@@ -11,6 +11,9 @@
 // 'lookupAccount' - {"id": } <-> {"result": True / False, "account": {"id": , "profile_pic_id": , "bio": , "hobbies": [], "accepted": [], "rejected": []}}
 // 'accept' - {"id": , "accepted_id"} <-> {"result": True / False}
 // 'reject' - {"id": , "rejected_id"} <-> {"result": True / False}
+// 'getuniversities' - {"text": being search to match against, "n": max number of results} <-> {"unis": []} - one of these must be chosen, do NOT allow for user typed unis (will break course selection)
+// 'getcourses' - {"text": being search to match against, "university": their uni to check for courses in, "n": max number of results}
+//                      <-> {"courses": []} - all matches sorted most to least used, user CAN type a course not from this list
 // 
 //
 // All messages between client and server should be stringified JSONs
