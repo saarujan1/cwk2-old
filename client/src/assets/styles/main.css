@@ -24,6 +24,7 @@ body {
   line-height: 1.5;
   color: #121212;
 }
+
 textarea,
 input,
 button {
@@ -97,6 +98,13 @@ form[action$='destroy'] button {
   display: flex;
   height: 100%;
   width: 100%;
+}
+#chat { 
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0; 
+  overflow: auto;
+  max-height: 80vh;
 }
 
 #sidebar {

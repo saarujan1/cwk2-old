@@ -1,4 +1,4 @@
-import { ChatThreadClient } from '@azure/communication-chat'
+import { ChatThreadClient, ChatParticipant } from '@azure/communication-chat'
 import React, { createRef } from 'react'
 import { useAppContext } from "../UniContext";
 
@@ -57,10 +57,20 @@ export default function ChatBox(props){
         console.log('updating messages')
         var messages = props.chatTC.listMessages();
         var newMessages : string[] = [] 
+        var mCount = 0
+        var messageLimit = 10;
+
         for await (const message of messages) { 
-            if(message.type == 'text'){newMessages.push(message.content.message)} //could add sender here
+            if(message.type == 'text'){
+                newMessages.push(message.senderDisplayName + " <" + message.createdOn.getHours().toString() + ":" + message.createdOn.getHours().toString() + "> : "  + message.content.message);
+                mCount++;
+            } //could add sender here
+            if(mCount == messageLimit){break;}
         }
-        newMessages.slice(Math.max(newMessages.length - 5, 1))
+        var finalMessagePush = []
+        for (let i = messageLimit; i > mCount; i--) {
+            newMessages.push('');
+        }
         setMessages(newMessages);
     }
 
@@ -72,10 +82,10 @@ export default function ChatBox(props){
         <h1>ChatID:{props.chatTC.threadId}</h1>
     </div>
     <div>
-        <ul>{listItems}</ul>
+        <ul id="chat" list-style-type="none">{listItems}</ul>
     </div>
     <div>
-        <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="email"/> 
+        <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="message"/> 
     </div>
     
     
