@@ -10,14 +10,17 @@ const endpointUrl = 'https://cw2comser.communication.azure.com/'
 
 
 export default function MessagesView() {
-  const [userAccessToken,newToken]  = useState('');
   const [globalState,dispatch] = useAppContext();
   const [currentChat,newChat] = useState(0);
-  const [chatThreads, updateChatThreads] = useState([] as ChatThreadItem[]);
-  const [cClient,clientUpdate] = useState()
+  const [chatThreads, updateChatThreads] = useState([] as chat[]);
   React.useEffect(() => {
     setUp();
   },[])
+
+  type chat = {
+    ThreadCli: ChatThreadClient,
+    ChatName: string
+  }
 
   async function setUp(){
     getChats(new ChatClient(endpointUrl, new AzureCommunicationTokenCredential(await getToken())));
@@ -25,7 +28,7 @@ export default function MessagesView() {
 
   const listChats = chatThreads.map((m,index) =>
     <li><button type="button" onClick={() => {newChat(index)} } className="btn btn-info">
-    {index}
+    {m.ChatName}
     </button></li>
   );
 
@@ -40,19 +43,35 @@ export default function MessagesView() {
     console.log("retrieving chats")
     const threads = cli.listChatThreads();
     updateChatThreads([]);
-    var theChatThreads : ChatThreadItem[] = [];
+    var theChatThreads : chat[] = [];
 
     for await (const thread of threads) {
-      theChatThreads.push(thread)
+      var ctc = cli.getChatThreadClient(thread.id);
+      var c : chat = {ThreadCli:ctc,ChatName:await getOtherUser(ctc)}
+
+      theChatThreads.push(c);
     }
 
-    updateChatThreads(theChatThreads)
-    clientUpdate(cli);
+    updateChatThreads(theChatThreads);
+  }
+  async function getOtherUser(ctc : ChatThreadClient){
+    console.log("getting participants");
+    try {
+      var participants = ctc.listParticipants()
+      for await(const participant of participants){
+        console.log(participant.displayName);
+        if(participant.displayName != globalState.user.id && participant.displayName != undefined){return participant.displayName as string}
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
+    return 'unknown';
   }
   
   console.log("checking chatThreads")
   if(chatThreads.length != 0){
-    let chatThreadClient = ((cClient as unknown)as ChatClient).getChatThreadClient(chatThreads[currentChat].id);
+    let chatThreadClient = chatThreads[currentChat];
     return (
       <>
         <div>
@@ -68,7 +87,7 @@ export default function MessagesView() {
   return(
     <>
     <div>
-
+      No Matches made yet...
     </div>
     </>
   )

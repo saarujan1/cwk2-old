@@ -50,14 +50,14 @@ export default function ChatBox(props){
             senderDisplayName : globalState.user.id,
             type: 'text',
         };
-        props.chatTC.sendMessage(sendMessageRequest, sendMessageOptions);
+        props.chatTC.ThreadCli.sendMessage(sendMessageRequest, sendMessageOptions);
         settheM('');
         updateMessages();
     }
 
     async function updateMessages(){
         console.log('updating messages')
-        var messages = props.chatTC.listMessages();
+        var messages = props.chatTC.ThreadCli.listMessages();
         var newMessages : string[] = [] 
         var mCount = 0
         var messageLimit = 10;
@@ -69,7 +69,6 @@ export default function ChatBox(props){
             } //could add sender here
             if(mCount == messageLimit){break;}
         }
-        var finalMessagePush = []
         for (let i = messageLimit; i > mCount; i--) {
             newMessages.push('');
         }
@@ -81,7 +80,7 @@ export default function ChatBox(props){
 
     return (<>
     <div>
-        <h1>ChatID:{props.chatTC.threadId}</h1>
+        <h1>ChatID:{props.chatTC.ChatName}</h1>
     </div>
     <div>
         <ul id="chat" >{listItems}</ul>

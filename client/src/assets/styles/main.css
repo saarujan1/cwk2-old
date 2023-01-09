@@ -107,10 +107,12 @@ form[action$='destroy'] button {
   max-height: 80vh;
 }
 #chats { 
-  list-style-type: none; 
-  padding: 10px;
+  list-style-type: none;
   flex-direction: row; 
   display:flex
+}
+#chats li{ 
+  padding: 5px 5px
 }
 #sidebar {
   width: 22rem;
