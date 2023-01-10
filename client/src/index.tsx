@@ -7,7 +7,6 @@ import UniContext from './UniContext'
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
 import './assets/styles/main.css'
-// import "./assets/styles/styles.scss";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import App from './App'
 
