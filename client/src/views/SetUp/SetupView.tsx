@@ -1,9 +1,9 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
-import PersonalInfo from '../components/PersonalInfo'
-import InterestsSelection from '../components/InterestsSelection'
-import ProfilePictureImport from '../components/ProfilePictureImport'
+import PersonalInfo from '../../components/PersonalInfo'
+import InterestsSelection from '../../components/InterestsSelection'
+import ProfilePictureImport from '../../components/ProfilePictureImport'
 import { useNavigate } from 'react-router-dom'
 
 export interface FormProps {

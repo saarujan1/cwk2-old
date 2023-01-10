@@ -23,9 +23,9 @@ import MessagesView from './views/MessagesView'
 import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
-import SignInView from './views/SignInView'
-import SetupView from './views/SetupView'
-import SetupView2 from './views/SetupView2'
+import SignInView from './views/SetUp/SignInView'
+import SetupView from './views/SetUp/SetupView'
+import SetupView2 from './views/SetUp/SetupView2'
 // import ErrorView from "./error";
 
 const routes = [

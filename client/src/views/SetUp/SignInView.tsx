@@ -1,7 +1,7 @@
-import { useAppContext } from '../UniContext'
+import { useAppContext } from '../../UniContext'
 import { Nav } from 'react-bootstrap'
 import { on } from 'events'
-import { getAzure } from '../shared.js'
+import { getAzure } from '../../shared.js'
 import { response } from 'express'
 import { useNavigate } from 'react-router-dom'
 
