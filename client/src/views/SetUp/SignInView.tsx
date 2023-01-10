@@ -119,13 +119,13 @@ export default function SignInView() {
     >
       <h1>SIGN IN</h1>
       <div>
-        <input value={globalState.user.valid} name="id" onChange={changeNested} placeholder="username" />{' '}
+        <input value={globalState.user.valid} name="id" onChange={changeNested} placeholder="username" className="form-control" />{' '}
       </div>
       <div>
-        <input value={globalState.user.password} name="password" onChange={changeNested} placeholder="password" />
+        <input value={globalState.user.password} name="password" onChange={changeNested} placeholder="password" className="form-control" />
       </div>
       <div>
-        <input value={globalState.user.email} name="email" onChange={changeNested} placeholder="email" />{' '}
+        <input value={globalState.user.email} name="email" onChange={changeNested} placeholder="email" className="form-control" />{' '}
       </div>
 
       <div>

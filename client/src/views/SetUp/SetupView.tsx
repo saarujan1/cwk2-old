@@ -65,9 +65,9 @@ export default function SetupPage() {
       <Button
         onClick={() => {
           setPage((currentPage) => currentPage + 1)
-          // if the current page is the last page, navigate to the /home route
+          // if the current page is the last page, navigate to the /discover route
           if (page === 2) {
-            navigate('/home')
+            navigate('/discover')
           }
         }}
       >

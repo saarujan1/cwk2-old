@@ -1,21 +1,22 @@
 import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
-import { useAppContext } from './UniContext'
-import UniContext from './UniContext'
+import UniContext, { useAppContext } from './UniContext'
 
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
 import './assets/styles/main.css'
+import './assets/styles/constants.css'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import App from './App'
 
 // COMPONENTS
-import Sidebar from './components/Sidebar'
-import Content from './components/Content'
+import Sidebar from './components/Panels/Sidebar'
+import Content from './components/Panels/Content'
 import SetupPage from './components/SetupPage'
 
 // VIEWS
+import HomeView from './views/HomeView'
 import FiltersView from './views/FiltersView'
 import DiscoverView from './views/DiscoverView'
 import MessagesView from './views/MessagesView'
@@ -29,7 +30,7 @@ import SetupView2 from './views/SetUp/SetupView2'
 
 const routes = [
   {
-    path: '/home',
+    path: '/discover',
     name: 'Discover',
     element: <DiscoverView />,
     nodeRef: createRef(),
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
         path: route.path === '/' ? undefined : route.path,
         element: route.element,
       })),
+      // {
+      //   path: '/home',
+      //   element: <HomeView />,
+      // },
       {
         path: '/setup',
         element: <SetupView />,
@@ -85,19 +90,20 @@ const router = createBrowserRouter([
   },
 ])
 // END OF REF2
+
 function ScreenContainer() {
   return (
     <>
       {
         <UniContext>
-          <Home></Home>
+          <Redirect></Redirect>
         </UniContext>
       }
     </>
   )
 }
 
-function Home() {
+function Redirect() {
   const location = useLocation()
   const currentOutlet = useOutlet()
   const [userData, updateUserDate] = useAppContext()
@@ -121,10 +127,13 @@ function Home() {
   //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
+
   if (userData.valid === true) {
     if (location.pathname === '/setup') {
       return <SetupView />
-    } else
+    }
+    // return <HomeView />
+    else
       return (
         <>
           {

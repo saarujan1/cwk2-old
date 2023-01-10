@@ -84,7 +84,7 @@ export default function ChatBox(props) {
         <ul id="chat">{listItems}</ul>
       </div>
       <div>
-        <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="message" />
+        <input value={theM} onChange={onChange} onKeyDown={handleKeyDown} placeholder="message" className="form-control" />
       </div>
     </>
   )

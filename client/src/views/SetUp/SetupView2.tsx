@@ -20,7 +20,7 @@ const OnBoarding = () => {
   const handleSubmit = async (e) => {
     console.log('submitted')
     e.preventDefault()
-    navigate('/home')
+    navigate('/discover')
   }
 
   const handleChange = (e) => {
