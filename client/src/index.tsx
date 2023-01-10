@@ -20,6 +20,7 @@ import SetupPage from './components/SetupPage'
 // VIEWS
 import FiltersView from './views/FiltersView'
 import DiscoverView from './views/DiscoverView'
+import DiscoverView2 from './views/DiscoverView2'
 import MessagesView from './views/MessagesView'
 import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
@@ -65,7 +66,7 @@ const routes = [
     name: 'Filters',
     element: <FiltersView />,
     nodeRef: createRef(),
-  },
+  }
 ]
 
 // REF2
