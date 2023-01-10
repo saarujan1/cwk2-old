@@ -3,8 +3,10 @@ import { Nav } from 'react-bootstrap'
 import { on } from "events";
 import { getAzure } from '../shared.js';
 import { response } from "express";
+import { useNavigate} from 'react-router-dom'
 
 export default function SignInView() {
+  const navigate = useNavigate()
   const [globalState, dispatch] = useAppContext();
 
   //event hook to change nested values in global state
@@ -46,6 +48,7 @@ export default function SignInView() {
         globalState.valid = true;
         validateHook();
     }
+    navigate('/setup')
    
   }
   //switch to home screen after succesful register

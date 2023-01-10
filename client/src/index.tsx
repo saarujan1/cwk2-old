@@ -25,11 +25,13 @@ import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
 import SignInView from './views/SignInView'
+import SetupView from './views/SetupView'
+import SetupView2 from './views/SetupView2'
 // import ErrorView from "./error";
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Discover',
     element: <DiscoverView />,
     nodeRef: createRef(),
@@ -71,11 +73,17 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <ScreenContainer />,
-    children: routes.map((route) => ({
-      index: route.path === '/',
-      path: route.path === '/' ? undefined : route.path,
-      element: route.element,
-    })),
+    children: [
+      ...routes.map((route) => ({
+        index: route.path === '/',
+        path: route.path === '/' ? undefined : route.path,
+        element: route.element,
+      })),
+      {
+        path: '/setup',
+        element: <SetupView />,
+      },
+    ],
   },
 ])
 // END OF REF2
@@ -116,7 +124,10 @@ function Home() {
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
   if(userData.valid === true){
-    return (
+
+    if (location.pathname === '/setup') {
+      return <SetupView />
+    } else return (
       <>
         {
             <div className="container-fluid bg-tb">
