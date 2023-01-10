@@ -1,3 +1,5 @@
+@import 'node_modules/bootstrap/scss/bootstrap';
+
 /* -------------- ⌄CHATS⌄ -------------- */
 #chat {
   list-style-type: none;
@@ -26,6 +28,7 @@
 #chat li:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.1);
 }
+/* -------------- ^CHATS^ -------------- */
 
 .topContainer {
   display: flex;
@@ -48,7 +51,7 @@
   width: 80vw;
   max-width: 260px;
   height: 300px;
-  box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -60,7 +63,6 @@
 }
 
 .swipe:last-of-type {
-
 }
 
 .card h3 {
@@ -69,4 +71,15 @@
   margin: 10px;
   color: #fff;
 }
-/* -------------- ^CHATS^ -------------- */
+
+.btn-setup {
+  @extend .btn;
+  @extend .btn-light;
+  @extend .fw-bold;
+}
+
+.btn-setup:hover {
+  background-color: transparent;
+  color: #f8f9fa;
+  border-color: #f8f9fa;
+}
