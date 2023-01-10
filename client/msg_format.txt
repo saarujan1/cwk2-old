@@ -13,7 +13,9 @@
 // 'reject' - {"id": , "rejected_id"} <-> {"result": True / False}
 // 'getuniversities' - {"text": being search to match against, "n": max number of results} <-> {"unis": []} - one of these must be chosen, do NOT allow for user typed unis (will break course selection)
 // 'getcourses' - {"text": being search to match against, "university": their uni to check for courses in, "n": max number of results}
-//                      <-> {"courses": []} - all matches sorted most to least used, user CAN type a course not from this list
+//                      <-> {"courses": []} - all matches sorted most to least used, user CAN type a course not from this list, if text == "" then all courses in the uni are returned
+// 'getmodules' - {"text": being search to match against, "university": their uni to check for courses in, "course": , "n": max number of results}
+//                      <-> {"modules": []} - all matches sorted most to least used, user CAN type a module not from this list, if text == "" then all modules in the course are returned
 // 
 //
 // All messages between client and server should be stringified JSONs
