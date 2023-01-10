@@ -26,6 +26,7 @@
 #chat li:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.1);
 }
+/* -------------- ^CHATS^ -------------- */
 
 .topContainer {
   display: flex;
@@ -40,6 +41,7 @@
   width: 90vw;
   max-width: 260px;
   height: 300px;
+  border: 0 25px 0 0;
 }
 
 .card {
