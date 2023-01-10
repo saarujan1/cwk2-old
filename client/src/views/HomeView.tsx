@@ -22,7 +22,7 @@ export default function Home() {
                 </div>
                 <div className="col-4">
                   <button type="button" className="btn-setup">
-                    Sign up
+                    Login
                   </button>
                 </div>
               </div>
