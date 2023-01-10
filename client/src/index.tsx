@@ -1,8 +1,8 @@
 import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
-import { useAppContext } from "./UniContext";
-import UniContext from "./UniContext";
+import { useAppContext } from './UniContext'
+import UniContext from './UniContext'
 
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
@@ -10,7 +10,6 @@ import './assets/styles/main.css'
 // import "./assets/styles/styles.scss";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import App from './App'
-
 
 // COMPONENTS
 import Sidebar from './components/Sidebar'
@@ -87,22 +86,22 @@ const router = createBrowserRouter([
   },
 ])
 // END OF REF2
-function ScreenContainer(){
-  return(
+function ScreenContainer() {
+  return (
     <>
-    {
-      <UniContext>
-        <Home></Home>
-      </UniContext>
-    }
+      {
+        <UniContext>
+          <Home></Home>
+        </UniContext>
+      }
     </>
   )
 }
 
 function Home() {
-  const location = useLocation();
-  const currentOutlet = useOutlet();
-  const [userData, updateUserDate] = useAppContext();
+  const location = useLocation()
+  const currentOutlet = useOutlet()
+  const [userData, updateUserDate] = useAppContext()
 
   // REF1
   // TODO: determine transition direction through path depth
@@ -123,40 +122,29 @@ function Home() {
   //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
-  if(userData.valid === true){
-
+  if (userData.valid === true) {
     if (location.pathname === '/setup') {
       return <SetupView />
-    } else return (
-      <>
-        {
+    } else
+      return (
+        <>
+          {
             <div className="container-fluid bg-tb">
               <div className="row">
-                <Sidebar routes={routes} ></Sidebar>
+                <Sidebar routes={routes}></Sidebar>
                 <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
                 {/* <SetupPage /> */}
               </div>
             </div>
-        }
-      </>
-    );
-  }else{
-    return(
-      <>
-      {
-        <SignInView></SignInView>
-      }      
-      </>
-    );
+          }
+        </>
+      )
+  } else {
+    return <>{<SignInView></SignInView>}</>
   }
-  
 }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  
-    <RouterProvider router={router} />
-  
-)
+ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />)
 
 // REFERENCES
 // REF1, adapted from the following guide: https://medium.com/@ipenywis/slide-page-css-transition-on-react-with-react-router-38373da5e608

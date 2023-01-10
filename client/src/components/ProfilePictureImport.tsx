@@ -1,7 +1,5 @@
-import { FormDataProps } from "./SetupPage";
+import { FormDataProps } from './SetupPage'
 
-export default function ProfilePictureImport({formData, setFormData}: FormDataProps){
-    return(
-        <div>Profile Picture</div>
-    )
+export default function ProfilePictureImport({ formData, setFormData }: FormDataProps) {
+  return <div>Profile Picture</div>
 }

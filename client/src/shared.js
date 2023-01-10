@@ -28,10 +28,10 @@ export let users = new Array()
   )
 } */
 //
-export async function getAzure(resolve,path,message){
+export async function getAzure(resolve, path, message) {
   let url = 'https://unimatch.azurewebsites.net' + path + 'code=ICv8UmG9odsVgfA879OdhsW317Bt1rBy89gKgqeNEQhoAzFusfM-Mg=='
-  console.log("posting" + message)
-  const resp = await axios.post(url, message);
+  console.log('posting' + message)
+  const resp = await axios.post(url, message)
 
   if (resp.status == 200) {
     console.log('Response Body: ' + JSON.stringify(resp.data))
