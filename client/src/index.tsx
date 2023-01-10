@@ -5,7 +5,7 @@ import UniContext, { useAppContext } from './UniContext'
 
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
-import './assets/styles/main.css'
+import './assets/styles/main.scss'
 import './assets/styles/constants.css'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import App from './App'
@@ -64,7 +64,7 @@ const routes = [
     name: 'Filters',
     element: <FiltersView />,
     nodeRef: createRef(),
-  }
+  },
 ]
 
 // REF2
@@ -127,13 +127,11 @@ function Redirect() {
   //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
-
+  return <HomeView />
   if (userData.valid === true) {
     if (location.pathname === '/setup') {
       return <SetupView />
-    }
-    // return <HomeView />
-    else
+    } else
       return (
         <>
           {
