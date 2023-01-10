@@ -1,9 +1,10 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
-import PersonalInfo from './PersonalInfo'
-import InterestsSelection from './InterestsSelection'
-import ProfilePictureImport from './ProfilePictureImport'
+import PersonalInfo from '../../components/PersonalInfo'
+import InterestsSelection from '../../components/InterestsSelection'
+import ProfilePictureImport from '../../components/ProfilePictureImport'
+import { useNavigate } from 'react-router-dom'
 
 export interface FormProps {
   formData: {
@@ -41,6 +42,9 @@ export default function SetupPage() {
   })
   const FormTitles = ['PersonalInfo', 'InterestsSelection', 'ProfilePictureImport']
 
+  // use the useNavigate hook to get access to the navigate function
+  const navigate = useNavigate()
+
   const formDisplay = () => {
     switch (page) {
       case 0:
@@ -58,7 +62,17 @@ export default function SetupPage() {
       <Button disabled={page === 0} onClick={() => setPage((currentPage) => currentPage - 1)}>
         Prev
       </Button>
-      <Button onClick={() => setPage((currentPage) => currentPage + 1)}>Next</Button>
+      <Button
+        onClick={() => {
+          setPage((currentPage) => currentPage + 1)
+          // if the current page is the last page, navigate to the /discover route
+          if (page === 2) {
+            navigate('/discover')
+          }
+        }}
+      >
+        Next
+      </Button>
     </div>
   )
 }

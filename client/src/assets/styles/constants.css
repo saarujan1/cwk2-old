@@ -1,10 +1,15 @@
 :root {
   --text-blue: #5b9bd5;
-  --background-gray: #e6f3ff;
+  --panel-gray: #e6f3ff;
+  --background-gray: #2c2c2c;
 }
 
 .bg-tb {
   background-color: var(--text-blue);
+}
+
+.bg-pg {
+  background-color: var(--panel-gray);
 }
 
 .bg-bg {

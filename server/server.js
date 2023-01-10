@@ -4,7 +4,7 @@ import { CommunicationIdentityClient } from '@azure/communication-identity'
 //connects to communcation resource
 const connectionString = 'endpoint=https://cw2comser.communication.azure.com/;accesskey=EWDGv1/69aRUOoPYmCx76MGmKcIbwS/KVaNMWN10FM2bWn+OqinNzwZ8ExxqhqbTjMvnlOpSydixCot6HpfIXA=='
 // Instantiate the identity client
-const identityClient = new CommunicationIdentityClient(connectionString);
+const identityClient = new CommunicationIdentityClient(connectionString)
 
 //Set up express
 import express from 'express'
@@ -17,7 +17,7 @@ import { newUserRouter } from './routes/newuser.js'
 import { nextMatchRouter } from './routes/nextmatch.js'
 import { nextUserRouter } from './routes/nextuser.js'
 import { registerRouter, handleRegister } from './routes/register.js'
-import { getAzure} from './shared.js'
+import { getAzure } from './shared.js'
 
 import rejects from 'assert'
 import path from 'path'
@@ -34,7 +34,7 @@ const server = http.Server(app)
 const io = new Server(server)
 
 app.set('view engine', 'tsx')
-//const cors = import('cors');  
+//const cors = import('cors');
 //app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 // app.use('/static', express.static('public'))
 const __filename = fileURLToPath(import.meta.url)
@@ -65,7 +65,6 @@ function startServer() {
   server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
   })
-
 }
 
 function newConnection(socket) {

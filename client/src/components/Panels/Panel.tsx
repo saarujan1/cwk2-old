@@ -1,5 +1,3 @@
-import '../assets/styles/constants.css'
-
 export default function Panel(props) {
   const { width, height, padding, color, className, children } = props
 
