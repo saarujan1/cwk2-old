@@ -1,82 +1,105 @@
-import React, {useState, createRef } from 'react'
+import React, {useState, createRef, useRef, useMemo} from 'react'
 import TinderCard from 'react-tinder-card'
+
+const characters = [
+  {
+    name: 'Cristiano Ronaldo',
+    url: ''
+  },
+  {
+    name: 'Lionel Messi',
+    url: ''
+  },
+  {
+    name: 'Neymar',
+    url: ''
+  },
+  {
+    name: 'David Beckham',
+    url: ''
+  },
+  {
+    name: 'Harry Maguire',
+    url: ''
+  }]
 
 export default function DiscoverView() {
   const [data, setData] = React.useState('')
   const [login, setLogin] = React.useState('')
+  const [currentIndex, setCurrentIndex] = useState(characters.length - 1)
   const [lastDirection, setLastDirection] = useState()
+  const currentIndexRef = useRef(currentIndex)
 
+  const childRefs = useMemo(
+    () =>
+      Array(characters.length)
+        .fill(0)
+        .map((i) => React.createRef<any>()),
+    []
+  )
 
-  const characters = [
-    {
-      name: 'Cristiano Ronaldo',
-      url: ''
-    },
-    {
-      name: 'Lionel Messi',
-      url: ''
-    },
-    {
-      name: 'Neymar',
-      url: ''
-    },
-    {
-      name: 'David Beckham',
-      url: ''
-    },
-    {
-      name: 'Harry Maguire',
-      url: ''
-    }
-  ]
+  const updateCurrentIndex = (val) => {
+    setCurrentIndex(val)
+    currentIndexRef.current = val
+  }
 
-  const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete)
+  const canGoBack = currentIndex < characters.length - 1
+  const canSwipe = currentIndex >= 0
+
+  const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction)
+    updateCurrentIndex(index - 1)
   }
 
-  const outOfFrame = (name) => {
-    console.log(name + ' left the screen!')
+  const swipe = async (dir) => {
+    if (canSwipe && currentIndex < characters.length) {
+      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+    }
   }
 
-  // React.useEffect(() => {
-  //   console.log('Using effect')
-  //   // callAPI()
-  //   // fetch('/api')
-  //   //   .then((res) => {
-  //   //     res.json()
-  //   //     console.log('res', res)
-  //   //   })
-  //   //   .then((data) => {
-  //   //     console.log('received data:', data)
-  //   //     // setData(data.message)
-  //   //   })
-  //   //   .catch((err) => err)
-  //   fetch('/register')
-  //     .then((res) => res.json())
-  //     .then((res) => setData(res.message))
-  //     .catch((err) => err)
+    // increase current index and show card
+  const goBack = async () => {
+      if (!canGoBack) return
+      const newIndex = currentIndex + 1
+      updateCurrentIndex(newIndex)
+      await childRefs[newIndex].current.restoreCard()
+    }
 
-  //   fetch('/login')
-  //     .then((res) => res.json())
-  //     .then((res) => setLogin(res.message))
-  //     .catch((err) => err)
-  // }, [])
+    const outOfFrame = (name, idx) => {
+      console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
+      // handle the case in which go back is pressed before card goes outOfFrame
+      currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
+      // TODO: when quickly swipe and restore multiple times the same card,
+      // it happens multiple outOfFrame events are queued and the card disappear
+      // during latest swipes. Only the last outOfFrame event should be considered valid
+    }
+  
 
   return (
     <>
       <div className="card-container">
-      {characters.map((character) =>
-          <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
-            <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
+      {characters.map((character, index) => (
+          <TinderCard
+            ref={childRefs[index]}
+            className='swipe'
+            key={character.name}
+            onSwipe={(dir) => swiped(dir, character.name, index)}
+            onCardLeftScreen={() => outOfFrame(character.name, index)}
+          >
+            <div
+              style={{ backgroundImage: 'url(' + character.url + ')' }}
+              className='card'
+            >
               <h3>{character.name}</h3>
             </div>
           </TinderCard>
-        )}
+        ))}
       </div>
-      <button type="button" className="btn btn-info">
-        Info
-      </button>
+      <div className='buttons'>
+        <button onClick={() => swipe('left')}>Swipe left!</button>
+        <button onClick={() => goBack()}>Undo swipe!</button>
+        <button onClick={() => swipe('right')}>Swipe right!</button>
+      </div>
     </>
   )
 }
