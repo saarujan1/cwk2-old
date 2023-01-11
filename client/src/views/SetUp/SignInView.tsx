@@ -1,6 +1,4 @@
 import { useAppContext } from '../../store/UniContext'
-import { Nav } from 'react-bootstrap'
-import { on } from 'events'
 import { getAzure } from '../../store/helpers'
 import { response } from 'express'
 import { useNavigate } from 'react-router-dom'
