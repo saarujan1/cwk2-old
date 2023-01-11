@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { getAzure } from '../../store/helpers'
 import { rejects } from 'assert'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
+import Panel from '../../components/Panels/Panel'
 
 const endpointURL = 'https://cw2comser.communication.azure.com/'
 
@@ -88,12 +89,16 @@ export default function MessagesView() {
     // )
     return (
       <>
-        <div>
-          <div>
-            <h2>Match Chats: </h2>
-            <ul id="chats">{listChats}</ul>
+        <div className="container-fluid">
+          <div className="row">
+            <Panel padding={3} width="col-4" height="h-100" color="bg-bdg" shadow>
+              <h3 className="c-heading">Match chats</h3>
+              <ul id="chats">{listChats}</ul>
+            </Panel>
+            <div className="col-8 h-100">
+              <ChatBox chatTC={chatThreadClient}></ChatBox>
+            </div>
           </div>
-          <ChatBox chatTC={chatThreadClient}></ChatBox>
         </div>
       </>
     )
