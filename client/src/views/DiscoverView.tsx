@@ -1,27 +1,31 @@
-import React, {useState, createRef, useRef, useMemo} from 'react'
+import React, { useState, createRef, useRef, useMemo } from 'react'
 import TinderCard from 'react-tinder-card'
+const rejectIcon = require('../assets/icons/reject.svg').default as string
+const undoIcon = require('../assets/icons/undo.svg').default as string
+const acceptIcon = require('../assets/icons/accept.svg').default as string
 
 const characters = [
   {
     name: 'Cristiano Ronaldo',
-    url: ''
+    url: '',
   },
   {
     name: 'Lionel Messi',
-    url: ''
+    url: '',
   },
   {
     name: 'Neymar',
-    url: ''
+    url: '',
   },
   {
     name: 'David Beckham',
-    url: ''
+    url: '',
   },
   {
     name: 'Harry Maguire',
-    url: ''
-  }]
+    url: '',
+  },
+]
 
 export default function DiscoverView() {
   const [data, setData] = React.useState('')
@@ -57,48 +61,38 @@ export default function DiscoverView() {
     }
   }
 
-    // increase current index and show card
+  // increase current index and show card
   const goBack = async () => {
-      if (!canGoBack) return
-      const newIndex = currentIndex + 1
-      updateCurrentIndex(newIndex)
-      await childRefs[newIndex].current.restoreCard()
-    }
+    if (!canGoBack) return
+    const newIndex = currentIndex + 1
+    updateCurrentIndex(newIndex)
+    await childRefs[newIndex].current.restoreCard()
+  }
 
-    const outOfFrame = (name, idx) => {
-      console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
-      // handle the case in which go back is pressed before card goes outOfFrame
-      currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
-      // TODO: when quickly swipe and restore multiple times the same card,
-      // it happens multiple outOfFrame events are queued and the card disappear
-      // during latest swipes. Only the last outOfFrame event should be considered valid
-    }
-  
+  const outOfFrame = (name, idx) => {
+    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
+    // handle the case in which go back is pressed before card goes outOfFrame
+    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
+    // TODO: when quickly swipe and restore multiple times the same card,
+    // it happens multiple outOfFrame events are queued and the card disappear
+    // during latest swipes. Only the last outOfFrame event should be considered valid
+  }
 
   return (
     <>
       <div className="card-container">
-      {characters.map((character, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className='swipe'
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
-            <div
-              style={{ backgroundImage: 'url(' + character.url + ')' }}
-              className='card'
-            >
+        {characters.map((character, index) => (
+          <TinderCard ref={childRefs[index]} className="swipe" key={character.name} onSwipe={(dir) => swiped(dir, character.name, index)} onCardLeftScreen={() => outOfFrame(character.name, index)}>
+            <div style={{ backgroundImage: 'url(' + character.url + ')' }} className="card">
               <h3>{character.name}</h3>
             </div>
           </TinderCard>
         ))}
       </div>
-      <div className='buttons'>
-        <button onClick={() => swipe('left')}>Swipe left!</button>
-        <button onClick={() => goBack()}>Undo swipe!</button>
-        <button onClick={() => swipe('right')}>Swipe right!</button>
+      <div className="buttons">
+        <img onClick={() => swipe('left')} role="button" src={rejectIcon} alt={'Reject'} width="70" height="70" aria-label={'Reject'} />
+        <img onClick={() => goBack()} role="button" src={undoIcon} alt={'Undo'} width="70" height="70" aria-label={'Undo'} />
+        <img onClick={() => swipe('right')} role="button" src={acceptIcon} alt={'Accept'} width="70" height="70" aria-label={'Accept'} />
       </div>
     </>
   )

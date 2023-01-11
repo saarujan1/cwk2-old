@@ -55,7 +55,7 @@ export default function Home() {
                 </div>
                 <div className="col-4">
                   <button type="button" onClick={handleLogin} className="c-btn-white">
-                    Login
+                    Log in
                   </button>
                 </div>
               </div>

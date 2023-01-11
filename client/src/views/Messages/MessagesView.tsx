@@ -56,7 +56,7 @@ export default function MessagesView() {
         onClick={() => {
           newChat(index)
         }}
-        className="btn btn-info"
+        className="c-btn-blue"
       >
         {m.ChatName}
       </button>
