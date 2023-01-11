@@ -4,165 +4,206 @@ import { useAppContext } from '../store/UniContext'
 import { getAzure } from '../store/helpers'
 
 interface AuthModalProps {
-    setShowModal: (status: boolean) => void;
-    isSignUp: boolean;
+  setShowModal: (status: boolean) => void
+  isSignUp: boolean
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
+const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
+  //local consts
+  const [email, setEmail] = useState<string | null>(null)
+  const [username, setUsername] = useState<string | null>(null)
+  const [password, setPassword] = useState<string | null>(null)
+  const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
 
-    //local consts
-    const [email, setEmail] = useState<string | null>(null)
-    const [username, setUsername] = useState<string | null>(null)
-    const [password, setPassword] = useState<string | null>(null)
-    const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [globalState, dispatch] = useAppContext()
+  const navigate = useNavigate()
 
-    const [error, setError] = useState<string | null>(null)
-    const [globalState, dispatch] = useAppContext()
-    const navigate = useNavigate()
+  const handleClick = () => {
+    setShowModal(false)
+  }
 
-    const handleClick = () => {
-        setShowModal(false)
+  //switch to home screen after succesful register
+  async function registerTransition() {
+    if (await tryRegister()) {
+      globalState.valid = true
+      validateHook()
     }
-    
+    navigate('/setup')
+  }
 
-    //switch to home screen after succesful register
-    async function registerTransition() {
-        if (await tryRegister()) {
-        globalState.valid = true
-        validateHook()
-        }
-        navigate('/setup')
+  //switch to home screen after succesf{globalState.user.email}ul login
+  async function loginTransition() {
+    if (await tryLogin()) {
+      globalState.valid = true
+      validateHook()
     }
+    navigate('/setup')
+  }
+  const changeNested = (e) => {
+    var someProperty = { ...globalState.user }
+    someProperty[e.target.name] = e.target.value
+    dispatch({
+      type: 'CHANGE',
+      payload: {
+        ['user']: someProperty,
+      },
+    })
+  }
+  //change validate value
+  const validateHook = () => {
+    dispatch({
+      type: 'CHANGE',
+      payload: {
+        ['valid']: true,
+      },
+    })
+  }
 
-      //switch to home screen after succesf{globalState.user.email}ul login
-    async function loginTransition() {
-        if (await tryLogin()) {
-        globalState.valid = true
-        validateHook()
-        }
-        navigate('/setup')
-    }
-    const changeNested = (e) => {
-        var someProperty = { ...globalState.user }
-        someProperty[e.target.name] = e.target.value
-        dispatch({
-          type: 'CHANGE',
-          payload: {
-            ['user']: someProperty,
-          },
-        })
-      }
-        //change validate value
-    const validateHook = () => {
-        dispatch({
+  async function tryLogin() {
+    let path = '/api/login?'
+    let message = { username: username, password: password }
+    console.log(message)
+    let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
+    let resp = (await promise) as any
+
+    if (resp.result) {
+      //set new user values
+      dispatch({
         type: 'CHANGE',
         payload: {
-            ['valid']: true,
+          ['user']: resp.accountData,
         },
-    })
+      })
+      dispatch({
+        type: 'CHANGE',
+        payload: {
+          ['filters']: resp.filterInfo,
+        },
+      })
+      return true
+    } else {
+      return false
     }
+  }
+  async function tryRegister() {
+    let path = '/api/register?'
+    let message = { username: username, password: password, email: email }
+    let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
+    let resp = (await promise) as any
+    console.log(resp.result)
+    if (resp.result) {
+      //pushes context changes to other components basically
+      dispatch({
+        type: 'CHANGE',
+        payload: {
+          ['user']: resp.accountData,
+        },
+      })
+      //pushes context changes to other components basically
+      dispatch({
+        type: 'CHANGE',
+        payload: {
+          ['filters']: resp.filterInfo,
+        },
+      })
+    } else {
+      return false
+    }
+  }
 
-    async function tryLogin() {
-        let path = '/api/login?'
-        let message = { username: username, password: password }
-        console.log(message)
-        let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
-        let resp = (await promise) as any
-    
-        if (resp.result) {
-            //set new user values
-            dispatch({
-                type: 'CHANGE',
-                payload: {
-                    ['user']: resp.accountData,
-                },
-            })
-            dispatch({
-                type: 'CHANGE',
-                payload: {
-                    ['filters']: resp.filterInfo,
-                },
-            })
-            return true
-        } else {
-            return false
-        }
-    }
-    async function tryRegister() {
-        let path = '/api/register?'
-        let message = { username: username, password: password, email: email }
-        let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
-        let resp = (await promise) as any
-        console.log(resp.result)
-        if (resp.result) {
-            //pushes context changes to other components basically
-            dispatch({
-                type: 'CHANGE',
-                payload: {
-                    ['user']: resp.accountData,
-                },
-            })
-            //pushes context changes to other components basically
-            dispatch({
-                type: 'CHANGE',
-                payload: {
-                    ['filters']: resp.filterInfo,
-                },
-            })
-        } else {
-            return false
-        }
-    }
-
-    return (
-        <div className="auth-modal">
-            <div className="close-icon" onClick={handleClick}>ⓧ</div>
-            <form className="auth-form">
-                {isSignUp && <input
-                    id="email"
-                    type="email"
-                    placeholder="email"
-                    onChange={e => setEmail(e.target.value)}
-                />}
+  return (
+    <div className="auth-modal">
+      <div className="d-flex justify-content-between">
+        <h3 className="c-heading">{isSignUp ? 'Sign up' : 'Log in'}</h3>
+        <button type="button" className="btn-close bg-lw" aria-label="Close" onClick={handleClick}></button>
+      </div>
+      <div className="">
+        <form className="auth-form">
+          {isSignUp && (
+            <div className="mb-1">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                className="form-input"
+                type="email"
+                id="email"
+                // value={globalState.user.email}
+                name="email"
+                required={true}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          )}
+          <div className="mb-1">
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+            <div className="">
+              <input
+                className="form-input"
+                type="username"
+                id="username"
+                // value={globalState.user.valid}
+                name="username"
+                required={true}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="mb-1">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <div className="">
+              <input
+                className="form-input"
+                type="password"
+                id="password"
+                // value={globalState.user.password}
+                name="password"
+                required={true}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          {isSignUp && (
+            <div className="mb-1">
+              <label htmlFor="password-check" className="form-label">
+                Confirm password
+              </label>
+              <div className="">
                 <input
-                    id="username"
-                    type="username"
-                    placeholder="username"
-                    onChange={e => setUsername(e.target.value)}
+                  className="form-input"
+                  type="password"
+                  // value={globalState.user.password}
+                  id="password-check"
+                  name="password-check"
+                  required={true}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                <input
-                    id="password"
-                    type="password"
-                    placeholder="password"
-                    onChange={e => setPassword(e.target.value)}
-                />
-                {isSignUp && <input
-                    id="password-check"
-                    type="password"
-                    placeholder="confirm password"
-                    onChange={e => setConfirmPassword(e.target.value)}
-                />}
-                {isSignUp ? (
-                    <button
-                        className="secondary-button"
-                        type="button"
-                        onClick={registerTransition}
-                    >
-                        Register
-                    </button>
-                ) : (
-                    <button
-                        className="secondary-button"
-                        type="button"
-                        onClick={loginTransition}
-                    >
-                        Login
-                    </button>
-                )}
-                {error && <p className="error">{error}</p>}
-            </form>
-        </div>
-    )
+              </div>
+            </div>
+          )}
+          {isSignUp ? (
+            <div className="mt-3">
+              <button className="c-btn-blue" type="button" onClick={registerTransition}>
+                Register
+              </button>
+            </div>
+          ) : (
+            <div className="mt-3">
+              <button className="c-btn-blue" type="button" onClick={loginTransition}>
+                Login
+              </button>
+            </div>
+          )}
+          {error && <p className="error">{error}</p>}
+        </form>
+      </div>
+    </div>
+  )
 }
 
 export default AuthModal

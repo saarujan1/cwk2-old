@@ -129,7 +129,6 @@ function Redirect() {
   // }, [prevDepth, getPathDepth])
   // return <HomeView />
 
-  
   if (userData.valid === true) {
     if (location.pathname === '/setup') {
       return <SetupView />
