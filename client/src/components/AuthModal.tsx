@@ -18,14 +18,30 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
 
     const [error, setError] = useState<string | null>(null)
     const [globalState, dispatch] = useAppContext()
-
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
     const handleClick = () => {
         setShowModal(false)
     }
+    
 
+    //switch to home screen after succesful register
+    async function registerTransition() {
+        if (await tryRegister()) {
+        globalState.valid = true
+        validateHook()
+        }
+        navigate('/setup')
+    }
 
+      //switch to home screen after succesf{globalState.user.email}ul login
+    async function loginTransition() {
+        if (await tryLogin()) {
+        globalState.valid = true
+        validateHook()
+        }
+        navigate('/setup')
+    }
     const changeNested = (e) => {
         var someProperty = { ...globalState.user }
         someProperty[e.target.name] = e.target.value
@@ -46,13 +62,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
     })
     }
 
-    const loginTransition = async () => {
+    async function tryLogin() {
         let path = '/api/login?'
-        let message = { username: email, password: password }
+        let message = { username: username, password: password }
         console.log(message)
         let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
         let resp = (await promise) as any
-
+    
         if (resp.result) {
             //set new user values
             dispatch({
@@ -67,17 +83,17 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
                     ['filters']: resp.filterInfo,
                 },
             })
-            navigate('/setup')
-            window.location.reload()
+            return true
         } else {
-            setError('Invalid email or password')
+            return false
         }
     }
-    const registerTransition = async () => {
+    async function tryRegister() {
         let path = '/api/register?'
-        let message = { username: email, password: password, email: email }
+        let message = { username: username, password: password, email: email }
         let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
         let resp = (await promise) as any
+        console.log(resp.result)
         if (resp.result) {
             //pushes context changes to other components basically
             dispatch({
@@ -93,60 +109,60 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
                     ['filters']: resp.filterInfo,
                 },
             })
-            window.location.reload()
         } else {
-            setError('Invalid input or this user already exists')
+            return false
         }
     }
 
     return (
         <div className="auth-modal">
             <div className="close-icon" onClick={handleClick}>ⓧ</div>
-    
-            <h2>{isSignUp ? 'SIGN UP': 'LOG IN'}</h2>
-            <p> Submit your details</p>
-            <form>
+            <form className="auth-form">
                 {isSignUp && <input
-                    type="email"
                     id="email"
-                    // value={globalState.user.email}
-                    name="email"
+                    type="email"
                     placeholder="email"
-                    required={true}
-                    onChange={(e) => setEmail(e.target.value)}
-                    />}
+                    onChange={e => setEmail(e.target.value)}
+                />}
                 <input
-                    type="username"
                     id="username"
-                    // value={globalState.user.valid}
-                    name="username"
+                    type="username"
                     placeholder="username"
-                    required={true}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={e => setUsername(e.target.value)}
                 />
                 <input
-                    type="password"
                     id="password"
-                    // value={globalState.user.password}
-                    name="password"
+                    type="password"
                     placeholder="password"
-                    required={true}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                 />
                 {isSignUp && <input
-                    type="password"
-                    // value={globalState.user.password}
                     id="password-check"
-                    name="password-check"
+                    type="password"
                     placeholder="confirm password"
-                    required={true}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setConfirmPassword(e.target.value)}
                 />}
-                <input className="secondary-button" type="submit" onClick={isSignUp ? registerTransition : loginTransition}/>
-                <p>{error}</p>
+                {isSignUp ? (
+                    <button
+                        className="secondary-button"
+                        type="button"
+                        onClick={registerTransition}
+                    >
+                        Register
+                    </button>
+                ) : (
+                    <button
+                        className="secondary-button"
+                        type="button"
+                        onClick={loginTransition}
+                    >
+                        Login
+                    </button>
+                )}
+                {error && <p className="error">{error}</p>}
             </form>
-            <hr/>
         </div>
     )
 }
+
 export default AuthModal
