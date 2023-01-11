@@ -1,12 +1,13 @@
-import { useAppContext } from '../UniContext'
+import { useAppContext } from '../../store/UniContext'
 import { ChatClient, ChatThreadClient, ChatThreadItem } from '@azure/communication-chat'
 import { AzureCommunicationTokenCredential } from '@azure/communication-common'
-import ChatBox from '../components/ChatBox'
+import ChatBox from './ChatBox'
 import React, { useState } from 'react'
-import { getAzure } from '../shared.js'
+import { getAzure } from '../../store/helpers'
 import { rejects } from 'assert'
+import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 
-const endpointUrl = 'https://cw2comser.communication.azure.com/'
+const endpointURL = 'https://cw2comser.communication.azure.com/'
 
 export default function MessagesView() {
   const [globalState, dispatch] = useAppContext()
@@ -22,22 +23,8 @@ export default function MessagesView() {
   }
 
   async function setUp() {
-    getChats(new ChatClient(endpointUrl, new AzureCommunicationTokenCredential(await getToken())))
+    getChats(new ChatClient(endpointURL, new AzureCommunicationTokenCredential(await getToken())))
   }
-
-  const listChats = chatThreads.map((m, index) => (
-    <li>
-      <button
-        type="button"
-        onClick={() => {
-          newChat(index)
-        }}
-        className="btn btn-info"
-      >
-        {m.ChatName}
-      </button>
-    </li>
-  ))
 
   async function getToken() {
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/gettoken?', { comID: globalState.user.communicationID }))
@@ -61,13 +48,28 @@ export default function MessagesView() {
 
     updateChatThreads(theChatThreads)
   }
+
+  const listChats = chatThreads.map((m, index) => (
+    <li>
+      <button
+        type="button"
+        onClick={() => {
+          newChat(index)
+        }}
+        className="btn btn-info"
+      >
+        {m.ChatName}
+      </button>
+    </li>
+  ))
+
   async function getOtherUser(ctc: ChatThreadClient) {
     console.log('getting participants')
     try {
       var participants = ctc.listParticipants()
       for await (const participant of participants) {
         console.log(participant.displayName)
-        if (participant.displayName != globalState.user.id && participant.displayName != undefined) {
+        if (participant.displayName !== globalState.user.id && participant.displayName !== undefined) {
           return participant.displayName as string
         }
       }
@@ -78,15 +80,21 @@ export default function MessagesView() {
   }
 
   console.log('checking chatThreads')
-  if (chatThreads.length != 0) {
+  if (chatThreads.length !== 0) {
     let chatThreadClient = chatThreads[currentChat]
+    // return (
+    //   <>
+    //
+    // )
     return (
       <>
         <div>
-          <h2>Match Chats: </h2>
-          <ul id="chats">{listChats}</ul>
+          <div>
+            <h2>Match Chats: </h2>
+            <ul id="chats">{listChats}</ul>
+          </div>
+          <ChatBox chatTC={chatThreadClient}></ChatBox>
         </div>
-        <ChatBox chatTC={chatThreadClient}></ChatBox>
       </>
     )
   }

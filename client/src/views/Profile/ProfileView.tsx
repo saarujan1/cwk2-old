@@ -1,6 +1,6 @@
 import { Form } from 'react-router-dom'
 import { useCallback } from 'react'
-import { useAppContext } from '../../UniContext'
+import { useAppContext } from '../../store/UniContext'
 
 // TODO: remove/change twitter handle and change edit/delete options
 // REF1: https://reactrouter.com/en/main/start/tutorial#the-root-route

@@ -1,7 +1,7 @@
-import { useAppContext } from '../../UniContext'
+import { useAppContext } from '../../store/UniContext'
 import { Nav } from 'react-bootstrap'
 import { on } from 'events'
-import { getAzure } from '../../shared.js'
+import { getAzure } from '../../store/helpers'
 import { response } from 'express'
 import { useNavigate } from 'react-router-dom'
 
@@ -117,7 +117,6 @@ export default function SignInView() {
         alignItems: 'center',
       }}
     >
-      <h1>SIGN IN</h1>
       <div>
         <input value={globalState.user.valid} name="id" onChange={changeNested} placeholder="username" className="form-control" />{' '}
       </div>

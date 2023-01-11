@@ -1,22 +1,12 @@
 //GLOBAL VARIABLES
 import { useReducer, useContext, createContext } from 'react'
+import { User } from './User'
 
 const contextData = {
   error: '',
   valid: false,
   test: '',
-  user: {
-    id: '',
-    password: '',
-    email: '',
-    profile_pic_id: '',
-    phone: '',
-    bio: 'test bio - remove this in UniContext',
-    hobbies: [],
-    accepted: [],
-    rejected: [],
-    communicationID: '',
-  },
+  user: new User(),
   filters: {
     id: '',
   },

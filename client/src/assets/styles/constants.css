@@ -2,6 +2,11 @@
   --text-blue: #5b9bd5;
   --panel-gray: #e6f3ff;
   --background-gray: #2c2c2c;
+  --background-gray-darker: #1e1e1e;
+}
+
+.text-blue {
+  color: var(--text-blue);
 }
 
 .bg-tb {

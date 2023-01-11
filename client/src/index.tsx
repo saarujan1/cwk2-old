@@ -1,11 +1,11 @@
 import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
-import UniContext, { useAppContext } from './UniContext'
+import UniContext, { useAppContext } from './store/UniContext'
 
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
-import './assets/styles/main.css'
+import './assets/styles/main.scss'
 import './assets/styles/constants.css'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import App from './App'
@@ -19,8 +19,7 @@ import SetupPage from './components/SetupPage'
 import HomeView from './views/HomeView'
 import FiltersView from './views/FiltersView'
 import DiscoverView from './views/DiscoverView'
-import DiscoverView2 from './views/DiscoverView2'
-import MessagesView from './views/MessagesView'
+import MessagesView from './views/Messages/MessagesView'
 import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
@@ -65,7 +64,7 @@ const routes = [
     name: 'Filters',
     element: <FiltersView />,
     nodeRef: createRef(),
-  }
+  },
 ]
 
 // REF2
@@ -128,13 +127,13 @@ function Redirect() {
   //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
+  // return <HomeView />
 
+  
   if (userData.valid === true) {
     if (location.pathname === '/setup') {
       return <SetupView />
-    }
-    // return <HomeView />
-    else
+    } else
       return (
         <>
           {
@@ -149,7 +148,7 @@ function Redirect() {
         </>
       )
   } else {
-    return <>{<SignInView></SignInView>}</>
+    return <>{<HomeView></HomeView>}</>
   }
 }
 
