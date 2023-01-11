@@ -1,6 +1,28 @@
+import LoginNav from '../components/LoginNav'
+import AuthModal from "../components/AuthModal"
+import {useState} from 'react'
+import {useCookies} from "react-cookie"
+
 const mapImg = require('../assets/images/home-map.jpg') as string
 
 export default function Home() {
+
+const [showModal, setShowModal] = useState(false)
+const [isSignUp, setIsSignUp] = useState(true)
+const [cookies, setCookie, removeCookie] = useCookies(["AuthToken", "UserId"]);
+const authToken = cookies.AuthToken
+
+  const handleClick = () => {
+      if (authToken) {
+          removeCookie('UserId', cookies.UserId)
+          removeCookie('AuthToken', cookies.AuthToken)
+          window.location.reload()
+          return
+      }
+      setShowModal(true)
+      setIsSignUp(true)
+  }
+
   return (
     <div className="container-fluid bg-bg w-100 home-backgroundImg p-0 overflow-hidden">
       <div className="row vh-100">
@@ -15,14 +37,23 @@ export default function Home() {
             <div className="container">
               <div className="row">
                 <div className="col-4">
-                  <button type="button" className="btn-setup">
-                    Sign up
+                  <button type="button" onClick={handleClick} className="btn-setup">
+                    {authToken ? 'Signout' : 'Sign up'}
                   </button>
+                    {showModal && (
+                      <AuthModal setShowModal={setShowModal} isSignUp={isSignUp}/>
+                    )}
                 </div>
                 <div className="col-4">
-                  <button type="button" className="btn-setup">
-                    Log in
-                  </button>
+                  <div>
+                    <LoginNav
+                      authToken={authToken}
+                      minimal={false}
+                      setShowModal={setShowModal}
+                      showModal={showModal}
+                      setIsSignUp={setIsSignUp}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
