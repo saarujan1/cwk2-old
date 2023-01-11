@@ -1,7 +1,7 @@
 import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
-import UniContext, { useAppContext } from './UniContext'
+import UniContext, { useAppContext } from './store/UniContext'
 
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
