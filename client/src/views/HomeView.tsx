@@ -1,9 +1,8 @@
 const mapImg = require('../assets/images/home-map.jpg') as string
-const backgroundImg = require('../assets/images/home-background.svg').default as string
 
 export default function Home() {
   return (
-    <div className="container-fluid bg-bg w-100" style={{ backgroundImage: 'url(' + backgroundImg + ')', backgroundSize: '85%' }}>
+    <div className="container-fluid bg-bg w-100 home-backgroundImg">
       <div className="row vh-100">
         <div className="col-sm-8 position-relative">
           <div className="position-absolute" style={{ top: '35%', left: '15%' }}>
@@ -29,12 +28,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        {/* <div className="col-sm-4 vh-100">
-          <div className="align-middle"> */}
-        {/* position-absolute top-50 end-0 translate-middle-y */}
-        {/* <img src={backgroundImg} width="24" height="24" className="vh-100 rounded-5" alt="Map underneath a backpack, pencil, camera, notebook, and other maps" /> */}
-        {/* </div>
-        </div> */}
+        <div className="col-sm-4 vh-100">
+          <div className="align-middle">
+            {/* position-absolute top-50 end-0 translate-middle-y */}
+            {/* <img src={mapImg} width="24" height="24" className="vh-100 rounded-5" alt="Map underneath a backpack, pencil, camera, notebook, and other maps" /> */}
+          </div>
+        </div>
       </div>
     </div>
   )
