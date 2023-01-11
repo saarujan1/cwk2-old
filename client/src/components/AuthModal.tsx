@@ -3,7 +3,6 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
-
     interface AuthModalProps {
         setShowModal: (status: boolean) => void;
         isSignUp: boolean;

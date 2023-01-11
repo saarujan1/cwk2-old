@@ -1,4 +1,3 @@
-import LoginNav from '../components/LoginNav'
 import AuthModal from "../components/AuthModal"
 import {useState} from 'react'
 import {useCookies} from "react-cookie"
@@ -19,9 +18,20 @@ const authToken = cookies.AuthToken
           window.location.reload()
           return
       }
-      setShowModal(true)
-      setIsSignUp(true)
+      setShowModal(true);
+      setIsSignUp(true);
   }
+
+  const handleLogin = () => {
+    if (authToken) {
+        removeCookie('UserId', cookies.UserId)
+        removeCookie('AuthToken', cookies.AuthToken)
+        window.location.reload()
+        return
+    }
+    setShowModal(true)
+    setIsSignUp(false)
+}
 
   return (
     <div className="container-fluid bg-bg w-100 home-backgroundImg p-0 overflow-hidden">
@@ -45,15 +55,12 @@ const authToken = cookies.AuthToken
                     )}
                 </div>
                 <div className="col-4">
-                  <div>
-                    <LoginNav
-                      authToken={authToken}
-                      minimal={false}
-                      setShowModal={setShowModal}
-                      showModal={showModal}
-                      setIsSignUp={setIsSignUp}
-                    />
-                  </div>
+                <button type="button" onClick={handleLogin} className="btn-setup">
+                      Login
+                  </button>
+                  {showModal && (
+                      <AuthModal setShowModal={setShowModal} isSignUp={isSignUp}/>
+                    )}
                 </div>
               </div>
             </div>
