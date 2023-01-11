@@ -106,7 +106,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
             <h2>{isSignUp ? 'SIGN UP': 'LOG IN'}</h2>
             <p> Submit your details</p>
             <form>
-                <input
+                {isSignUp && <input
                     type="email"
                     id="email"
                     // value={globalState.user.email}
@@ -114,7 +114,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
                     placeholder="email"
                     required={true}
                     onChange={(e) => setEmail(e.target.value)}
-                />
+                    />}
                 <input
                     type="username"
                     id="username"
