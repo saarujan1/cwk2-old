@@ -2,6 +2,8 @@
   --blue: #5b9bd5;
   --light-blue: #d8e9fd;
   --panel-gray: #e6f3ff;
+  --panel-dark-gray: #2d3038;
+  --panel-darker-gray: #191f26;
   --medium-blue: #afcae6;
   --background-gray: #2c2c2c;
   --background-gray-darker: #1e1e1e;
@@ -42,6 +44,14 @@
 
 .bg-pg {
   background-color: var(--panel-gray);
+}
+
+.bg-pdg {
+  background-color: var(--panel-dark-gray);
+}
+
+.bg-pdrg {
+  background-color: var(--panel-darker-gray);
 }
 
 .bg-bg {

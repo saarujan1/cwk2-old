@@ -105,6 +105,13 @@
 }
 /* -------------- ^BUTTONS^ -------------- */
 
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: var(--blue);
+  border-radius: 15px;
+}
+
 .home-backgroundImg {
   // converted using the 'SVG to Data URI converter': https://codepen.io/elliz/pen/ygvgay
   // background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='1484' height='1024' viewBox='0 0 1484 1024' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cstyle type='text/css'%3e path %7b stroke-dasharray: 45; stroke-dashoffset: 500; animation: dash 10s linear alternate infinite;%7d %40keyframes dash %7b to %7b stroke-dashoffset: 0;%7d %7d %3c/style%3e%3cpath d='M940.5 375.5L1035.5 843.5' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M939.5 372.5L1362 133' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M937.5 372.5L613.5 813' stroke='%23F0D752' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M615.5 817.5L803 948.5' stroke='%23F0D752' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M56 92L938 397' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M1353.5 118L1468 1017.5' stroke='%23D9D9D9' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3crect x='977' y='775' width='135' height='135' rx='100' fill='%235B9BD5' /%3e%3crect x='56' y='66' width='47' height='47' rx='100' fill='%235B9BD5' /%3e%3crect x='1290' y='66' width='135' height='135' rx='100' fill='%23D9D9D9' /%3e%3crect x='902' y='334' width='75' height='75' rx='100' fill='%235B9BD5' /%3e%3crect x='586' y='788' width='56' height='56' rx='100' fill='%23F0D752' /%3e%3crect x='776' y='919' width='56' height='56' rx='100' fill='%23F0D752' /%3e%3c/svg%3e");
@@ -177,8 +184,8 @@
    * shape. I guess these could be any shape, they don't
    * necessarily have to be round 🙂.
    */
-  --cap-image-left: url('./left-cap.svg');
-  --cap-image-right: url('./right-cap.svg');
+  --cap-image-left: url('./helpers/left-cap.svg');
+  --cap-image-right: url('./helpers/right-cap.svg');
 }
 
 .c-underline {
