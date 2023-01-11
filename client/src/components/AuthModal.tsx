@@ -9,10 +9,13 @@ interface AuthModalProps {
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
+
+    //local consts
     const [email, setEmail] = useState<string | null>(null)
     const [username, setUsername] = useState<string | null>(null)
     const [password, setPassword] = useState<string | null>(null)
     const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
+
     const [error, setError] = useState<string | null>(null)
     const [globalState, dispatch] = useAppContext()
 
@@ -20,6 +23,27 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
 
     const handleClick = () => {
         setShowModal(false)
+    }
+
+
+    const changeNested = (e) => {
+        var someProperty = { ...globalState.user }
+        someProperty[e.target.name] = e.target.value
+        dispatch({
+          type: 'CHANGE',
+          payload: {
+            ['user']: someProperty,
+          },
+        })
+      }
+        //change validate value
+    const validateHook = () => {
+        dispatch({
+        type: 'CHANGE',
+        payload: {
+            ['valid']: true,
+        },
+    })
     }
 
     const loginTransition = async () => {
@@ -85,6 +109,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
                 <input
                     type="email"
                     id="email"
+                    // value={globalState.user.email}
                     name="email"
                     placeholder="email"
                     required={true}
@@ -93,6 +118,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
                 <input
                     type="username"
                     id="username"
+                    // value={globalState.user.valid}
                     name="username"
                     placeholder="username"
                     required={true}
@@ -101,6 +127,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
                 <input
                     type="password"
                     id="password"
+                    // value={globalState.user.password}
                     name="password"
                     placeholder="password"
                     required={true}
@@ -108,11 +135,12 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal,  isSignUp }) => {
                 />
                 {isSignUp && <input
                     type="password"
+                    // value={globalState.user.password}
                     id="password-check"
                     name="password-check"
                     placeholder="confirm password"
                     required={true}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                 />}
                 <input className="secondary-button" type="submit" onClick={isSignUp ? registerTransition : loginTransition}/>
                 <p>{error}</p>
