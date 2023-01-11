@@ -1,6 +1,6 @@
 import { ChatThreadClient, ChatParticipant } from '@azure/communication-chat'
 import React, { createRef } from 'react'
-import { useAppContext } from '../UniContext'
+import { useAppContext } from '../../UniContext'
 
 export default function ChatBox(props) {
   const [globalState, dispatch] = useAppContext()

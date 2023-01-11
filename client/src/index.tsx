@@ -19,7 +19,7 @@ import SetupPage from './components/SetupPage'
 import HomeView from './views/HomeView'
 import FiltersView from './views/FiltersView'
 import DiscoverView from './views/DiscoverView'
-import MessagesView from './views/MessagesView'
+import MessagesView from './views/Messages/MessagesView'
 import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
@@ -127,7 +127,7 @@ function Redirect() {
   //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
   //   setPrevDepth(getPathDepth());
   // }, [prevDepth, getPathDepth])
-  return <HomeView />
+  // return <HomeView />
   if (userData.valid === true) {
     if (location.pathname === '/setup') {
       return <SetupView />
