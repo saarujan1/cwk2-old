@@ -2,6 +2,7 @@ import { ChatThreadClient, ChatParticipant } from '@azure/communication-chat'
 import React, { createRef } from 'react'
 import { useAppContext } from '../../store/UniContext'
 import Message from '../../store/Message'
+import Panel from '../../components/Panels/Panel'
 import { MainContainer, ChatContainer, MessageList, Message as MessageComp, MessageInput, ConversationHeader, MessageSeparator, Avatar } from '@chatscope/chat-ui-kit-react'
 const profileIcon = require('../../assets/icons/home.svg').default as string
 
@@ -83,27 +84,43 @@ export default function ChatBox(props) {
     setMessages(newMessages)
   }
 
-  const listMessages = messages.map((m) => (
-    <>
-      <MessageComp
-        model={{
-          message: m.content,
-          sentTime: calcMinutesAgo(m),
-          sender: m.sender,
-          direction: calcMessagesDirection(m),
-          position: 'normal',
-        }}
-      >
-        <Avatar src={profileIcon} name={m.sender} />
-      </MessageComp>
-    </>
-  ))
+  const listMessages = messages.map((m, index, array) => {
+    let showMessageSeparator = true
+    if (index !== 0) {
+      const prevDate = array[index - 1].time.getTime()
+      const currentDate = m.time.getTime()
+      const diff = (currentDate - prevDate) / (1000 * 3600 * 24)
+      showMessageSeparator = diff > 0 ? true : false
+    }
+    return (
+      <>
+        {showMessageSeparator ? <MessageSeparator>currentDate.getDay() + ' ' + currentDate.getMonth() + ', ' + currentDate.getYear()</MessageSeparator> : ''}
+        <MessageComp
+          model={{
+            message: m.content,
+            sentTime: calcMinutesAgo(m),
+            sender: m.sender,
+            direction: calcMessagesDirection(m),
+            position: 'normal',
+          }}
+        >
+          <Avatar src={profileIcon} name={m.sender} />
+        </MessageComp>
+      </>
+    )
+  })
 
   return (
     <>
-      <div>
-        <h1>Chatting with {props.chatTC.ChatName}</h1>
-      </div>
+      <Panel padding={3} color="bg-bdg" shadow>
+        <h3>{props.chatTC.ChatName}</h3>
+      </Panel>
+      <div
+        style={{
+          height: '500px',
+        }}
+      ></div>
+
       <div>
         <ul id="chat">{listMessages}</ul>
       </div>
@@ -119,11 +136,9 @@ export default function ChatBox(props) {
         <ChatContainer>
           <ConversationHeader>
             <Avatar src={profileIcon} name="Emily" />
-            <ConversationHeader.Content userName="Emily" info="Active 10 mins ago" />
+            <ConversationHeader.Content userName="Emily" />
           </ConversationHeader>
           <MessageList>
-            <MessageSeparator>Saturday, 30 November 2019</MessageSeparator>
-
             <MessageComp
               model={{
                 message: 'Hello my friend',

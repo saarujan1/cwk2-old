@@ -136,7 +136,7 @@ function Redirect() {
       return (
         <>
           {
-            <div className="container-fluid bg-pdrg">
+            <div className="container-fluid bg-bdg">
               <div className="row">
                 <Sidebar routes={routes}></Sidebar>
                 <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>

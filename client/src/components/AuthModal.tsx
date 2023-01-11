@@ -188,14 +188,28 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
           )}
           {isSignUp ? (
             <div className="mt-3">
-              <button className="c-btn-blue" type="button" onClick={registerTransition}>
+              <button
+                className="c-btn-blue"
+                type="button"
+                onClick={() => {
+                  handleClick()
+                  registerTransition()
+                }}
+              >
                 Register
               </button>
             </div>
           ) : (
             <div className="mt-3">
-              <button className="c-btn-blue" type="button" onClick={loginTransition}>
-                Login
+              <button
+                className="c-btn-blue"
+                type="button"
+                onClick={() => {
+                  handleClick()
+                  loginTransition()
+                }}
+              >
+                Log in
               </button>
             </div>
           )}
