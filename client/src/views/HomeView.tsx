@@ -1,4 +1,5 @@
 import AuthModal from "../components/AuthModal"
+import SignInView from "./SetUp/SignInView"
 import {useState} from 'react'
 import {useCookies} from "react-cookie"
 
@@ -11,7 +12,7 @@ const [isSignUp, setIsSignUp] = useState(true)
 const [cookies, setCookie, removeCookie] = useCookies(["AuthToken", "UserId"]);
 const authToken = cookies.AuthToken
 
-  const handleClick = () => {
+  const handleRegister = () => {
       if (authToken) {
           removeCookie('UserId', cookies.UserId)
           removeCookie('AuthToken', cookies.AuthToken)
@@ -47,7 +48,7 @@ const authToken = cookies.AuthToken
             <div className="container">
               <div className="row">
                 <div className="col-4">
-                  <button type="button" onClick={handleClick} className="btn-setup">
+                  <button type="button" onClick={handleRegister} className="btn-setup">
                     {authToken ? 'Signout' : 'Sign up'}
                   </button>
                     {showModal && (
