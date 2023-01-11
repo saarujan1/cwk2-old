@@ -26,6 +26,12 @@
 #chat li:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.1);
 }
+#filtersPage {
+  overflow-y: scroll;
+  list-style-type: none;
+  max-height: 500px;
+}
+
 
 .topContainer {
   display: flex;
