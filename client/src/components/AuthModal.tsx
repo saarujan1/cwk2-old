@@ -38,7 +38,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       globalState.valid = true
       validateHook()
     }
-    navigate('/setup')
+    navigate('/discover')
   }
   const changeNested = (e) => {
     var someProperty = { ...globalState.user }
