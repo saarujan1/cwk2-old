@@ -82,10 +82,6 @@ const router = createBrowserRouter([
       //   path: '/home',
       //   element: <HomeView />,
       // },
-      {
-        path: '/setup',
-        element: <SetupView />,
-      },
     ],
   },
 ])
@@ -107,27 +103,7 @@ function Redirect() {
   const location = useLocation()
   const currentOutlet = useOutlet()
   const [userData, updateUserDate] = useAppContext()
-
-  // REF1
-  // TODO: determine transition direction through path depth
-  // const getPathDepth = useCallback(() => {
-  //   let pathArr = location.pathname.split("/");
-  //   pathArr = pathArr.filter(n => n !== "");
-  //   console.log('getPathDepth: ' + pathArr.length)
-  //   return pathArr.length;
-  // }, location.pathname)
-  // END OF REF1
-
-  // const [prevDepth, setPrevDepth] = useState(getPathDepth());
-
-  // '??' returns {} when the expression on the left is null/undefined
   const { nodeRef } = routes.find((route) => route.path === location.pathname) ?? {}
-
-  // useEffect( () => {
-  //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
-  //   setPrevDepth(getPathDepth());
-  // }, [prevDepth, getPathDepth])
-  // return <HomeView />
 
   if (userData.valid === true) {
     if (location.pathname === '/setup') {
@@ -140,7 +116,6 @@ function Redirect() {
               <div className="row">
                 <Sidebar routes={routes}></Sidebar>
                 <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
-                {/* <SetupPage /> */}
               </div>
             </div>
           }
