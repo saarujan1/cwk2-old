@@ -1,6 +1,5 @@
 import React, { useState, createRef, useRef, useMemo } from 'react'
 import TinderCard from 'react-tinder-card'
-//
 const rejectIcon = require('../assets/icons/reject.svg').default as string
 const undoIcon = require('../assets/icons/undo.svg').default as string
 const acceptIcon = require('../assets/icons/accept.svg').default as string
