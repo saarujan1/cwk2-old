@@ -40,7 +40,8 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   async function getCourses(university) {
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getCourses?', { text: '', university: university, n: 20 }))
     let x = (await promise) as any
-    setCourseList(x.courses)
+    setCourseList(x.courses.map(course => course.name))
+    setModuleList([])
 
     //uncomment below and comment out above for testing
     //const testArray = ["Math","Computer Science","Biology"]
@@ -50,7 +51,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   async function getModules(university, course) {
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getModules?', { text: '', university: university, course: course, n: 20 }))
     let x = (await promise) as any
-    setModuleList(x.modules)
+    setModuleList(x.modules.map(module => module.name))
 
     //uncomment below and comment out above for testing
     //const testArray = ["COMP221","COMP22","COMP3311"]
@@ -104,6 +105,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
 
       <Form.Label>Year</Form.Label>
       <Form.Select onChange={(e) => setFormData({ ...formData, year: e.target.value })} value={formData.year}>
+        <option> Choose a Year...</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -112,8 +114,10 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         <option value="6">6</option>
         <option value="7">7</option>
       </Form.Select>
+      
       <Form.Label>Language</Form.Label>
     <Form.Select onChange={(e) => setFormData({ ...formData, language: e.target.value })} value={formData.language}>
+    <option> Choose a Language...</option>
       <option value="English">English</option>
       <option value="French">French</option>
       <option value="Chinese">Chinese</option>

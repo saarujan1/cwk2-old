@@ -33,6 +33,11 @@ export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
         <Form.Control onChange={(e) => setFormData({ ...formData, bio: e.target.value })} value={formData.bio} type="text" placeholder="Bio" as="textarea" rows={3} />
       </Form.Group>
 
+      <Form.Group className="mb-3" controlId="formAge">
+        <Form.Label>Age</Form.Label>
+        <Form.Control onChange={(e) => setFormData({ ...formData, age: e.target.value })} value={formData.age} type="number"/>
+      </Form.Group>
+
       <Form.Group className="mb-3" controlId="formHobbies">
         <Form.Label>Hobbies - You can select up to 5</Form.Label>
         <CreatableSelect
