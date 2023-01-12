@@ -36,7 +36,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   }
 
 
-  //Calls to populate the drops downs
+  //Calls to populate the dropdowns
   async function getUniversities() {
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getUniversities?', { text: "", n: 181 }))
     let x = (await promise) as any
