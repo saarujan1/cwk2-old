@@ -1,46 +1,52 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
-import PersonalInfo from '../../components/PersonalInfo'
-import InterestsSelection from '../../components/InterestsSelection'
-import ProfilePictureImport from '../../components/ProfilePictureImport'
+import AccountInfo from './AccountInfo'
+import FiltersSelection from './FiltersSelection'
 import { useNavigate } from 'react-router-dom'
+import SetupView2 from './SetupView2'
 
 export interface FormProps {
   formData: {
-    name: string
-    surname: string
-    dateOfBirth: string
-    university: string
-    course: string
-    interests: string
+    phone: string,
+    bio: string,
+    hobbies : string[],
+
+    university: string,
+    course: string,
+    year: string,
+    modules: string[]
   }
 }
 
 export interface CompleteFormState {
-  name: string
-  surname: string
-  dateOfBirth: string
+  phone: string
+  bio: string
+  hobbies : string[];
+
   university: string
   course: string
-  interests: string
+  year: string
+  modules: string[];
 }
 
 export interface FormDataProps extends FormProps {
   setFormData: React.Dispatch<React.SetStateAction<CompleteFormState>>
 }
 
-export default function SetupPage() {
+export default function SetupView() {
   const [page, setPage] = useState(0)
-  const [formData, setFormData] = useState({
-    name: '',
-    surname: '',
-    dateOfBirth: '',
+  const [formData, setFormData] = useState<CompleteFormState>({
+    phone: '',
+    bio: '',
+    hobbies : [],
+
     university: '',
     course: '',
-    interests: '',
+    year: '',
+    modules: []
   })
-  const FormTitles = ['PersonalInfo', 'InterestsSelection', 'ProfilePictureImport']
+  const FormTitles = ['AccountInfo', 'FiltersSelection', 'Confirm']
 
   // use the useNavigate hook to get access to the navigate function
   const navigate = useNavigate()
@@ -48,11 +54,9 @@ export default function SetupPage() {
   const formDisplay = () => {
     switch (page) {
       case 0:
-        return <PersonalInfo formData={formData} setFormData={setFormData} />
+        return <AccountInfo formData={formData} setFormData={setFormData} />
       case 1:
-        return <InterestsSelection formData={formData} setFormData={setFormData} />
-      case 2:
-        return <ProfilePictureImport formData={formData} setFormData={setFormData} />
+        return <FiltersSelection formData={formData} setFormData={setFormData} />
     }
   }
 
@@ -67,7 +71,7 @@ export default function SetupPage() {
           setPage((currentPage) => currentPage + 1)
           // if the current page is the last page, navigate to the /discover route
           if (page === 2) {
-            navigate('/discover')
+            navigate('/discover') // idk if this works
           }
         }}
       >

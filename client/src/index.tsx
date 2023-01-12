@@ -13,7 +13,6 @@ import './assets/styles/constants.css'
 // COMPONENTS
 import Sidebar from './components/Panels/Sidebar'
 import Content from './components/Panels/Content'
-import SetupPage from './components/SetupPage'
 
 // VIEWS
 import HomeView from './views/HomeView'
@@ -141,14 +140,13 @@ function Redirect() {
               <div className="row">
                 <Sidebar routes={routes}></Sidebar>
                 <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
-                {/* <SetupPage /> */}
               </div>
             </div>
           }
         </>
       )
   } else {
-    return <>{<HomeView></HomeView>}</>
+    return <>{<SetupView></SetupView>}</>
   }
 }
 
