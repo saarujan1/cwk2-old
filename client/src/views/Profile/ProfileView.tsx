@@ -20,11 +20,11 @@ export default function ProfileView() {
     <>
       <h2 className="text-light-cream">Welcome, {userData.user.id ? <span className="text-darker-gray fw-bold">{userData.user.id}</span> : <p>No Name</p>}</h2>
       <Panel padding={3} width="col-4" color="bg-bdg" shadow>
-        <h3 className="c-heading">Basic info</h3>
+        <h3 className="c-heading fancy-font">Basic info</h3>
         <p>Bio</p> {userData.user.bio && <p>{userData.user.bio}</p>}
       </Panel>
       <Panel padding={3} width="col-4" color="bg-bdg" shadow>
-        <h3 className="c-heading">Interests</h3>
+        <h3 className="c-heading fancy-font">Interests</h3>
         {userData ? listHobbies : ''}
       </Panel>
 
