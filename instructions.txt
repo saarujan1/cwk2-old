@@ -1,0 +1,24 @@
+INSTRUCTIONS TO RUN - UNIMATCH - Group N
+
+To use the current version:
+
+Go to: <FRONTEND LINK>
+Follow the on screen instructions to login / register.
+When logged in, you may be asked to submit your details and preferences, before going to the main page.
+Here you can accept or reject other users to match with. 
+If you match with someone you can see their details and chat with them.
+
+
+To setup on a fresh cloud setup:
+
+1. Upload the backend functions to Azure.
+In Azure create a functionApp called unimatch, as well as a CosmosDB with containers: Accounts, Filters & UniversityData, using id as the id.
+In unimatch configuration add the following settings: accounts_container: Accounts, filters_container: Filters, university_data_container: UniversityData.
+Also add the following application settings with your appropriate values: cloud_URI, APP_KEY, db_id: db_key, db_URI.
+Login to your Azure in the command line and then go to \comp3207-coursework2-backend.
+In the command line type $ func azure functionapp publish unimatch.
+
+2. Upload the frontend to GAE.
+Go to \comp3207-coursework2-frontend\server\shared.js.
+Replace the URI and APP_KEY with those from your Azure project.
+<REMAINING STEPS TO UPLOAD FRONTEND TO GAE>
