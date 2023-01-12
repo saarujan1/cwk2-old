@@ -13,6 +13,7 @@ To setup on a fresh cloud setup:
 
 1. Upload the backend functions to Azure.
 In Azure create a functionApp called unimatch, as well as a CosmosDB with containers: Accounts, Filters & UniversityData, using id as the id.
+Go to \comp3207-coursework2-backend\UniData and add all the json files to the UniversityData container via the Azure portal
 In unimatch configuration add the following settings: accounts_container: Accounts, filters_container: Filters, university_data_container: UniversityData.
 Also add the following application settings with your appropriate values: cloud_URI, APP_KEY, db_id: db_key, db_URI.
 Login to your Azure in the command line and then go to \comp3207-coursework2-backend.
