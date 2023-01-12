@@ -1,6 +1,4 @@
 import { useAppContext } from '../../store/UniContext'
-import { Nav } from 'react-bootstrap'
-import { on } from 'events'
 import { getAzure } from '../../store/helpers'
 import { response } from 'express'
 import { useNavigate } from 'react-router-dom'
@@ -41,6 +39,7 @@ export default function SignInView() {
       },
     })
   }
+
   //switch to home screen after succesful login
   async function loginTransition() {
     if (await tryLogin()) {
@@ -49,6 +48,7 @@ export default function SignInView() {
     }
     navigate('/setup')
   }
+
   //switch to home screen after succesful register
   async function registerTransition() {
     if (await tryRegister()) {
@@ -56,6 +56,7 @@ export default function SignInView() {
       validateHook()
     }
   }
+
   async function tryLogin() {
     let path = '/api/login?'
     let message = { username: globalState.user.id, password: globalState.user.password }
@@ -83,6 +84,7 @@ export default function SignInView() {
       return false
     }
   }
+  
   async function tryRegister() {
     let path = '/api/register?'
     let message = { username: globalState.user.id, password: globalState.user.password, email: globalState.user.email }

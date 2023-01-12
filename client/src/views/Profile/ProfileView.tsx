@@ -32,10 +32,14 @@ export default function ProfileView() {
 
         <div>
           <Form action="edit">
-            <button type="submit">Edit</button>
+            <button type="submit" className="c-btn-blue">
+              Edit
+            </button>
           </Form>
           <Form method="post" action="destroy" onSubmit={confirmDeletion}>
-            <button type="submit">Delete</button>
+            <button type="submit" className="c-btn-blue">
+              Delete
+            </button>
           </Form>
         </div>
       </div>

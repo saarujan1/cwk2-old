@@ -1,70 +1,66 @@
-import AuthModal from "../components/AuthModal"
-import SignInView from "./SetUp/SignInView"
-import {useState} from 'react'
-import {useCookies} from "react-cookie"
+import AuthModal from '../components/AuthModal'
+import SignInView from './SetUp/SignInView'
+import { useState } from 'react'
+import { useCookies } from 'react-cookie'
 
 const mapImg = require('../assets/images/home-map.jpg') as string
 
 export default function Home() {
-
-const [showModal, setShowModal] = useState(false)
-const [isSignUp, setIsSignUp] = useState(true)
-const [cookies, setCookie, removeCookie] = useCookies(["AuthToken", "UserId"]);
-const authToken = cookies.AuthToken
+  const [showModal, setShowModal] = useState(false)
+  const [isSignUp, setIsSignUp] = useState(true)
+  const [cookies, setCookie, removeCookie] = useCookies(['AuthToken', 'UserId'])
+  const authToken = cookies.AuthToken
 
   const handleRegister = () => {
-      if (authToken) {
-          removeCookie('UserId', cookies.UserId)
-          removeCookie('AuthToken', cookies.AuthToken)
-          window.location.reload()
-          return
-      }
-      setShowModal(true);
-      setIsSignUp(true);
+    if (authToken) {
+      removeCookie('UserId', cookies.UserId)
+      removeCookie('AuthToken', cookies.AuthToken)
+      window.location.reload()
+      return
+    }
+    setShowModal(true)
+    setIsSignUp(true)
   }
 
   const handleLogin = () => {
     if (authToken) {
-        removeCookie('UserId', cookies.UserId)
-        removeCookie('AuthToken', cookies.AuthToken)
-        window.location.reload()
-        return
+      removeCookie('UserId', cookies.UserId)
+      removeCookie('AuthToken', cookies.AuthToken)
+      window.location.reload()
+      return
     }
     setShowModal(true)
     setIsSignUp(false)
-}
+  }
+
+  const openModal = () => {}
 
   return (
     <div className="container-fluid bg-bg w-100 home-backgroundImg p-0 overflow-hidden">
       <div className="row vh-100">
         <div className="col-sm-8 position-relative p-0 vh-100">
-          <div className="position-absolute" style={{ top: '35%', left: '15%' }}>
+          <div className="col-6 c-intro position-absolute" style={{ top: showModal ? '10%' : '35%', left: '15%' }}>
             <h1 className="display-1 fw-bold">
               <span className="text-light">Uni</span>
               <span className="text-blue">Match</span>
             </h1>
             <p className="lead text-light fw-bold">Need uni friends? We got you covered, mate</p>
 
-            <div className="container">
+            <div className="container mb-4">
               <div className="row">
                 <div className="col-4">
-                  <button type="button" onClick={handleRegister} className="btn-setup">
-                    {authToken ? 'Signout' : 'Sign up'}
+                  <button type="button" onClick={handleRegister} className="c-btn-white">
+                    Sign up
                   </button>
-                    {showModal && (
-                      <AuthModal setShowModal={setShowModal} isSignUp={isSignUp}/>
-                    )}
                 </div>
                 <div className="col-4">
-                <button type="button" onClick={handleLogin} className="btn-setup">
-                      Login
+                  <button type="button" onClick={handleLogin} className="c-btn-white">
+                    Log in
                   </button>
-                  {showModal && (
-                      <AuthModal setShowModal={setShowModal} isSignUp={isSignUp}/>
-                    )}
                 </div>
               </div>
             </div>
+            {showModal && <AuthModal setShowModal={setShowModal} isSignUp={isSignUp} />}
           </div>
         </div>
         <div className="col-sm-4 p-0 vh-100">

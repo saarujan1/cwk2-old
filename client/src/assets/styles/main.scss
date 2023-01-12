@@ -1,4 +1,5 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
+@import './constants';
 
 /* -------------- ⌄CHATS⌄ -------------- */
 #chat {
@@ -28,7 +29,7 @@
 #chat li:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.1);
 }
-/* -------------- ^CARDS^ -------------- */
+/* -------------- ^CHATS^ -------------- */
 
 .topContainer {
   display: flex;
@@ -73,52 +74,138 @@
   color: #fff;
 }
 
-.btn-setup {
+/* -------------- ⌄BUTTONS⌄ -------------- */
+.c-btn-white {
   @extend .btn;
   @extend .btn-light;
   @extend .fw-bold;
+  border-radius: 13px;
+  border-width: 3px;
 }
 
-.btn-setup:hover {
+.c-btn-white:hover {
   background-color: transparent;
-  color: #f8f9fa;
-  border-color: #f8f9fa;
+  color: var(--light-white);
+  border-color: var(--light-white);
+}
+
+.c-btn-blue {
+  @extend .btn;
+  @extend .fw-bold;
+  @extend .bg-tb;
+  border-radius: 13px;
+  border-width: 3px;
+  @extend .text-light-white;
+}
+
+.c-btn-blue:hover {
+  background-color: transparent;
+  border-color: var(--blue);
+  @extend .text-blue;
+}
+/* -------------- ^BUTTONS^ -------------- */
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: var(--blue);
+  border-radius: 15px;
 }
 
 .home-backgroundImg {
   // converted using the 'SVG to Data URI converter': https://codepen.io/elliz/pen/ygvgay
+  // background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='1484' height='1024' viewBox='0 0 1484 1024' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cstyle type='text/css'%3e path %7b stroke-dasharray: 45; stroke-dashoffset: 500; animation: dash 10s linear alternate infinite;%7d %40keyframes dash %7b to %7b stroke-dashoffset: 0;%7d %7d %3c/style%3e%3cpath d='M940.5 375.5L1035.5 843.5' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M939.5 372.5L1362 133' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M937.5 372.5L613.5 813' stroke='%23F0D752' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M615.5 817.5L803 948.5' stroke='%23F0D752' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M56 92L938 397' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M1353.5 118L1468 1017.5' stroke='%23D9D9D9' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3crect x='977' y='775' width='135' height='135' rx='100' fill='%235B9BD5' /%3e%3crect x='56' y='66' width='47' height='47' rx='100' fill='%235B9BD5' /%3e%3crect x='1290' y='66' width='135' height='135' rx='100' fill='%23D9D9D9' /%3e%3crect x='902' y='334' width='75' height='75' rx='100' fill='%235B9BD5' /%3e%3crect x='586' y='788' width='56' height='56' rx='100' fill='%23F0D752' /%3e%3crect x='776' y='919' width='56' height='56' rx='100' fill='%23F0D752' /%3e%3c/svg%3e");
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='1484' height='1024' viewBox='0 0 1484 1024' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cstyle type='text/css'%3e path %7b stroke-dasharray: 45; stroke-dashoffset: 500; animation: dash 10s linear alternate infinite;%7d %40keyframes dash %7b to %7b stroke-dashoffset: 0;%7d %7d %3c/style%3e%3cpath d='M940.5 375.5L1035.5 843.5' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M939.5 372.5L1362 133' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M937.5 372.5L613.5 813' stroke='%23F0D752' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M615.5 817.5L803 948.5' stroke='%23F0D752' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M56 92L938 397' stroke='%235B9BD5' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3cpath d='M1353.5 118L1468 1017.5' stroke='%23D9D9D9' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='1 0 1 30' /%3e%3crect x='977' y='775' width='135' height='135' rx='40' fill='%235B9BD5' /%3e%3crect x='56' y='66' width='47' height='47' rx='13' fill='%235B9BD5' /%3e%3crect x='1290' y='66' width='135' height='135' rx='40' fill='%23D9D9D9' /%3e%3crect x='902' y='334' width='75' height='75' rx='25' fill='%235B9BD5' /%3e%3crect x='586' y='788' width='56' height='56' rx='20' fill='%23F0D752' /%3e%3crect x='776' y='919' width='56' height='56' rx='20' fill='%23F0D752' /%3e%3c/svg%3e");
   background-size: 85%;
 }
 
-/*-------- Auth Modal --------*/
+.c-intro {
+  transition: all 0.5s;
+}
+
+.form-input {
+  @extend .form-control;
+  @extend .bg-lc;
+  border: none;
+  opacity: 0.7;
+  border-radius: 13px;
+  @extend .text-blue;
+}
+
+.form-label {
+  @extend .col-form-label;
+  @extend .text-blue;
+  font-size: 0.7rem;
+}
+
+.form-input:active {
+  @extend .text-blue;
+}
+
 .auth-modal {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -130px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 450x;
-  height: 450px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  padding: 40px;
+  @extend .rounded-5;
+  @extend .bg-lw;
+  @extend .mx-auto;
+  @extend .col-8;
+  @extend .text-gray;
+  padding: 28px;
 }
 
-.auth-modal .close-icon {
-  float: right;
+// REF1, adapted from https://codepen.io/Ash/pen/WBMxpp
+:root {
+  /* The intrinsic width of the underline stroke (in pixels). This is 
+   * the same as the height of the cap images. Don't specify the
+   * units! This is because of some of the calculations we do later on. */
+  --underline-intrinsic-width: 8;
+
+  /* The actual width of the underline stroke we want to render (in pixels).
+   * You can modify this, and the sizing and positioning should be calculated
+   * accordingly. Again, Don't specify the units! */
+  --underline-width: 12;
+
+  /* The colour used to draw the underline. It should match the colour
+   * used in the cap images... unfortunately we can't modify the SVG
+   * fill via CSS because it's a background image. */
+  // --underline-color: ;
+
+  /* We need to know the width of the cap images so that we
+   * can position everything on the x axis accordingly. */
+  --underline-cap-width: 4px;
+
+  /* The border is positioned relative to the bottom of the line.
+   * We can move it upwards a little to create an overlap effect. */
+  --underline-offset-y: 3px;
+
+  /* The padding to add to the x axis. By default, the caps would be
+   * aligned with the beginning and end of the line. */
+  --underline-padding-x: 0.12em;
+
+  /* The cap images to use that form the left and right rounded
+   * shape. I guess these could be any shape, they don't
+   * necessarily have to be round 🙂.
+   */
+  --cap-image-left: url('./helpers/left-cap.svg');
+  --cap-image-right: url('./helpers/right-cap.svg');
 }
 
-.auth-modal form {
-  display: flex;
-  flex-direction: column;
+.c-underline {
+  display: inline;
+  --underline-width-scale: calc(var(--underline-width) / var(--underline-intrinsic-width));
+  padding: 0 calc(var(--underline-padding-x) + calc(var(--underline-cap-width) * var(--underline-width-scale)));
+  box-decoration-break: clone;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(180deg, var(--blue), var(--blue)), var(--cap-image-left), var(--cap-image-right);
+  background-position-x: calc(var(--underline-cap-width) * var(--underline-width-scale)), 0, 100%;
+  background-position-y: calc(100% - var(--underline-offset-y) * -1);
+  background-size: calc(100% - calc(var(--underline-cap-width) * var(--underline-width-scale) * 2)) calc(var(--underline-width) * 1px), auto calc(var(--underline-width) * 1px), auto calc(var(--underline-width) * 1px);
+}
+// END OF REF1
+
+.c-heading {
+  @extend .c-underline;
+  @extend .text-medium-blue;
+  @extend .fw-bold;
 }
 
-.auth-modal input[type=password],
-.auth-modal input[type=email],
-.auth-modal input[type=username] {
-  padding: 8px;
-  margin: 8px;
-  font-size: 17px;
-}
+// REFERENCES
+// REF1, adapted from: https://codepen.io/Ash/pen/WBMxpp

@@ -11,3 +11,6 @@ filters.svg: https://www.svgrepo.com/svg/442714/sliders-horizontal, CC Attributi
 messages.svg: https://www.svgrepo.com/svg/442678/message-write, CC Attribution License
 discover.svg: https://www.svgrepo.com/svg/442650/compass, CC Attribution License
 matches.svg: https://www.svgrepo.com/svg/442715/star, CC Attribution License
+accept.svg: https://www.svgrepo.com/svg/442642/check-rectangle, CC Attribution License
+reject.svg: https://www.svgrepo.com/svg/442643/close-rectangle, CC Attribution License
+undo.svg: https://www.svgrepo.com/svg/442740/arrow-left-rectangle, CC Attribution License

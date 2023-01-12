@@ -11,7 +11,7 @@ export default function Content(props) {
       {/* .container-fluid for a full width container, spanning the entire width of the viewport. */}
       {/* .col-lg-auto based on width of content, breakpoint at large */}
       {/* .min-vh-100 min-height 100vw */}
-      <Panel padding={3} width="col-sm-5" height="vh-50" color="bg-pg">
+      <Panel padding={3} width="col" height="vh-100" color="bg-p">
         <SwitchTransition>
           <CSSTransition
             key={props.location.pathname}

@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider, useLocation, useOutlet } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useLocation, useOutlet, Route} from 'react-router-dom'
 import UniContext, { useAppContext } from './store/UniContext'
 
 // STYLESHEETS
@@ -22,10 +22,14 @@ import MessagesView from './views/Messages/MessagesView'
 import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
-import SignInView from './views/SetUp/SignInView'
 import SetupView from './views/SetUp/SetupView'
-import SetupView2 from './views/SetUp/SetupView2'
-// import ErrorView from "./error";
+
+const SetUpRoute =   {
+  path: '/setup',
+  name: 'Setup',
+  element: <SetupView />,
+  nodeRef: createRef(),
+}
 
 const routes = [
   {
@@ -76,16 +80,11 @@ const router = createBrowserRouter([
         index: route.path === '/',
         path: route.path === '/' ? undefined : route.path,
         element: route.element,
-      })),
-      // {
-      //   path: '/home',
-      //   element: <HomeView />,
-      // },
-      {
+      })), {
         path: '/setup',
         element: <SetupView />,
       },
-    ],
+    ], 
   },
 ])
 // END OF REF2
@@ -106,37 +105,13 @@ function Redirect() {
   const location = useLocation()
   const currentOutlet = useOutlet()
   const [userData, updateUserDate] = useAppContext()
-
-  // REF1
-  // TODO: determine transition direction through path depth
-  // const getPathDepth = useCallback(() => {
-  //   let pathArr = location.pathname.split("/");
-  //   pathArr = pathArr.filter(n => n !== "");
-  //   console.log('getPathDepth: ' + pathArr.length)
-  //   return pathArr.length;
-  // }, location.pathname)
-  // END OF REF1
-
-  // const [prevDepth, setPrevDepth] = useState(getPathDepth());
-
-  // '??' returns {} when the expression on the left is null/undefined
   const { nodeRef } = routes.find((route) => route.path === location.pathname) ?? {}
 
-  // useEffect( () => {
-  //   console.log('useEffect, counter updated: ' + (getPathDepth() - prevDepth));
-  //   setPrevDepth(getPathDepth());
-  // }, [prevDepth, getPathDepth])
-  // return <HomeView />
-
-  
   if (userData.valid === true) {
-    if (location.pathname === '/setup') {
-      return <SetupView />
-    } else
       return (
         <>
           {
-            <div className="container-fluid bg-tb">
+            <div className="container-fluid bg-bdg">
               <div className="row">
                 <Sidebar routes={routes}></Sidebar>
                 <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>

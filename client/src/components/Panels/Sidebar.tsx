@@ -17,7 +17,7 @@ export default function Sidebar(props) {
   return (
     <>
       {/* REF2, REF3 */}
-      <Panel padding={3} color="bg-pg" width="col-sm-1" height="vh-100" className="sticky-top">
+      <Panel padding={3} color="bg-bdg" width="col-sm-1" height="vh-100" className="sticky-top">
         <div className="d-flex flex-sm-column flex-row flex-nowrap align-items-center rounded">
           {/* <a href="/" className="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
                 <img src={discover} className="fs-1" alt="logo" width="24" height="24" />
