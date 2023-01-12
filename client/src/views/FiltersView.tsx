@@ -1,63 +1,78 @@
-import { useAppContext } from '../store/UniContext'
-import { useState } from 'react'
-import { getAzure } from '../store/helpers'
+import { useAppContext } from "../store/UniContext";
+import { useState } from "react";
+import { getAzure } from "../store/helpers";
+import Panel from "../components/Panels/Panel";
+import { isDataView } from "util/types";
+
 export default function FiltersView() {
-  const [globalState, dispatch] = useAppContext()
-  let initial = { ...globalState.filters }
-  delete initial['id']
-  const [localFilters, changeDisplay] = useState(initial)
-  const [error, updateError] = useState('')
+  const [globalState, dispatch] = useAppContext();
+  let initial = { ...globalState.filters };
+  delete initial["id"];
+  const [localFilters, changeDisplay] = useState(initial);
+  const [error, updateError] = useState("");
 
   //update localFilters
   const changeHook = (e) => {
-    let temp = { ...localFilters }
-    temp[e.target.name] = e.target.value
-    changeDisplay(temp)
-  }
+    let temp = { ...localFilters };
+    temp[e.target.name] = e.target.value;
+    changeDisplay(temp);
+  };
 
   //map function to list
   const listFilters = Object.keys(localFilters).map((m) => (
-    <li>
+    <Panel padding={3} color="bg-bdg" square>
       <div>
-        <p>{m}:</p>
-        <input value={localFilters[m]} name={m} onChange={changeHook} placeholder={m} className="form-control" />
+        <h4 className="text-light-cream">{m.split("_").join(" ")}</h4>
+        <input
+          value={localFilters[m]}
+          name={m}
+          onChange={changeHook}
+          className="form-input"
+        />
       </div>
-    </li>
-  ))
+    </Panel>
+  ));
 
   //try update filters
   async function tryUpdate() {
-    let sendMessage = { ...localFilters }
+    let sendMessage = { ...localFilters };
     //rename username for
-    sendMessage['username'] = globalState.user.id
-    sendMessage['password'] = globalState.user.password
+    sendMessage["username"] = globalState.user.id;
+    sendMessage["password"] = globalState.user.password;
 
-    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/updateFilters?', sendMessage))
-    let x = (await promise) as any
+    let promise = new Promise((resolve, reject) =>
+      getAzure(resolve, "/api/updateFilters?", sendMessage)
+    );
+    let x = (await promise) as any;
 
     if ((x.result = true)) {
       //update GlobalState.filters
       dispatch({
-        type: 'CHANGE',
+        type: "CHANGE",
         payload: {
-          ['filters']: localFilters,
+          ["filters"]: localFilters,
         },
-      })
+      });
     } else {
-      changeDisplay({ ...globalState.filters })
+      changeDisplay({ ...globalState.filters });
     }
-    updateError(x.msg)
+    updateError(x.msg);
   }
 
   return (
-    <div>
-      <h1 className="Filters"> Discover</h1>
-      <h3> Set filters to see who you want. </h3>
-      <ul id="filtersPage">{listFilters}</ul>
-      <button type="button" onClick={tryUpdate} className="c-btn-blue">
-        Submit
-      </button>
-      <p>{error}</p>
-    </div>
-  )
+    <>
+      <div className="p-3 col">
+        <h1 className="c-heading text-white">Filters</h1>
+      </div>
+      <div className="row row-cols-3 p-3">
+        {listFilters}
+        <p>{error}</p>
+      </div>
+      <Panel padding={3}>
+        <button type="button" onClick={tryUpdate} className="c-btn-white">
+          Submit
+        </button>
+      </Panel>
+    </>
+  );
 }

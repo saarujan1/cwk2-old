@@ -22,10 +22,10 @@ export async function handleRegister( message) {
 
   let path = '/api/register?'
   //add on commID
-  var t = new Map(Object.entries(JSON.parse(message)));
-  var cID = await createIdentity();
+  let t = new Map(Object.entries(JSON.parse(message)));
+  let cID = await createIdentity();
   t.set("communicationID",cID);
-  var message = JSON.stringify(Object.fromEntries(t))
+  let message = JSON.stringify(Object.fromEntries(t))
   console.log(message);
   // Calls the Azure function to register a new user
   let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))

@@ -1,6 +1,6 @@
-import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import { Container } from 'react-bootstrap'
-import Panel from './Panel'
+import { CSSTransition, SwitchTransition } from "react-transition-group";
+import { Container } from "react-bootstrap";
+import Panel from "./Panel";
 
 export default function Content(props) {
   return (
@@ -11,18 +11,22 @@ export default function Content(props) {
       {/* .container-fluid for a full width container, spanning the entire width of the viewport. */}
       {/* .col-lg-auto based on width of content, breakpoint at large */}
       {/* .min-vh-100 min-height 100vw */}
-      <Panel padding={3} width="col" height="vh-100" color="bg-p">
+      <Panel padding={4} width="col" height="vh-100" color="gradient">
+        {" "}
         <SwitchTransition>
           <CSSTransition
             key={props.location.pathname}
             // as React.RefObject<HTMLDivElement> fixes what would be an 'unknown' type
             nodeRef={props.nodeRef as React.RefObject<HTMLDivElement>}
             timeout={300}
-            classNames="pageSlider"
+            classNames="pageSlider vh-100"
             unmountOnExit
           >
             {() => (
-              <div ref={props.nodeRef as React.RefObject<HTMLDivElement>} className="page">
+              <div
+                ref={props.nodeRef as React.RefObject<HTMLDivElement>}
+                className="page h-100"
+              >
                 {props.currentOutlet}
               </div>
             )}
@@ -31,7 +35,7 @@ export default function Content(props) {
       </Panel>
       {/* END OF REF1 */}
     </>
-  )
+  );
 }
 
 // REFERENCES
