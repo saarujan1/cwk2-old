@@ -1,5 +1,11 @@
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import './constants';
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "./constants";
+
+@import url(https://fonts.googleapis.com/css?family=Patrick+Hand+SC);
+
+.fancy-font {
+  font-family: "Patrick Hand SC", cursive;
+}
 
 /* -------------- ⌄CHATS⌄ -------------- */
 #chat {
@@ -42,8 +48,8 @@
 
 .card-container {
   width: 90vw;
-  max-width: 260px;
-  height: 300px;
+  max-width: 400px;
+  height: 500px;
   border: 0 25px 0 0;
 }
 
@@ -51,8 +57,8 @@
   position: relative;
   background-color: #fff;
   width: 80vw;
-  max-width: 260px;
-  height: 300px;
+  max-width: 350px;
+  height: 450px;
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -64,10 +70,14 @@
 }
 
 .card h3 {
-  position: absolute;
+  position: relative;
   bottom: 0;
   margin: 10px;
-  color: #fff;
+  color: rgb(0, 0, 0);
+}
+
+.attributes {
+  padding: 0px 0px 0px 15px;
 }
 
 /* -------------- ⌄BUTTONS⌄ -------------- */
@@ -81,7 +91,7 @@
 
 .c-btn-white:hover {
   background-color: transparent;
-  color: var(--light-white);
+  @extend .text-light-white;
   border-color: var(--light-white);
 }
 
@@ -99,6 +109,17 @@
   border-color: var(--blue);
   @extend .text-blue;
 }
+
+.c-btn-purple {
+  @extend .btn;
+  @extend .fw-bold;
+  background-color: transparent;
+  border-color: var(--purple);
+  border-radius: 13px;
+  border-width: 3px;
+  @extend .text-light-white;
+}
+
 /* -------------- ^BUTTONS^ -------------- */
 
 .nav-pills .nav-link.active,
@@ -148,6 +169,45 @@
   position: absolute;
 }
 
+.h95 {
+  height: 95%;
+}
+
+.h85 {
+  height: 85%;
+}
+
+.h80 {
+  height: 80%;
+}
+
+.h20 {
+  height: 20%;
+}
+
+.h30 {
+  height: 30%;
+}
+
+.h70 {
+  height: 70%;
+}
+
+.h10 {
+  height: 10%;
+}
+
+.h5 {
+  height: 5%;
+}
+
+.square {
+  width: 200px;
+  max-width: 200px;
+  height: 200px !important;
+  max-height: 200px;
+}
+
 // REF1, adapted from https://codepen.io/Ash/pen/WBMxpp
 :root {
   /* The intrinsic width of the underline stroke (in pixels). This is 
@@ -181,27 +241,72 @@
    * shape. I guess these could be any shape, they don't
    * necessarily have to be round 🙂.
    */
-  --cap-image-left: url('./helpers/left-cap.svg');
-  --cap-image-right: url('./helpers/right-cap.svg');
+  --cap-image-left: url("./helpers/left-cap.svg");
+  --cap-image-right: url("./helpers/right-cap.svg");
 }
 
 .c-underline {
   display: inline;
-  --underline-width-scale: calc(var(--underline-width) / var(--underline-intrinsic-width));
-  padding: 0 calc(var(--underline-padding-x) + calc(var(--underline-cap-width) * var(--underline-width-scale)));
+  --underline-width-scale: calc(
+    var(--underline-width) / var(--underline-intrinsic-width)
+  );
+  padding: 0
+    calc(
+      var(--underline-padding-x) +
+        calc(var(--underline-cap-width) * var(--underline-width-scale))
+    );
   box-decoration-break: clone;
   background-repeat: no-repeat;
-  background-image: linear-gradient(180deg, var(--blue), var(--blue)), var(--cap-image-left), var(--cap-image-right);
-  background-position-x: calc(var(--underline-cap-width) * var(--underline-width-scale)), 0, 100%;
+  background-image: linear-gradient(180deg, var(--blue), var(--blue)),
+    var(--cap-image-left), var(--cap-image-right);
+  background-position-x: calc(
+      var(--underline-cap-width) * var(--underline-width-scale)
+    ),
+    0, 100%;
   background-position-y: calc(100% - var(--underline-offset-y) * -1);
-  background-size: calc(100% - calc(var(--underline-cap-width) * var(--underline-width-scale) * 2)) calc(var(--underline-width) * 1px), auto calc(var(--underline-width) * 1px), auto calc(var(--underline-width) * 1px);
+  background-size: calc(
+        100% -
+          calc(var(--underline-cap-width) * var(--underline-width-scale) * 2)
+      )
+      calc(var(--underline-width) * 1px),
+    auto calc(var(--underline-width) * 1px),
+    auto calc(var(--underline-width) * 1px);
 }
 // END OF REF1
 
 .c-heading {
   @extend .c-underline;
   @extend .text-medium-blue;
-  @extend .fw-bold;
+  @extend .fancy-font;
+}
+
+.cs-message-separator {
+  background-color: transparent !important;
+  color: var(--blue) !important;
+}
+
+.cs-message-input {
+  background-color: var(--background-gray-darkest) !important;
+  padding: 10px !important;
+}
+
+.cs-message--outgoing .cs-message__content {
+  border-radius: 0.7em 0.7em 0 0.7em !important;
+}
+
+.cs-message--incoming .cs-message__content {
+  border-radius: 0.7em 0.7em 0.7em 0 !important;
+}
+
+.cs-message-input__content-editor-wrapper,
+.cs-message-input__content-editor {
+  background-color: #000 !important;
+  color: var(--light-white) !important;
+}
+
+.no-bottom-radius {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 // REFERENCES

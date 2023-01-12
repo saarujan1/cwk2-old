@@ -1,14 +1,12 @@
-import React, { createRef } from 'react'
+import { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider, useLocation, useOutlet, Route} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useLocation, useOutlet, Route } from 'react-router-dom'
 import UniContext, { useAppContext } from './store/UniContext'
 
 // STYLESHEETS
 import 'mdb-ui-kit/css/mdb.min.css'
 import './assets/styles/main.scss'
 import './assets/styles/constants.css'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-// import App from './App'
 
 // COMPONENTS
 import Sidebar from './components/Panels/Sidebar'
@@ -23,13 +21,6 @@ import MatchesView from './views/MatchesView'
 import ProfileView from './views/Profile/ProfileView'
 import SettingsView from './views/Profile/SettingsView'
 import SetupView from './views/SetUp/SetupView'
-
-const SetUpRoute =   {
-  path: '/setup',
-  name: 'Setup',
-  element: <SetupView />,
-  nodeRef: createRef(),
-}
 
 const routes = [
   {
@@ -80,11 +71,12 @@ const router = createBrowserRouter([
         index: route.path === '/',
         path: route.path === '/' ? undefined : route.path,
         element: route.element,
-      })), {
+      })),
+      {
         path: '/setup',
         element: <SetupView />,
       },
-    ], 
+    ],
   },
 ])
 // END OF REF2
@@ -108,25 +100,21 @@ function Redirect() {
   const { nodeRef } = routes.find((route) => route.path === location.pathname) ?? {}
 
   if (userData.valid === true) {
-      return (
-        <>
-          {
-            <div className="container-fluid bg-bdg">
-              <div className="row">
-                <Sidebar routes={routes}></Sidebar>
-                <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
-              </div>
+    return (
+      <>
+        {
+          <div className="container-fluid bg-bdg">
+            <div className="row">
+              <Sidebar routes={routes}></Sidebar>
+              <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
             </div>
-          }
-        </>
-      )
+          </div>
+        }
+      </>
+    )
   } else {
     return <HomeView></HomeView>
   }
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />)
-
-// REFERENCES
-// REF1, adapted from the following guide: https://medium.com/@ipenywis/slide-page-css-transition-on-react-with-react-router-38373da5e608
-// REF2, adapted from an example from the React Transition Group library: https://reactcommunity.org/react-transition-group/with-react-router/

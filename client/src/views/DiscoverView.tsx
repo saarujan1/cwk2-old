@@ -3,9 +3,9 @@ import TinderCard from 'react-tinder-card'
 import { useAppContext } from '../store/UniContext'
 import { getAzure } from '../store/helpers'
 import { json } from 'stream/consumers'
+import Panel from '../components/Panels/Panel'
 
 const rejectIcon = require('../assets/icons/reject.svg').default as string
-const undoIcon = require('../assets/icons/undo.svg').default as string
 const acceptIcon = require('../assets/icons/accept.svg').default as string
 
 export default function DiscoverView() {
@@ -60,11 +60,19 @@ export default function DiscoverView() {
   async function getFiveUsers(){
     try {
       console.log("our id according to globalstate:" + JSON.stringify(globalState));
-      let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/request?', {id:globalState.user.id,n:"10"}))
+      let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/request?', {id:globalState.user.id,n:"5"}))
       let resp = (await promise) as any
+      let temp : any = [];
+      
       if(resp.result){
         console.log(JSON.stringify(resp))
-        updateFeed(resp.ids);
+        //getvalues
+
+        for (const x of resp.ids) { 
+          let newDetails = await getUserDetails(x) ;
+          temp.push(newDetails);
+        }
+        updateFeed(temp);
         
         changeChildRefs(Array(resp.ids.length).fill(0).map((i) => React.createRef<any>()));
       console.log("setting refs");
@@ -73,6 +81,13 @@ export default function DiscoverView() {
         console.log(error)
     }
 
+  }
+  async function getUserDetails(userId){
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/lookupAccount?', {id:userId}))
+    let resp = (await promise) as any
+    
+
+    return  resp.account;
   }
 
   useEffect(() => {
@@ -104,9 +119,14 @@ export default function DiscoverView() {
   //get 
   /*const updateMatches = async (matchedUserId) => {
     try {
-      let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/updateAccount?', {username: globalState.user.id, password: globalState.password}))
+      let promise = new Promise((resolve, reject) =>
+        getAzure(resolve, '/api/updateAccount?', {
+          username: globalState.user.id,
+          password: globalState.password,
+        })
+      )
       let resp = (await promise) as any
-      if(resp.account){
+      if (resp.account) {
         setUser(resp.account)
       }
     } catch (error) {
@@ -114,7 +134,7 @@ export default function DiscoverView() {
       }
   }*/
 
-  const swiped = (direction, nameToDelete, swipedUserId) => {
+  const swiped = (direction, swipedUserId) => {
     if (direction === 'right') {
         
     }else{//direction is left
@@ -156,21 +176,30 @@ export default function DiscoverView() {
   if(feed!= undefined && childRefs !=undefined){
   return (
     <>
-      <h1 className="pageTitle"> Discover</h1>
-      <h3> Who would you like to match with today? </h3>
-      <div className="card-container">
-        {feed.map((character, index) => (
-          <TinderCard ref={childRefs[index]} className="swipe" key={character.id} onSwipe={(dir) => swiped(dir, character.id, index)} onCardLeftScreen={() => outOfFrame(character.id, index)}>
-            <div className="card">
-              <h3 className="">{character.id}</h3>
-            </div>
-          </TinderCard>
-        ))}
-      </div>
-      <div className="buttons">
-        <img onClick={() => swipe('left')} role="button" src={rejectIcon} alt={'Reject'} width="70" height="70" aria-label={'Reject'} />
-        
-        <img onClick={() => swipe('right')} role="button" src={acceptIcon} alt={'Accept'} width="70" height="70" aria-label={'Accept'} />
+      <div className="d-flex flex-column h-100 align-items-center">
+        <h1 className="pageTitle"> Discover</h1>
+        <Panel height="h70" width="col-12" padding={3} className="d-flex justify-content-center">
+          <div className="card-container">
+            {feed.map((character, index) => (
+              <TinderCard className="swipe" key={character.username} onSwipe={(dir) => swiped(dir, character.username)} onCardLeftScreen={() => (console.log("something leftscreen"))}>
+                <div className="card">
+                  <h3>{character.name}</h3>
+                  <div className="attributes">
+                    <p className="attribute-text"> {character.email}</p>
+                    <p className="attribute-text"> {character.bio}</p>
+                    <p className="attribute-text"> {character.hobbies}</p>
+                    <p className="attribute-text"> {character.age}</p>
+                  </div>
+                </div>
+              </TinderCard>
+            ))}
+          </div>
+        </Panel>
+        <Panel height="h30" width="col-12" padding={3} className="d-flex justify-content-center">
+          <img onClick={() => swipe('left')} role="button" src={rejectIcon} alt={'Reject'} width="100" height="100" aria-label={'Reject'} />
+          {/* <img onClick={() => goBack()} role="button" src={undoIcon} alt={'Undo'} width="100" height="100" aria-label={'Undo'} /> */}
+          <img onClick={() => swipe('right')} role="button" src={acceptIcon} alt={'Accept'} width="100" height="100" aria-label={'Accept'} />
+        </Panel>
       </div>
     </>
   )

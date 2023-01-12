@@ -8,9 +8,22 @@
   --panel-darker-gray: #191f26;
   --medium-blue: #afcae6;
   --lighter-gray: #4f6b86;
-  --background-gray: #2c2c2c;
-  --background-gray-darker: #1e1e1e;
+  --background-gray: #20232a;
+  --background-gray-darker: #1d1e24;
+  --background-gray-darkest: #16171b;
   --light-white: #f8f9fa;
+}
+
+.fs-7 {
+  font-size: 15px;
+}
+
+.fs-8 {
+  font-size: 12px;
+}
+
+.fs-9 {
+  font-size: 10px;
 }
 
 .text-blue {
@@ -21,12 +34,20 @@
   color: var(--background-gray);
 }
 
+.text-darker-gray {
+  color: var(--background-gray-darker);
+}
+
 .text-light-cream {
   color: var(--light-cream);
 }
 
 .text-light-white {
   color: var(--light-white);
+}
+
+.text-lighter-gray {
+  color: var(--lighter-gray);
 }
 
 .text-medium-blue {
@@ -77,10 +98,40 @@
   background-color: var(--background-gray-darker);
 }
 
+.bg-bdsg {
+  background-color: var(--background-gray-darkest);
+}
+
+.br-bdg {
+  border: 6px solid var(--background-gray-darker);
+}
+
 .panel-shadow-light {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .panel-shadow {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.gradient {
+  background: hsla(230, 100%, 75%, 1);
+
+  background: linear-gradient(
+    225deg,
+    hsla(230, 100%, 75%, 1) 0%,
+    hsla(209, 59%, 60%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    225deg,
+    hsla(230, 100%, 75%, 1) 0%,
+    hsla(209, 59%, 60%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    225deg,
+    hsla(230, 100%, 75%, 1) 0%,
+    hsla(209, 59%, 60%, 1) 100%
+  );
 }

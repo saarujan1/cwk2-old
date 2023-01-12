@@ -1,4 +1,4 @@
-import AuthModal from '../components/AuthModal'
+import AuthModal from '../components/Auth'
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 
@@ -32,14 +32,12 @@ export default function Home() {
     setIsSignUp(false)
   }
 
-  const openModal = () => {}
-
   return (
     <div className="container-fluid bg-bg w-100 home-backgroundImg p-0 overflow-hidden">
       <div className="row vh-100">
         <div className="col-sm-8 position-relative p-0 vh-100">
           <div className="col-6 c-intro position-absolute" style={{ top: showModal ? '10%' : '35%', left: '15%' }}>
-            <h1 className="display-1 fw-bold">
+            <h1 className="display-1 fw-bold fancy-font">
               <span className="text-light">Uni</span>
               <span className="text-blue">Match</span>
             </h1>

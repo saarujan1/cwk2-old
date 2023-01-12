@@ -1,16 +1,10 @@
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import CreatableSelect from 'react-select/creatable';
-import Select from 'react-select'
-
+import CreatableSelect from 'react-select/creatable'
 import { FormDataProps } from './SetupView'
 import React, { useState } from 'react'
 import { MultiValue } from 'react-select/dist/declarations/src';
 
-
-
 export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
-
   //I have to map between reactState which uses the OptionType Object and a Array of hobbies string[]
 
   //Example of how the state looks like:
@@ -20,13 +14,12 @@ export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
   //   { value: 'vanilla', label: 'Vanilla' }
   // ]
 
-  const [selectedOptions, setSelectedOptions] = React.useState<MultiValue<OptionType>>(formData.hobbies.map((hobby) => ({value: hobby, label: hobby})));
+  const [selectedOptions, setSelectedOptions] = React.useState<MultiValue<OptionType>>(formData.hobbies.map((hobby) => ({ value: hobby, label: hobby })))
 
   type OptionType = {
-    value: string;
-    label: string;
-  };
-  
+    value: string
+    label: string
+  }
 
   return (
     <Form>
@@ -44,19 +37,14 @@ export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
         <Form.Label>Hobbies - You can select up to 5</Form.Label>
         <CreatableSelect
           isMulti
-          defaultValue={formData.hobbies.map((hobby) => ({value: hobby, label: hobby}))}
+          defaultValue={formData.hobbies.map((hobby) => ({ value: hobby, label: hobby }))}
           onChange={(o: MultiValue<OptionType>) => {
-            
             setFormData({ ...formData, hobbies: o.map((item) => item.value) })
-            setSelectedOptions(o);
+            setSelectedOptions(o)
           }}
           isOptionDisabled={() => selectedOptions.length >= 5}
-          />
-      
-        
+        />
       </Form.Group>
-
-
     </Form>
-  );
+  )
 }

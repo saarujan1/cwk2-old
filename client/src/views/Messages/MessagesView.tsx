@@ -1,5 +1,5 @@
 import { useAppContext } from '../../store/UniContext'
-import { ChatClient, ChatThreadClient, ChatThreadItem } from '@azure/communication-chat'
+import { ChatClient, ChatMessage, ChatThreadClient, ChatThreadItem } from '@azure/communication-chat'
 import { AzureCommunicationTokenCredential } from '@azure/communication-common'
 import ChatBox from './ChatBox'
 import React, { useState } from 'react'
@@ -28,7 +28,11 @@ export default function MessagesView() {
   }
 
   async function getToken() {
-    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/gettoken?', { comID: globalState.user.communicationID }))
+    let promise = new Promise((resolve, reject) =>
+      getAzure(resolve, '/api/gettoken?', {
+        comID: globalState.user.communicationID,
+      })
+    )
     let x = (await promise) as any
     console.log('token retrieved')
     return x.token
@@ -38,11 +42,11 @@ export default function MessagesView() {
     console.log('retrieving chats')
     const threads = cli.listChatThreads()
     updateChatThreads([])
-    var theChatThreads: chat[] = []
+    let theChatThreads: chat[] = []
 
     for await (const thread of threads) {
-      var ctc = cli.getChatThreadClient(thread.id)
-      var c: chat = { ThreadCli: ctc, ChatName: await getOtherUser(ctc) }
+      let ctc = cli.getChatThreadClient(thread.id)
+      let c: chat = { ThreadCli: ctc, ChatName: await getOtherUser(ctc) }
 
       theChatThreads.push(c)
     }
@@ -50,24 +54,34 @@ export default function MessagesView() {
     updateChatThreads(theChatThreads)
   }
 
-  const listChats = chatThreads.map((m, index) => (
-    <li>
-      <button
-        type="button"
+  async function getLastMessage(cli) {
+    const messages = cli.listMessages()
+    const collection: ChatMessage[] = []
+    for await (const message of messages) {
+      collection.push(message)
+    }
+    return collection.at(-1)?.content?.message
+  }
+
+  const listChats = (cli) =>
+    chatThreads.map(async (m, index) => (
+      <div
+        className="p-3"
         onClick={() => {
           newChat(index)
         }}
-        className="c-btn-blue"
       >
-        {m.ChatName}
-      </button>
-    </li>
-  ))
+        <p className="text-light-white fw-bold m-0 fs-6">kef</p>
+        <p className="text-gray fs-8">(+1) 34567890987</p>
+        <p>{await getLastMessage(cli)}</p>
+        <p>{m.ChatName}</p>
+      </div>
+    ))
 
   async function getOtherUser(ctc: ChatThreadClient) {
     console.log('getting participants')
     try {
-      var participants = ctc.listParticipants()
+      let participants = ctc.listParticipants()
       for await (const participant of participants) {
         console.log(participant.displayName)
         if (participant.displayName !== globalState.user.id && participant.displayName !== undefined) {
@@ -87,25 +101,28 @@ export default function MessagesView() {
     //   <>
     //
     // )
+
     return (
       <>
-        <div className="container-fluid">
-          <div className="row">
-            <Panel padding={3} width="col-4" height="h-100" color="bg-bdg" shadow>
-              <h3 className="c-heading">Match chats</h3>
-              <ul id="chats">{listChats}</ul>
-            </Panel>
-            <div className="col-8 h-100">
-              <ChatBox chatTC={chatThreadClient}></ChatBox>
+        <h2 className="c-heading text-light-white">Matched</h2>
+        <div className="container-fluid h-100">
+          <Panel padding={3} height="h95" color="bg-bg" shadow>
+            <div className="row h-100">
+              <div className="col-3 h-100">
+                <>{listChats(chatThreadClient.ThreadCli)}</>
+              </div>
+              <div className="col-9 h-100">
+                <ChatBox chatTC={chatThreadClient}></ChatBox>
+              </div>
             </div>
-          </div>
+          </Panel>
         </div>
       </>
     )
   }
   return (
-    <><h1 className="pageTitle"> Your matches</h1>
-      <h3>No Matches made yet...</h3>
+    <><h1 className="pageTitle"> Your messages</h1>
+      <h3>No messages made yet...</h3>
     </>
   )
 }
