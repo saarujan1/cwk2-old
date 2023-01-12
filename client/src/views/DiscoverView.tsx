@@ -178,13 +178,15 @@ export default function DiscoverView() {
   if(feed.length !=0 && currentIndex != feed.length ){
   return (
     <>
+      <div className="p-3 col">
+        <h2 className="text-light-cream">Discover</h2>
+      </div>
       <div className="d-flex flex-column h-100 align-items-center">
-        <h1 className="pageTitle"> Discover</h1>
         <Panel height="h70" width="col-12" padding={3} className="d-flex justify-content-center">
-          <div className="card-container">
+         <div className="card-container col" style={{ width: '300px', height: '500px' }}>
             
               <TinderCard className="swipe" key={feed[currentIndex].username} onSwipe={(dir) => swiped(dir, feed[currentIndex].username)} onCardLeftScreen={() => (console.log("something leftscreen"))}>
-                <div className="card">
+                <div className={'card' + (index == characters.length - 1 ? ' front-card' : '')}>
                   <h3>{feed[currentIndex].id} - {feed[currentIndex].age}</h3>
                   <div className="attributes">
                     <p className="attribute-text"> {feed[currentIndex].email}</p>
