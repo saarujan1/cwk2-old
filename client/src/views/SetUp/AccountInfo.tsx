@@ -22,17 +22,17 @@ export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formPhone">
-        <Form.Label>Phone</Form.Label>
+        <label>Phone</label>
         <Form.Control onChange={(e) => setFormData({ ...formData, phone: e.target.value })} value={formData.phone} type="text" placeholder="Phone" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBio">
-        <Form.Label>Bio</Form.Label>
+        <label>Bio</label>
         <Form.Control onChange={(e) => setFormData({ ...formData, bio: e.target.value })} value={formData.bio} type="text" placeholder="Bio" as="textarea" rows={3} />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formHobbies">
-        <Form.Label>Hobbies - You can select up to 5</Form.Label>
+        <label>Hobbies - You can select up to 5</label>
         <CreatableSelect
           isMulti
           defaultValue={formData.hobbies.map((hobby) => ({value: hobby, label: hobby}))}

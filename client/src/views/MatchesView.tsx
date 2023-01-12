@@ -1,7 +1,8 @@
 export default function MatchesView() {
   return (
     <div>
-      <p>Your matches.</p>
+      <h1 className="pageTitle"> Matches</h1>
+      <h3> Change settings </h3>
     </div>
   )
 }

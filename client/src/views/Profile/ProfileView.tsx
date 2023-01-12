@@ -18,11 +18,11 @@ export default function ProfileView() {
 
   return (
     <div id="profile">
-
+      <h1 className="pageTitle"> Profile</h1>
       <div>
-        <h1>
+        <h2>
           {userData.user.id ? <>{userData.user.id}</> : <i>No Name</i>} <Favorite profile={userData.user} />
-        </h1>
+        </h2>
 
         {userData.user.bio && <p>{userData.user.bio}</p>}
 

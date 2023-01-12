@@ -80,6 +80,8 @@ export default function DiscoverView() {
 
   return (
     <>
+      <h1 className="pageTitle"> Discover</h1>
+      <h3> Who would you like to match with today? </h3>
       <div className="card-container">
         {characters.map((character, index) => (
           <TinderCard ref={childRefs[index]} className="swipe" key={character.name} onSwipe={(dir) => swiped(dir, character.name, index)} onCardLeftScreen={() => outOfFrame(character.name, index)}>

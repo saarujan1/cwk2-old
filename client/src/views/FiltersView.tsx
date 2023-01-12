@@ -52,6 +52,8 @@ export default function FiltersView() {
 
   return (
     <div>
+      <h1 className="Filters"> Discover</h1>
+      <h3> Set filters to see who you want. </h3>
       <ul id="filtersPage">{listFilters}</ul>
       <button type="button" onClick={tryUpdate} className="c-btn-blue">
         Submit
