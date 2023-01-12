@@ -11,6 +11,15 @@ import { MultiValue } from 'react-select/dist/declarations/src';
 
 export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
 
+  //I have to map between reactState which uses the OptionType Object and a Array of hobbies string[]
+
+  //Example of how the state looks like:
+  // const options = [
+  //   { value: 'chocolate', label: 'Chocolate' },
+  //   { value: 'strawberry', label: 'Strawberry' },
+  //   { value: 'vanilla', label: 'Vanilla' }
+  // ]
+
   const [selectedOptions, setSelectedOptions] = React.useState<MultiValue<OptionType>>(formData.hobbies.map((hobby) => ({value: hobby, label: hobby})));
 
   type OptionType = {
@@ -22,17 +31,17 @@ export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formPhone">
-        <label>Phone</label>
+        <Form.Label>Phone</Form.Label>
         <Form.Control onChange={(e) => setFormData({ ...formData, phone: e.target.value })} value={formData.phone} type="text" placeholder="Phone" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBio">
-        <label>Bio</label>
+        <Form.Label>Bio</Form.Label>
         <Form.Control onChange={(e) => setFormData({ ...formData, bio: e.target.value })} value={formData.bio} type="text" placeholder="Bio" as="textarea" rows={3} />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formHobbies">
-        <label>Hobbies - You can select up to 5</label>
+        <Form.Label>Hobbies - You can select up to 5</Form.Label>
         <CreatableSelect
           isMulti
           defaultValue={formData.hobbies.map((hobby) => ({value: hobby, label: hobby}))}

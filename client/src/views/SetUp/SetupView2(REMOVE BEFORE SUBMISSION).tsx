@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+//This is never used, it's just for refrence remove before submitting
 const OnBoarding = () => {
   const [formData, setFormData] = useState({
     first_name: '',

@@ -41,6 +41,7 @@ export interface FormDataProps extends FormProps {
 }
 
 export default function SetupView() {
+  //All the views link to this one Central State called formData which is all updated, clicking submit goes into trySubmit to use this state to make the API calls
 
   const [globalState] = useAppContext()
   const [page, setPage] = useState(0)
@@ -72,13 +73,24 @@ export default function SetupView() {
   }
 
   async function trySubmit(){
-    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/updateAccount?', {username: globalState.user.id ,password: globalState.password, phone: formData.phone, bio: formData.bio, hobbies: formData.hobbies}))
-    let resp = (await promise) as any
+    let promise1 = new Promise((resolve, reject) => getAzure(resolve, '/api/updateAccount?', {username: globalState.user.id ,password: globalState.password, phone: formData.phone, bio: formData.bio, hobbies: formData.hobbies}))
+    let resp1 = (await promise1) as any
+    //Testing commment below
+    //let resp1 = {"dummy":"data", "result" : false}
     
-    if(resp.result === false){
+    if(resp1.result === false){
       alert("Couldn't update account - Please check your information")
+      return false
     } else {
-      alert("form submitted")
+      let promise2 = new Promise((resolve, reject) => getAzure(resolve, '/api/updateFilters?', {username: globalState.user.id ,password: globalState.password, university: formData.university, course: formData.course, module: formData.modules, year: formData.year}))
+      let resp2 = (await promise2) as any
+
+      if(resp2.result === false){
+        alert("Couldn't update filters - Please check your filters")
+        return false
+      } else {
+        return true
+      }
     }
   }
 
@@ -96,11 +108,17 @@ export default function SetupView() {
         className ="mx-3" 
         disabled ={!formData.dataConfirmed && FormTitles.length - 1 === page}
         onClick={() => {
-          // if the current page is the last page, navigate to the /discover route
           if (page === FormTitles.length - 1) {
-            trySubmit()
-          } else {
             
+            trySubmit().then(result => {
+              if (result === true) {
+                // Do something if the function returns true
+                alert("Sucessfully updated your account information and filters")
+                navigate("/discover")
+              }
+            });
+
+          } else {
           setPage((currentPage) => currentPage + 1)
           }
         }}
