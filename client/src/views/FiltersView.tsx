@@ -1,6 +1,7 @@
 import { useAppContext } from '../store/UniContext'
 import { useState } from 'react'
 import { getAzure } from '../store/helpers'
+
 export default function FiltersView() {
   const [globalState, dispatch] = useAppContext()
   let initial = { ...globalState.filters }

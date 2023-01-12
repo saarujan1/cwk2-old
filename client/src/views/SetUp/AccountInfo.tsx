@@ -4,8 +4,6 @@ import { FormDataProps } from './SetupView'
 import React, { useState } from 'react'
 import { MultiValue } from 'react-select/dist/declarations/src';
 
-
-
 export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
 
   //I have to map between reactState which uses the OptionType Object and a Array of hobbies string[]
