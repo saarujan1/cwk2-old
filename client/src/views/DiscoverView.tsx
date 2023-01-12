@@ -69,12 +69,13 @@ export default function DiscoverView() {
         //getvalues
 
         for (const x of resp.ids) { 
-          let newDetails = await getUserDetails(x) ;
+          let newDetails = await getUserDetails(x);
+          console.log("Their details" + JSON.stringify(newDetails))
           temp.push(newDetails);
         }
         updateFeed(temp);
         
-        changeChildRefs(Array(resp.ids.length).fill(0).map((i) => React.createRef<any>()));
+        //changeChildRefs(Array(resp.ids.length).fill(0).map((i) => React.createRef<any>()));
       console.log("setting refs");
       }
     } catch (error) {
@@ -143,18 +144,19 @@ export default function DiscoverView() {
   }
   const swipe = async (dir) => {
     //if able to swipe
+    console.log("index:" +currentIndex.toString() + " when swiping")
     if (canSwipe && currentIndex < feed.length) {
       //if succeeds
       console.log(dir)
       if(dir == "left"){
-        console.log("rejecting " + feed[currentIndex]);
-        if(await rejectUser(feed[currentIndex])){//succesful rejection
-          await (childRefs as RefObject<any>[])[currentIndex].current.swipe(dir) // Swipe the card!
+        console.log("rejecting " + feed[currentIndex].id);
+        if(await rejectUser(feed[currentIndex].id)){//succesful rejection
+          //await (childRefs as RefObject<any>[])[currentIndex].current.swipe(dir) // Swipe the card!
           setCurrentIndex(currentIndex + 1)
         }
       }else{
-        if(await acceptUser(feed[currentIndex])){//succesful rejection
-          await (childRefs as RefObject<any>[])[currentIndex].current.swipe(dir) // Swipe the card!
+        if(await acceptUser(feed[currentIndex].id)){//succesful rejection
+          //await (childRefs as RefObject<any>[])[currentIndex].current.swipe(dir) // Swipe the card!
           setCurrentIndex(currentIndex + 1)
         }
       }
@@ -165,34 +167,33 @@ export default function DiscoverView() {
     }
   }
 
-  const outOfFrame = (name, idx) => {
+  /*const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
     // handle the case in which go back is pressed before card goes outOfFrame
     currentIndexRef.current >= idx && (childRefs as RefObject<any>[])[idx].current.restoreCard()
     // TODO: when quickly swipe and restore multiple times the same card,
     // it happens multiple outOfFrame events are queued and the card disappear
     // during latest swipes. Only the last outOfFrame event should be considered valid
-  }
-  if(feed!= undefined && childRefs !=undefined){
+  }*/
+  if(feed.length !=0 && currentIndex != feed.length ){
   return (
     <>
       <div className="d-flex flex-column h-100 align-items-center">
         <h1 className="pageTitle"> Discover</h1>
         <Panel height="h70" width="col-12" padding={3} className="d-flex justify-content-center">
           <div className="card-container">
-            {feed.map((character, index) => (
-              <TinderCard className="swipe" key={character.username} onSwipe={(dir) => swiped(dir, character.username)} onCardLeftScreen={() => (console.log("something leftscreen"))}>
+            
+              <TinderCard className="swipe" key={feed[currentIndex].username} onSwipe={(dir) => swiped(dir, feed[currentIndex].username)} onCardLeftScreen={() => (console.log("something leftscreen"))}>
                 <div className="card">
-                  <h3>{character.name}</h3>
+                  <h3>{feed[currentIndex].id} - {feed[currentIndex].age}</h3>
                   <div className="attributes">
-                    <p className="attribute-text"> {character.email}</p>
-                    <p className="attribute-text"> {character.bio}</p>
-                    <p className="attribute-text"> {character.hobbies}</p>
-                    <p className="attribute-text"> {character.age}</p>
+                    <p className="attribute-text"> {feed[currentIndex].email}</p>
+                    <p className="attribute-text"> {feed[currentIndex].bio}</p>
+                    <p className="attribute-text"> Hobbies:{feed[currentIndex].hobbies}</p>
                   </div>
                 </div>
               </TinderCard>
-            ))}
+            
           </div>
         </Panel>
         <Panel height="h30" width="col-12" padding={3} className="d-flex justify-content-center">
@@ -210,4 +211,6 @@ export default function DiscoverView() {
     )
   }
 }
+//{feed.map((character, index) => (
+  //))}
 //<img onClick={() => goBack()} role="button" src={undoIcon} alt={'Undo'} width="70" height="70" aria-label={'Undo'} />
