@@ -29,13 +29,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       globalState.valid = true
       validateHook()
     }
-    if(globalState.valid == true){
+    if (globalState.valid == true) {
       globalState.password = password
-      navigate("/setup")
+      navigate('/setup')
     } else {
-      const issueElement = document.getElementById("issue");
+      const issueElement = document.getElementById('issue')
       if (issueElement) {
-        issueElement.innerHTML = globalState.returnMessage;
+        issueElement.innerHTML = globalState.returnMessage
       }
     }
   }
@@ -46,12 +46,12 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       globalState.valid = true
       validateHook()
     }
-    if(globalState.valid == true){
-      navigate("/discover")
+    if (globalState.valid == true) {
+      navigate('/discover')
     }
   }
   const changeNested = (e) => {
-    var someProperty = { ...globalState.user }
+    let someProperty = { ...globalState.user }
     someProperty[e.target.name] = e.target.value
     dispatch({
       type: 'CHANGE',
@@ -117,7 +117,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       })
       return true
     } else {
-      const obj = JSON.parse(resp.message);
+      const obj = JSON.parse(resp.message)
       globalState.returnMessage = obj.message
       return false
     }
@@ -143,7 +143,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                 // value={globalState.user.email}
                 name="email"
                 required={true}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
               />
             </div>
           )}
@@ -159,7 +159,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                 // value={globalState.user.valid}
                 name="username"
                 required={true}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setUsername((e.target as HTMLInputElement).value)}
               />
             </div>
           </div>
@@ -175,7 +175,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                 // value={globalState.user.password}
                 name="password"
                 required={true}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                   id="password-check"
                   name="password-check"
                   required={true}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => setConfirmPassword((e.target as HTMLInputElement).value)}
                 />
               </div>
             </div>

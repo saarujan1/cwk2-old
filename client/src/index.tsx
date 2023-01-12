@@ -1,6 +1,6 @@
 import { createRef } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider, useLocation, useOutlet, Route} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useLocation, useOutlet, Route } from 'react-router-dom'
 import UniContext, { useAppContext } from './store/UniContext'
 
 // STYLESHEETS
@@ -71,11 +71,12 @@ const router = createBrowserRouter([
         index: route.path === '/',
         path: route.path === '/' ? undefined : route.path,
         element: route.element,
-      })), {
+      })),
+      {
         path: '/setup',
         element: <SetupView />,
       },
-    ], 
+    ],
   },
 ])
 // END OF REF2
@@ -99,18 +100,18 @@ function Redirect() {
   const { nodeRef } = routes.find((route) => route.path === location.pathname) ?? {}
 
   if (userData.valid === true) {
-      return (
-        <>
-          {
-            <div className="container-fluid bg-bdg">
-              <div className="row">
-                <Sidebar routes={routes}></Sidebar>
-                <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
-              </div>
+    return (
+      <>
+        {
+          <div className="container-fluid bg-bdg">
+            <div className="row">
+              <Sidebar routes={routes}></Sidebar>
+              <Content nodeRef={nodeRef} location={location} currentOutlet={currentOutlet}></Content>
             </div>
-          }
-        </>
-      )
+          </div>
+        }
+      </>
+    )
   } else {
     return <HomeView></HomeView>
   }
