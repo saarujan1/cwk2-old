@@ -29,7 +29,9 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       globalState.valid = true
       validateHook()
     }
-    navigate('/setup')
+    if(globalState.valid == true){
+      navigate("/setup")
+    }
   }
 
   //switch to home screen after succesf{globalState.user.email}ul login
@@ -38,7 +40,9 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       globalState.valid = true
       validateHook()
     }
-    navigate('/setup')
+    if(globalState.valid == true){
+      navigate("/discover")
+    }
   }
   const changeNested = (e) => {
     var someProperty = { ...globalState.user }
@@ -107,6 +111,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
           ['filters']: resp.filterInfo,
         },
       })
+      return true
     } else {
       return false
     }
