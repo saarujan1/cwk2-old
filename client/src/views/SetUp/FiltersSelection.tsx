@@ -65,45 +65,44 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
 
 
   return (
-
-
+    
     <Form>
-    <Form.Label>University</Form.Label>
-    <Form.Select onChange={(e) => {setFormData({ ...formData, university: e.target.value });
-    getCourses(e.target.value)
-    }} 
-    value={formData.university}>
-      <option> Choose a University...</option>
-      {uniList.map((currentUni,index)=> (
-        <option key = {index} value = {currentUni}>{currentUni}</option>
-      ))}
-    </Form.Select>
+      <label className="form-label">University</label>
+      <Form.Select onChange={(e) => {setFormData({ ...formData, university: e.target.value });
+      getCourses(e.target.value)
+      }} 
+      value={formData.university}>
+        <option> Choose a University...</option>
+        {uniList.map((currentUni,index)=> (
+          <option key = {index} value = {currentUni}>{currentUni}</option>
+        ))}
+      </Form.Select>
 
-    <Form.Label>Course</Form.Label>
-    <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course}></Form.Control>
-    <Form.Select onChange={(e) => {
-      setFormData({ ...formData, course: e.target.value })
-      getModules(formData.university,e.target.value)
-      }
-        } 
-      value={formData.course}>
-      <option> Choose a Course...</option>
-      {courseList.map((currentCourse,index) => (
-        <option key = {index} value = {currentCourse}>{currentCourse}</option>
-      ))}
-    </Form.Select>
+      <label className="form-label">Course</label>
+      <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course}></Form.Control>
+      <Form.Select onChange={(e) => {
+        setFormData({ ...formData, course: e.target.value })
+        getModules(formData.university,e.target.value)
+        }
+          } 
+        value={formData.course}>
+        <option> Choose a Course...</option>
+        {courseList.map((currentCourse,index) => (
+          <option key = {index} value = {currentCourse}>{currentCourse}</option>
+        ))}
+      </Form.Select>
 
-    <Form.Label>Module</Form.Label>
-    <CreatableSelect
-      isMulti
-      defaultValue={formData.modules.map((module) => ({value: module, label: module}))}
-      options={moduleList.map((module) => ({value: module, label: module}))}
+      <label className="form-label">Module</label>
+      <CreatableSelect
+        isMulti
+        defaultValue={formData.modules.map((module) => ({value: module, label: module}))}
+        options={moduleList.map((module) => ({value: module, label: module}))}
 
-      onChange={(o: MultiValue<OptionType>) => {
-            
-        setFormData({ ...formData, modules: o.map((item) => item.value) })
-      }}
-    />
+        onChange={(o: MultiValue<OptionType>) => {
+              
+          setFormData({ ...formData, modules: o.map((item) => item.value) })
+        }}
+      />
     </Form>
 
     

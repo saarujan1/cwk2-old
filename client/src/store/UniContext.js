@@ -5,6 +5,7 @@ import { User } from './User'
 const contextData = {
   error: '',
   valid: false,
+  returnMessage: '',
   test: '',
   user: new User(),
   filters: {

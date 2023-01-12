@@ -1,7 +1,8 @@
 export default function FiltersPanel() {
   return (
     <div>
-      <p>Settings.</p>
+      <h1 className="pageTitle"> Settings</h1>
+      <h3> Change settings </h3>
     </div>
   )
 }
