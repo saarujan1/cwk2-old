@@ -2,45 +2,43 @@ import Form from 'react-bootstrap/Form'
 import { FormDataProps } from './SetupView'
 import { getAzure } from '../../store/helpers'
 import React, { useState } from 'react'
-import CreatableSelect from 'react-select/creatable';
-import { MultiValue } from 'react-select/dist/declarations/src';
+import CreatableSelect from 'react-select/creatable'
+import { MultiValue } from 'react-select/dist/declarations/src'
 
 export default function InterestsSelection({ formData, setFormData }: FormDataProps) {
-
   const [uniList, setUniList] = useState([])
   const [courseList, setCourseList] = useState<string[]>([])
   const [moduleList, setModuleList] = useState<string[]>([])
 
   type OptionType = {
-    value: string;
-    label: string;
-  };
+    value: string
+    label: string
+  }
 
   //Refreshes the drop downs with new data, when you leave this view and go back to it
   React.useEffect(() => {
     setupSelects()
-    if(formData.university != ""){
+    if (formData.university != '') {
       getCourses(formData.university)
     }
-    if(formData.course != ""){
+    if (formData.course != '') {
       getModules(formData.university, formData.course)
     }
-  },[])
+  }, [])
 
-  async function setupSelects(){
-    setUniList( await getUniversities())
+  async function setupSelects() {
+    setUniList(await getUniversities())
   }
-
 
   //Calls to populate the dropdowns
   async function getUniversities() {
-    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getUniversities?', { text: "", n: 181 }))
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getUniversities?', { text: '', n: 181 }))
     let x = (await promise) as any
     return x.unis.sort()
   }
 
-  async function getCourses(university){
-    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getCourses?', {text: "", university: university, n: 20}))
+  async function getCourses(university) {
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getCourses?', { text: '', university: university, n: 20 }))
     let x = (await promise) as any
     setCourseList(x.courses)
 
@@ -49,8 +47,8 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
     //setCourseList(testArray)
   }
 
-  async function getModules(university, course){
-    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getModules?', {text: "", university: university, course: course, n: 20}))
+  async function getModules(university, course) {
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getModules?', { text: '', university: university, course: course, n: 20 }))
     let x = (await promise) as any
     setModuleList(x.modules)
 
@@ -60,55 +58,60 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   }
 
   return (
-
     <Form>
-    <Form.Label>University</Form.Label>
-    <Form.Select onChange={(e) => {setFormData({ ...formData, university: e.target.value });
-    getCourses(e.target.value)
-    }} 
-    value={formData.university}>
-      <option> Choose a University...</option>
-      {uniList.map((currentUni,index)=> (
-        <option key = {index} value = {currentUni}>{currentUni}</option>
-      ))}
-    </Form.Select>
+      <Form.Label>University</Form.Label>
+      <Form.Select
+        onChange={(e) => {
+          setFormData({ ...formData, university: e.target.value })
+          getCourses(e.target.value)
+        }}
+        value={formData.university}
+      >
+        <option> Choose a University...</option>
+        {uniList.map((currentUni, index) => (
+          <option key={index} value={currentUni}>
+            {currentUni}
+          </option>
+        ))}
+      </Form.Select>
 
-    <Form.Label>Course</Form.Label>
-    <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course}></Form.Control>
-    <Form.Select onChange={(e) => {
-      setFormData({ ...formData, course: e.target.value })
-      getModules(formData.university,e.target.value)
-      }
-        } 
-      value={formData.course}>
-      <option> Choose a Course...</option>
-      {courseList.map((currentCourse,index) => (
-        <option key = {index} value = {currentCourse}>{currentCourse}</option>
-      ))}
-    </Form.Select>
+      <Form.Label>Course</Form.Label>
+      <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course}></Form.Control>
+      <Form.Select
+        onChange={(e) => {
+          setFormData({ ...formData, course: e.target.value })
+          getModules(formData.university, e.target.value)
+        }}
+        value={formData.course}
+      >
+        <option> Choose a Course...</option>
+        {courseList.map((currentCourse, index) => (
+          <option key={index} value={currentCourse}>
+            {currentCourse}
+          </option>
+        ))}
+      </Form.Select>
 
-    <Form.Label>Module</Form.Label>
-    <CreatableSelect
-      isMulti
-      defaultValue={formData.modules.map((module) => ({value: module, label: module}))}
-      options={moduleList.map((module) => ({value: module, label: module}))}
+      <Form.Label>Module</Form.Label>
+      <CreatableSelect
+        isMulti
+        defaultValue={formData.modules.map((module) => ({ value: module, label: module }))}
+        options={moduleList.map((module) => ({ value: module, label: module }))}
+        onChange={(o: MultiValue<OptionType>) => {
+          setFormData({ ...formData, modules: o.map((item) => item.value) })
+        }}
+      />
 
-      onChange={(o: MultiValue<OptionType>) => {
-            
-        setFormData({ ...formData, modules: o.map((item) => item.value) })
-      }}
-    />
-
-    <Form.Label>Year</Form.Label>
-    <Form.Select onChange={(e) => setFormData({ ...formData, year: e.target.value })} value={formData.year}>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-    </Form.Select>
+      <Form.Label>Year</Form.Label>
+      <Form.Select onChange={(e) => setFormData({ ...formData, year: e.target.value })} value={formData.year}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      </Form.Select>
     </Form>
-  );
+  )
 }

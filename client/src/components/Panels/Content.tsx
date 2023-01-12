@@ -1,6 +1,6 @@
-import { CSSTransition, SwitchTransition } from "react-transition-group";
-import { Container } from "react-bootstrap";
-import Panel from "./Panel";
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
+import { Container } from 'react-bootstrap'
+import Panel from './Panel'
 
 export default function Content(props) {
   return (
@@ -12,7 +12,7 @@ export default function Content(props) {
       {/* .col-lg-auto based on width of content, breakpoint at large */}
       {/* .min-vh-100 min-height 100vw */}
       <Panel padding={4} width="col" height="vh-100" color="gradient">
-        {" "}
+        {' '}
         <SwitchTransition>
           <CSSTransition
             key={props.location.pathname}
@@ -23,10 +23,7 @@ export default function Content(props) {
             unmountOnExit
           >
             {() => (
-              <div
-                ref={props.nodeRef as React.RefObject<HTMLDivElement>}
-                className="page h-100"
-              >
+              <div ref={props.nodeRef as React.RefObject<HTMLDivElement>} className="page h-100">
                 {props.currentOutlet}
               </div>
             )}
@@ -35,7 +32,7 @@ export default function Content(props) {
       </Panel>
       {/* END OF REF1 */}
     </>
-  );
+  )
 }
 
 // REFERENCES

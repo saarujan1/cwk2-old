@@ -1,41 +1,41 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../store/UniContext";
-import { getAzure } from "../store/helpers";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../store/UniContext'
+import { getAzure } from '../store/helpers'
 
 interface AuthModalProps {
-  setShowModal: (status: boolean) => void;
-  isSignUp: boolean;
+  setShowModal: (status: boolean) => void
+  isSignUp: boolean
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
   //local consts
-  const [email, setEmail] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
-  const [password, setPassword] = useState<string | null>(null);
-  const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null)
+  const [username, setUsername] = useState<string | null>(null)
+  const [password, setPassword] = useState<string | null>(null)
+  const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
 
-  const [error, setError] = useState<string | null>(null);
-  const [globalState, dispatch] = useAppContext();
-  const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null)
+  const [globalState, dispatch] = useAppContext()
+  const navigate = useNavigate()
 
   const handleClick = () => {
-    setShowModal(false);
-  };
+    setShowModal(false)
+  }
 
   //switch to home screen after succesful register
   async function registerTransition() {
     if (await tryRegister()) {
-      globalState.valid = true;
-      validateHook();
+      globalState.valid = true
+      validateHook()
     }
     if (globalState.valid == true) {
-      globalState.password = password;
-      navigate("/setup");
+      globalState.password = password
+      navigate('/setup')
     } else {
-      const issueElement = document.getElementById("issue");
+      const issueElement = document.getElementById('issue')
       if (issueElement) {
-        issueElement.innerHTML = globalState.returnMessage;
+        issueElement.innerHTML = globalState.returnMessage
       }
     }
   }
@@ -43,100 +43,91 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
   //switch to home screen after succesf{globalState.user.email}ul login
   async function loginTransition() {
     if (await tryLogin()) {
-      globalState.valid = true;
-      validateHook();
+      globalState.valid = true
+      validateHook()
     }
     if (globalState.valid == true) {
-      navigate("/discover");
+      navigate('/discover')
     }
   }
   const changeNested = (e) => {
-    let someProperty = { ...globalState.user };
-    someProperty[e.target.name] = e.target.value;
+    let someProperty = { ...globalState.user }
+    someProperty[e.target.name] = e.target.value
     dispatch({
-      type: "CHANGE",
+      type: 'CHANGE',
       payload: {
-        ["user"]: someProperty,
+        ['user']: someProperty,
       },
-    });
-  };
+    })
+  }
   //change validate value
   const validateHook = () => {
     dispatch({
-      type: "CHANGE",
+      type: 'CHANGE',
       payload: {
-        ["valid"]: true,
+        ['valid']: true,
       },
-    });
-  };
+    })
+  }
 
   async function tryLogin() {
-    let path = "/api/login?";
-    let message = { username: username, password: password };
-    console.log(message);
-    let promise = new Promise((resolve, reject) =>
-      getAzure(resolve, path, message)
-    );
-    let resp = (await promise) as any;
+    let path = '/api/login?'
+    let message = { username: username, password: password }
+    console.log(message)
+    let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
+    let resp = (await promise) as any
 
     if (resp.result) {
       //set new user values
       dispatch({
-        type: "CHANGE",
+        type: 'CHANGE',
         payload: {
-          ["user"]: resp.accountData,
+          ['user']: resp.accountData,
         },
-      });
+      })
       dispatch({
-        type: "CHANGE",
+        type: 'CHANGE',
         payload: {
-          ["filters"]: resp.filterInfo,
+          ['filters']: resp.filterInfo,
         },
-      });
-      return true;
+      })
+      return true
     } else {
-      return false;
+      return false
     }
   }
   async function tryRegister() {
-    let path = "/api/register?";
-    let message = { username: username, password: password, email: email };
-    let promise = new Promise((resolve, reject) =>
-      getAzure(resolve, path, message)
-    );
-    let resp = (await promise) as any;
-    console.log(resp.result);
+    let path = '/api/register?'
+    let message = { username: username, password: password, email: email }
+    let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
+    let resp = (await promise) as any
+    console.log(resp.result)
     if (resp.result) {
       dispatch({
-        type: "CHANGE",
+        type: 'CHANGE',
         payload: {
-          ["user"]: resp.accountData,
+          ['user']: resp.accountData,
         },
-      });
+      })
       dispatch({
-        type: "CHANGE",
+        type: 'CHANGE',
         payload: {
-          ["filters"]: resp.filterInfo,
+          ['filters']: resp.filterInfo,
         },
-      });
-      return true;
+      })
+      return true
     } else {
-      const obj = JSON.parse(resp.message);
-      globalState.returnMessage = obj.message;
-      return false;
+      const obj = JSON.parse(resp.message)
+      globalState.returnMessage = obj.message
+      return false
     }
   }
 
   return (
     <div className="auth-modal">
       <div className="d-flex justify-content-between">
-        <h3 className="c-heading">{isSignUp ? "Sign up" : "Log in"}</h3>
-        <button
-          type="button"
-          className="btn-close bg-lw"
-          aria-label="Close"
-          onClick={handleClick}
-        ></button>
+        <h3 className="c-heading">{isSignUp ? 'Sign up' : 'Log in'}</h3>
+        <button type="button" className="btn-close bg-lw" aria-label="Close" onClick={handleClick}></button>
       </div>
       <div className="">
         <form className="auth-form">
@@ -168,9 +159,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                 // value={globalState.user.valid}
                 name="username"
                 required={true}
-                onChange={(e) =>
-                  setUsername((e.target as HTMLInputElement).value)
-                }
+                onChange={(e) => setUsername((e.target as HTMLInputElement).value)}
               />
             </div>
           </div>
@@ -186,9 +175,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                 // value={globalState.user.password}
                 name="password"
                 required={true}
-                onChange={(e) =>
-                  setPassword((e.target as HTMLInputElement).value)
-                }
+                onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
               />
             </div>
           </div>
@@ -205,9 +192,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                   id="password-check"
                   name="password-check"
                   required={true}
-                  onChange={(e) =>
-                    setConfirmPassword((e.target as HTMLInputElement).value)
-                  }
+                  onChange={(e) => setConfirmPassword((e.target as HTMLInputElement).value)}
                 />
               </div>
             </div>
@@ -218,8 +203,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                 className="c-btn-blue"
                 type="button"
                 onClick={() => {
-                  handleClick();
-                  registerTransition();
+                  handleClick()
+                  registerTransition()
                 }}
               >
                 Register
@@ -232,8 +217,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
                 className="c-btn-blue"
                 type="button"
                 onClick={() => {
-                  handleClick();
-                  loginTransition();
+                  handleClick()
+                  loginTransition()
                 }}
               >
                 Log in
@@ -245,7 +230,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AuthModal;
+export default AuthModal
