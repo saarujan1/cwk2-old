@@ -1,6 +1,7 @@
 //GLOBAL VARIABLES
 import { useReducer, useContext, createContext } from 'react'
 import { User } from './User'
+import { Filter } from './Filter'
 
 const contextData = {
   error: '',
@@ -8,9 +9,7 @@ const contextData = {
   returnMessage: '',
   test: '',
   user: new User(),
-  filters: {
-    id: '',
-  },
+  filters: new Filter(),
   password: '',
 }
 console.log('creating context')

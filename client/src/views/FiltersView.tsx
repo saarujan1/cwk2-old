@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { getAzure } from '../store/helpers'
 import Panel from '../components/Panels/Panel'
 import { isDataView } from 'util/types'
+import { Filter } from '../store/Filter'
 
 export default function FiltersView() {
   const [globalState, dispatch] = useAppContext()
@@ -19,6 +20,36 @@ export default function FiltersView() {
   }
 
   //map function to list
+  // const listFilters = () => {
+  //   const uniFilters: Filter[] = []
+  //   const studyFilters: Filter[] = []
+  //   const otherFilters: Filter[] = []
+  //   Object.keys(localFilters).map((m) => {
+  //     if (m.id == 'university' || m.id == 'course' || m.id == 'year') {
+  //       uniFilters.push(m)
+  //     } else if (m.id.includes('study')) {
+  //       studyFilters.push(m)
+  //     } else {
+  //       otherFilters.push(m)
+  //     }
+  //   })
+
+  //   return (
+  //     <>
+  //       <Panel padding={3} color="bg-bdg" square>
+  //         <Panel padding={3} color="bg-bdg" square>
+  //           <div>
+  //             <h4 className="text-light-cream">{m.split('_').join(' ')}</h4>
+  //             <input value={localFilters[m]} name={m} onChange={changeHook} className="form-input" />
+  //           </div>
+  //         </Panel>
+  //       </Panel>
+  //       <Panel padding={3} color="bg-bdg" square></Panel>
+  //       <Panel padding={3} color="bg-bdg" square></Panel>
+  //     </>
+  //   )
+  // }
+
   const listFilters = Object.keys(localFilters).map((m) => (
     <Panel padding={3} color="bg-bdg" square>
       <div>
@@ -55,7 +86,7 @@ export default function FiltersView() {
   return (
     <>
       <div className="p-3 col">
-        <h1 className="c-heading text-white">Filters</h1>
+        <h2 className="text-light-cream">Filters</h2>
       </div>
       <div className="row row-cols-3 p-3">
         {listFilters}
