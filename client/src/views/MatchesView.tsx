@@ -10,17 +10,11 @@ const MatchesView = () => {
   const [globalState] = useAppContext()
   // const userId = cookies.UserId;
 
-  const getMatches = async () => {
-      let path = '/api/lookupAccount?'
-      let message = { username: globalState.user.id}
-      console.log(message)
-      let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
-      let resp = (await promise) as any
-      setMatchedProfiles(resp.account.accepted);
-      setMatchedProfiles(resp.account.age);
-      }
-  console.log(matchedProfiles)
-  console.log(age)
+  async function getMatches() {
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/lookupAccount?', { text: '', n: 181 }))
+    let resp = (await promise) as any
+    setMatchedProfiles(resp.account.accepted)
+  }
 
   return (
     <div className="matches-display">
