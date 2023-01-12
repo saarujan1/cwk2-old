@@ -121,7 +121,7 @@ function Redirect() {
         </>
       )
   } else {
-    return <>{<SetupView></SetupView>}</>
+    return <HomeView></HomeView>
   }
 }
 

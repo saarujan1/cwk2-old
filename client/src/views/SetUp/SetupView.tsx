@@ -1,10 +1,8 @@
 import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import React, { useState } from 'react'
 import AccountInfo from './AccountInfo'
 import FiltersSelection from './FiltersSelection'
 import { useNavigate } from 'react-router-dom'
-import SetupView2 from './SetupView2'
 
 export interface FormProps {
   formData: {
@@ -70,7 +68,7 @@ export default function SetupView() {
         onClick={() => {
           setPage((currentPage) => currentPage + 1)
           // if the current page is the last page, navigate to the /discover route
-          if (page === 2) {
+          if (page === 1) {
             navigate('/discover') // idk if this works
           }
         }}
