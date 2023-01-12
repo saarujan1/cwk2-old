@@ -94,19 +94,20 @@ export default function DiscoverView() {
 
   return (
     <>
+      <div className="p-3 col">
+        <h2 className="text-light-cream">Discover</h2>
+      </div>
       <div className="d-flex flex-column h-100 align-items-center">
-        <h1 className="pageTitle"> Discover</h1>
         <Panel height="h70" width="col-12" padding={3} className="d-flex justify-content-center">
-          <div className="card-container">
+          <div className="card-container col" style={{ width: '300px', height: '500px' }}>
             {characters.map((character, index) => (
               <TinderCard className="swipe" key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
-                <div className="card">
-                  <h3>{character.name}</h3>
+                <div className={'card' + (index == characters.length - 1 ? ' front-card' : '')}>
+                  <h3>{character.name}, </h3> {character.age}
                   <div className="attributes">
                     <p className="attribute-text"> {character.email}</p>
                     <p className="attribute-text"> {character.bio}</p>
                     <p className="attribute-text"> {character.hobbies}</p>
-                    <p className="attribute-text"> {character.age}</p>
                   </div>
                 </div>
               </TinderCard>
