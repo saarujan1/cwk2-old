@@ -5,6 +5,7 @@ import Panel from '../../components/Panels/Panel'
 
 export default function ProfileView() {
   const [userData, updateUserDat] = useAppContext()
+  console.log("globalState according to profile:" + JSON.stringify(userData))
 
   const confirmDeletion = useCallback((event) => {
     if (!window.confirm('Please confirm you want to delete this record.')) {

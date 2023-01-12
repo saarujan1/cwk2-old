@@ -14,11 +14,12 @@ export interface FormProps {
     bio: string
     hobbies: string[]
 
-    university: string
-    course: string
-    year: string
-    modules: string[]
-
+    university: string,
+    course: string,
+    year: string,
+    modules: string[],
+    language: string
+    
     dataConfirmed: boolean
   }
 }
@@ -32,7 +33,8 @@ export interface CompleteFormState {
   course: string
   year: string
   modules: string[]
-  dataConfirmed: boolean
+  language: string
+  dataConfirmed : boolean
 }
 
 export interface FormDataProps extends FormProps {
@@ -51,7 +53,8 @@ export default function SetupView() {
     course: '',
     year: '',
     modules: [],
-    dataConfirmed: false,
+    language:'',
+    dataConfirmed: false
   })
   const FormTitles = ['AccountInfo', 'FiltersSelection', 'ConfirmPage']
 

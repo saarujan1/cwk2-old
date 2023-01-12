@@ -121,9 +121,8 @@ export default function MessagesView() {
     )
   }
   return (
-    <>
-      <h1 className="pageTitle"> Your matches</h1>
-      <h3>No Matches made yet...</h3>
+    <><h1 className="pageTitle"> Your messages</h1>
+      <h3>No messages made yet...</h3>
     </>
   )
 }
