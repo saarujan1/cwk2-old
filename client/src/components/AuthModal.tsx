@@ -76,21 +76,25 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
     console.log(message)
     let promise = new Promise((resolve, reject) => getAzure(resolve, path, message))
     let resp = (await promise) as any
-
+    console.log("global state before"+JSON.stringify(globalState))
     if (resp.result) {
       //set new user values
+      console.log("dispatching new values")
       dispatch({
         type: 'CHANGE',
         payload: {
           ['user']: resp.accountData,
-        },
+        }
       })
       dispatch({
         type: 'CHANGE',
         payload: {
           ['filters']: resp.filterInfo,
-        },
+        }
       })
+      console.log("The filter info: "+JSON.stringify(resp.filterInfo))
+      console.log("The account info: "+JSON.stringify(resp.accountData))
+      console.log("The filter info according to globalState in login: " + JSON.stringify(globalState.filters) )
       return true
     } else {
       return false

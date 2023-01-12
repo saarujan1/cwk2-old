@@ -10,6 +10,7 @@ export class User {
   hobbies: []
   accepted: []
   rejected: []
+  matched: []
   communicationID: string
 
   constructor() {
@@ -24,6 +25,8 @@ export class User {
     this.hobbies = []
     this.accepted = []
     this.rejected = []
+    this.matched = []
     this.communicationID = ''
   }
+  
 }

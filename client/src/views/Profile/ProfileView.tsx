@@ -6,6 +6,7 @@ import { useAppContext } from '../../store/UniContext'
 // REF1: https://reactrouter.com/en/main/start/tutorial#the-root-route
 export default function ProfileView() {
   const [userData, updateUserDat] = useAppContext()
+  console.log("globalState according to profile:" + JSON.stringify(userData))
 
 
   const confirmDeletion = useCallback((event) => {

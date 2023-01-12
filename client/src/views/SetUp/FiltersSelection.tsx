@@ -115,6 +115,23 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
       <option value="6">6</option>
       <option value="7">7</option>
     </Form.Select>
+
+
+    <Form.Label>Language</Form.Label>
+    <Form.Select onChange={(e) => setFormData({ ...formData, language: e.target.value })} value={formData.year}>
+      <option value="English">English</option>
+      <option value="French">French</option>
+      <option value="Chinese">Chinese</option>
+      <option value="German">German</option>
+      <option value="Hindi">Hindi</option>
+      <option value="Spanish">Spanish</option>
+      <option value="Arabic">Arabic</option>
+      <option value="Portugese">Portugese</option>
+      <option value="Russian">Russian</option>
+      <option value="Greek">Greek</option>
+      <option value="Japanese">Japanese</option>
+      <option value="Italian">Italian</option>
+    </Form.Select>
     </Form>
 
     
