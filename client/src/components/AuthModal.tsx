@@ -30,6 +30,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       validateHook()
     }
     if(globalState.valid == true){
+      globalState.password = password
       navigate("/setup")
     }
   }

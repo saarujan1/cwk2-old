@@ -10,6 +10,7 @@ const contextData = {
   filters: {
     id: '',
   },
+  password: ''
 }
 console.log('creating context')
 const AppContext = createContext(contextData)

@@ -3,6 +3,10 @@ import React, { useState } from 'react'
 import AccountInfo from './AccountInfo'
 import FiltersSelection from './FiltersSelection'
 import { useNavigate } from 'react-router-dom'
+import ConfirmPage from './ConfirmPage'
+import { useAppContext } from '../../store/UniContext'
+
+import { getAzure } from '../../store/helpers'
 
 export interface FormProps {
   formData: {
@@ -13,7 +17,10 @@ export interface FormProps {
     university: string,
     course: string,
     year: string,
-    modules: string[]
+    modules: string[],
+
+    dataConfirmed: boolean
+    
   }
 }
 
@@ -25,7 +32,8 @@ export interface CompleteFormState {
   university: string
   course: string
   year: string
-  modules: string[];
+  modules: string[]
+  dataConfirmed : boolean
 }
 
 export interface FormDataProps extends FormProps {
@@ -33,6 +41,8 @@ export interface FormDataProps extends FormProps {
 }
 
 export default function SetupView() {
+
+  const [globalState] = useAppContext()
   const [page, setPage] = useState(0)
   const [formData, setFormData] = useState<CompleteFormState>({
     phone: '',
@@ -42,9 +52,10 @@ export default function SetupView() {
     university: '',
     course: '',
     year: '',
-    modules: []
+    modules: [],
+    dataConfirmed: false
   })
-  const FormTitles = ['AccountInfo', 'FiltersSelection', 'Confirm']
+  const FormTitles = ['AccountInfo', 'FiltersSelection', 'ConfirmPage']
 
   // use the useNavigate hook to get access to the navigate function
   const navigate = useNavigate()
@@ -55,25 +66,46 @@ export default function SetupView() {
         return <AccountInfo formData={formData} setFormData={setFormData} />
       case 1:
         return <FiltersSelection formData={formData} setFormData={setFormData} />
+      case 2:
+        return <ConfirmPage formData={formData} setFormData={setFormData} />
+    }
+  }
+
+  async function trySubmit(){
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/updateAccount?', {username: globalState.user.id ,password: globalState.password, phone: formData.phone, bio: formData.bio, hobbies: formData.hobbies}))
+    let resp = (await promise) as any
+    
+    if(resp.result === false){
+      alert("Couldn't update account - Please check your information")
+    } else {
+      alert("form submitted")
     }
   }
 
   return (
+    
     <div>
       {formDisplay()}
-      <Button disabled={page === 0} onClick={() => setPage((currentPage) => currentPage - 1)}>
-        Prev
+      <Button
+      className ="mx-3" 
+      disabled={page === 0} onClick={() => setPage((currentPage) => currentPage - 1)}
+      >
+        Back
       </Button>
       <Button
+        className ="mx-3" 
+        disabled ={!formData.dataConfirmed && FormTitles.length - 1 === page}
         onClick={() => {
-          setPage((currentPage) => currentPage + 1)
           // if the current page is the last page, navigate to the /discover route
-          if (page === 1) {
-            navigate('/discover') // idk if this works
+          if (page === FormTitles.length - 1) {
+            trySubmit()
+          } else {
+            
+          setPage((currentPage) => currentPage + 1)
           }
         }}
       >
-        Next
+        {page === FormTitles.length - 1 ? "Submit" : "Next"}
       </Button>
     </div>
   )
