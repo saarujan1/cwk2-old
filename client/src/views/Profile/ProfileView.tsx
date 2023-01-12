@@ -7,7 +7,6 @@ import { useAppContext } from '../../store/UniContext'
 export default function ProfileView() {
   const [userData, updateUserDat] = useAppContext()
 
-  const avatar = 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1061&q=80'
 
   const confirmDeletion = useCallback((event) => {
     if (!window.confirm('Please confirm you want to delete this record.')) {
@@ -19,9 +18,6 @@ export default function ProfileView() {
 
   return (
     <div id="profile">
-      <div>
-        <img key={avatar} src={avatar || undefined} alt="" />
-      </div>
 
       <div>
         <h1>

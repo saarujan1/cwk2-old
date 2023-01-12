@@ -1,5 +1,4 @@
 import AuthModal from '../components/AuthModal'
-import SignInView from './SetUp/SignInView'
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 

@@ -31,6 +31,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
     }
     if(globalState.valid == true){
       navigate("/setup")
+    } else {
+      const issueElement = document.getElementById("issue");
+      if (issueElement) {
+        issueElement.innerHTML = globalState.returnMessage;
+      }
     }
   }
 
@@ -97,14 +102,12 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
     let resp = (await promise) as any
     console.log(resp.result)
     if (resp.result) {
-      //pushes context changes to other components basically
       dispatch({
         type: 'CHANGE',
         payload: {
           ['user']: resp.accountData,
         },
       })
-      //pushes context changes to other components basically
       dispatch({
         type: 'CHANGE',
         payload: {
@@ -113,6 +116,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       })
       return true
     } else {
+      const obj = JSON.parse(resp.message);
+      globalState.returnMessage = obj.message
       return false
     }
   }
@@ -203,6 +208,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
               >
                 Register
               </button>
+              <p id="issue"></p>
             </div>
           ) : (
             <div className="mt-3">
@@ -216,6 +222,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
               >
                 Log in
               </button>
+              <p id="issue"></p>
             </div>
           )}
           {error && <p className="error">{error}</p>}
