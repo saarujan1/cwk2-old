@@ -1,8 +1,5 @@
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import CreatableSelect from 'react-select/creatable';
-import Select from 'react-select'
-
 import { FormDataProps } from './SetupView'
 import React, { useState } from 'react'
 import { MultiValue } from 'react-select/dist/declarations/src';

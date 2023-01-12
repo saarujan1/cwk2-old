@@ -1,4 +1,4 @@
-import AuthModal from '../components/AuthModal'
+import AuthModal from '../components/Auth'
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 
@@ -31,8 +31,6 @@ export default function Home() {
     setShowModal(true)
     setIsSignUp(false)
   }
-
-  const openModal = () => {}
 
   return (
     <div className="container-fluid bg-bg w-100 home-backgroundImg p-0 overflow-hidden">

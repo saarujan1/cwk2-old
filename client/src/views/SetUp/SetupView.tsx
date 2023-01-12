@@ -41,7 +41,6 @@ export interface FormDataProps extends FormProps {
 }
 
 export default function SetupView() {
-  //All the views link to this one Central State called formData which is all updated, clicking submit goes into trySubmit to use this state to make the API calls
 
   const [globalState] = useAppContext()
   const [page, setPage] = useState(0)

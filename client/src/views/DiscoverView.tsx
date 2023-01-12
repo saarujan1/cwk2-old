@@ -1,20 +1,19 @@
-import React, {useEffect, useState, createRef, useRef, useMemo } from 'react'
+import {useEffect, useState, useRef} from 'react'
 import TinderCard from 'react-tinder-card'
 import { useAppContext } from '../store/UniContext'
 import { getAzure } from '../store/helpers'
 
 const rejectIcon = require('../assets/icons/reject.svg').default as string
-const undoIcon = require('../assets/icons/undo.svg').default as string
 const acceptIcon = require('../assets/icons/accept.svg').default as string
 
 const characters = [
   {
     name: 'Cristiano Ronaldo',
-    email:'',
-    phone: '',
-    bio: '',
-    hobbies: '',
-    age: '',
+    email:'test@gmail.com',
+    phone: '0123456789',
+    bio: 'Man Utd Footballer',
+    hobbies: 'Dancing',
+    age: '37',
   },
   {
     name: 'Lionel Messi',
@@ -27,6 +26,11 @@ const characters = [
   },
   {
     name: 'Harry Maguire',
+    email:'test12@gmail.com',
+    phone: '775234234234',
+    bio: 'Ex Footballer',
+    hobbies: 'Singing',
+    age: '28',
   },
 ]
 
@@ -36,15 +40,6 @@ export default function DiscoverView() {
   const [globalState, dispatch] = useAppContext()
   const [user, setUser] = useState(null)
   const [lastDirection, setLastDirection] = useState()
-
-
-  /**
-   * TO DO FOR DISCOVER VIEW:
-   * RIGHT SWIPE --> acceptUsers
-   * LEFT SWIPE --> rejectedUsers
-   * Get rid of Go Back
-   * Accepted users to show on Matches page
-   */
 
   const getUser = async () => {
     try {
@@ -62,25 +57,9 @@ export default function DiscoverView() {
     getUser()
   }, [])
 
-  // console.log('user', user)
-
-  const childRefs = useMemo(
-    () =>
-      Array(characters.length)
-        .fill(0)
-        .map((i) => React.createRef<any>()),
-    []
-  )
-
-  const updateCurrentIndex = (val) => {
-    setCurrentIndex(val)
-    currentIndexRef.current = val
-  }
-
-  const canGoBack = currentIndex < characters.length - 1
-  const canSwipe = currentIndex >= 0
-
   const updateMatches = async (matchedUserId) => {
+
+    console.log(matchedUserId)
     try {
       let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/updateAccount?', {username: globalState.user.id, password: globalState.password}))
       let resp = (await promise) as any
@@ -92,35 +71,15 @@ export default function DiscoverView() {
       }
   }
 
-  console.log(user)
+  // console.log(user)
 
-  const swiped = (direction, nameToDelete, swipedUserId) => {
+  const swiped = (direction, swipedUserId) => {
     if (direction === 'right') {
          updateMatches(swipedUserId)
     }
-     setLastDirection(direction)
 }
-  const swipe = async (dir) => {
-    if (canSwipe && currentIndex < characters.length) {
-      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
-    }
-  }
-
-  // increase current index and show card
-  const goBack = async () => {
-    if (!canGoBack) return
-    const newIndex = currentIndex + 1
-    updateCurrentIndex(newIndex)
-    await childRefs[newIndex].current.restoreCard()
-  }
-
-  const outOfFrame = (name, idx) => {
-    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
-    // handle the case in which go back is pressed before card goes outOfFrame
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
-    // TODO: when quickly swipe and restore multiple times the same card,
-    // it happens multiple outOfFrame events are queued and the card disappear
-    // during latest swipes. Only the last outOfFrame event should be considered valid
+  const outOfFrame = (name) => {
+    console.log(name + ' left the screen!')
   }
 
   return (
@@ -129,17 +88,22 @@ export default function DiscoverView() {
       <h3> Who would you like to match with today? </h3>
       <div className="card-container">
         {characters.map((character, index) => (
-          <TinderCard ref={childRefs[index]} className="swipe" key={character.name} onSwipe={(dir) => swiped(dir, character.name, index)} onCardLeftScreen={() => outOfFrame(character.name, index)}>
+          <TinderCard className="swipe" key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
             <div className="card">
-              <h3 className="">{character.name}</h3>
+              <h3>{character.name}</h3>
+              <div className = "attributes">
+                <p className="attribute-text"> {character.email}</p>
+                <p className="attribute-text"> {character.bio}</p>
+                <p className="attribute-text"> {character.hobbies}</p>
+                <p className="attribute-text"> {character.age}</p>
+              </div>
             </div>
           </TinderCard>
         ))}
       </div>
       <div className="buttons">
-        <img onClick={() => swipe('left')} role="button" src={rejectIcon} alt={'Reject'} width="70" height="70" aria-label={'Reject'} />
-        <img onClick={() => goBack()} role="button" src={undoIcon} alt={'Undo'} width="70" height="70" aria-label={'Undo'} />
-        <img onClick={() => swipe('right')} role="button" src={acceptIcon} alt={'Accept'} width="70" height="70" aria-label={'Accept'} />
+        <img onClick={() => swiped('left', "Cristiano Ronaldo")} role="button" src={rejectIcon} alt={'Reject'} width="70" height="70" aria-label={'Reject'} />
+        <img onClick={() => swiped('right', "Harry Maguire")} role="button" src={acceptIcon} alt={'Accept'} width="70" height="70" aria-label={'Accept'} />
       </div>
     </>
   )

@@ -4,8 +4,6 @@ import { FormDataProps } from './SetupView'
 export default function ConfirmPage({ formData, setFormData }: FormDataProps) {
 
 return (
-
-
     <Form>
         <Form.Group controlId="formFile">
             <Form.Check
@@ -15,11 +13,8 @@ return (
                 label="Is all the information you just entered correct?"
             
             />
-
         </Form.Group>
     </Form>
 
 );
-
-
 }

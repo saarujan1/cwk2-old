@@ -42,8 +42,8 @@
 
 .card-container {
   width: 90vw;
-  max-width: 260px;
-  height: 300px;
+  max-width: 400px;
+  height: 500px;
   border: 0 25px 0 0;
 }
 
@@ -51,12 +51,13 @@
   position: relative;
   background-color: #fff;
   width: 80vw;
-  max-width: 260px;
-  height: 300px;
+  max-width: 350px;
+  height: 450px;
   border-radius: 20px;
   background-size: cover;
   background-position: center;
 }
+
 
 .cardContent {
   width: 100%;
@@ -64,10 +65,14 @@
 }
 
 .card h3 {
-  position: absolute;
+  position: relative;
   bottom: 0;
   margin: 10px;
-  color: #fff;
+  color: rgb(0, 0, 0);
+}
+
+.attributes {
+  padding: 0px 0px 0px 15px;
 }
 
 /* -------------- ⌄BUTTONS⌄ -------------- */

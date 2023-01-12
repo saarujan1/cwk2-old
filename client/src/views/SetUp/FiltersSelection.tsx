@@ -1,8 +1,6 @@
 import Form from 'react-bootstrap/Form'
 import { FormDataProps } from './SetupView'
-
 import { getAzure } from '../../store/helpers'
-import { Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { MultiValue } from 'react-select/dist/declarations/src';
@@ -12,8 +10,6 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   const [uniList, setUniList] = useState([])
   const [courseList, setCourseList] = useState<string[]>([])
   const [moduleList, setModuleList] = useState<string[]>([])
-
-
 
   type OptionType = {
     value: string;
@@ -63,9 +59,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
     //setModuleList(testArray)
   }
 
-
   return (
-
 
     <Form>
     <Form.Label>University</Form.Label>
@@ -116,9 +110,5 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
       <option value="7">7</option>
     </Form.Select>
     </Form>
-
-    
-
-
   );
 }
