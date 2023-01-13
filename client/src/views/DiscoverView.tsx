@@ -12,11 +12,12 @@ const acceptIcon = require('../assets/icons/accept.svg').default as string
 export default function DiscoverView() {
   const [globalState, dispatch] = useAppContext()
   let x: any[] = []
+  const [reRender,updateRender] = useState(false);
   const [feed, updateFeed] = useState(x)
   const [currentIndex, setCurrentIndex] = useState(0)
   const currentIndexRef = useRef(currentIndex)
   const [childRefs, changeChildRefs] = useState<RefObject<any>[]>()
-
+  
   async function acceptUser(TheirId) {
     let message = { id: globalState.user.id, accepted_id: TheirId }
     console.log('accepting with message:' + JSON.stringify(message))
@@ -71,9 +72,6 @@ export default function DiscoverView() {
           temp.push(newDetails)
         }
         updateFeed(temp)
-
-        //changeChildRefs(Array(resp.ids.length).fill(0).map((i) => React.createRef<any>()));
-        console.log('setting refs')
       }
     } catch (error) {
       console.log(error)
@@ -83,15 +81,18 @@ export default function DiscoverView() {
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/lookupAccount?', { id: userId }))
     let resp = (await promise) as any
 
-    return resp.account
+    return {account:resp.account, filters:resp.filters}
   }
 
   useEffect(() => {
-    //update Self
-
+    //jankycode to reRender
+    if(!reRender){
+      updateRender(true)
+    }
+    
     //getFeed
     getFiveUsers()
-  }, [])
+  }, [reRender])
 
   // console.log('user', user)
   /*const childRefs = useMemo(
@@ -142,14 +143,14 @@ export default function DiscoverView() {
       //if succeeds
       console.log(dir)
       if (dir == 'left') {
-        console.log('rejecting ' + feed[currentIndex].id)
-        if (await rejectUser(feed[currentIndex].id)) {
+        console.log('rejecting ' + feed[currentIndex].account.id)
+        if (await rejectUser(feed[currentIndex].account.id)) {
           //succesful rejection
           //await (childRefs as RefObject<any>[])[currentIndex].current.swipe(dir) // Swipe the card!
           setCurrentIndex(currentIndex + 1)
         }
       } else {
-        if (await acceptUser(feed[currentIndex].id)) {
+        if (await acceptUser(feed[currentIndex].account.id)) {
           //succesful rejection
           //await (childRefs as RefObject<any>[])[currentIndex].current.swipe(dir) // Swipe the card!
           setCurrentIndex(currentIndex + 1)
@@ -179,15 +180,20 @@ export default function DiscoverView() {
         <div className="d-flex flex-column h-100 align-items-center">
           <Panel height="h70" width="col-12" padding={3} className="d-flex justify-content-center">
             <div className="card-container col" style={{ width: '300px', height: '500px' }}>
-              <TinderCard className="swipe" key={feed[currentIndex].username} onSwipe={(dir) => swiped(dir, feed[currentIndex].username)} onCardLeftScreen={() => console.log('something leftscreen')}>
+              <TinderCard className="swipe" key={feed[currentIndex].account.id} onSwipe={(dir) => swiped(dir, feed[currentIndex].account.id)} onCardLeftScreen={() => console.log('something leftscreen')}>
                 <div className={'card' + (currentIndex == feed.length - 1 ? ' front-card' : '')}>
                   <h3>
-                    {feed[currentIndex].id} - {feed[currentIndex].age}
+                    {feed[currentIndex].account.id} - {feed[currentIndex].account.age}
                   </h3>
+                  <h4>
+                    {feed[currentIndex].filters.university}
+                  </h4>
+                  <h5>
+                    {feed[currentIndex].filters.course}
+                  </h5>
                   <div className="attributes">
-                    <p className="attribute-text"> {feed[currentIndex].email}</p>
-                    <p className="attribute-text"> {feed[currentIndex].bio}</p>
-                    <p className="attribute-text"> Hobbies:{feed[currentIndex].hobbies}</p>
+                    <p className="attribute-text">Bio: {feed[currentIndex].account.bio}</p>
+                    <p className="attribute-text">Hobbies: {feed[currentIndex].account.hobbies}</p>
                   </div>
                 </div>
               </TinderCard>

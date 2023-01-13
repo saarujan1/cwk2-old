@@ -5,6 +5,7 @@ import FiltersSelection from './FiltersSelection'
 import { useNavigate } from 'react-router-dom'
 import ConfirmPage from './ConfirmPage'
 import { useAppContext } from '../../store/UniContext'
+import Stack from 'react-bootstrap/Stack';
 
 import { getAzure } from '../../store/helpers'
 
@@ -12,6 +13,7 @@ export interface FormProps {
   formData: {
     phone: string
     bio: string
+    age: string
     hobbies: string[]
 
     university: string,
@@ -27,6 +29,7 @@ export interface FormProps {
 export interface CompleteFormState {
   phone: string
   bio: string
+  age: string
   hobbies: string[]
 
   university: string
@@ -47,6 +50,7 @@ export default function SetupView() {
   const [formData, setFormData] = useState<CompleteFormState>({
     phone: '',
     bio: '',
+    age: '',
     hobbies: [],
 
     university: '',
@@ -73,7 +77,7 @@ export default function SetupView() {
   }
 
   async function trySubmit() {
-    let promise1 = new Promise((resolve, reject) => getAzure(resolve, '/api/updateAccount?', { username: globalState.user.id, password: globalState.password, phone: formData.phone, bio: formData.bio, hobbies: formData.hobbies }))
+    let promise1 = new Promise((resolve, reject) => getAzure(resolve, '/api/updateAccount?', { username: globalState.user.id, password: globalState.password, phone: formData.phone, age: formData.age, bio: formData.bio, hobbies: formData.hobbies }))
     let resp1 = (await promise1) as any
     //Testing commment below
     //let resp1 = {"dummy":"data", "result" : false}
@@ -82,7 +86,7 @@ export default function SetupView() {
       alert("Couldn't update account - Please check your information")
       return false
     } else {
-      let promise2 = new Promise((resolve, reject) => getAzure(resolve, '/api/updateFilters?', { username: globalState.user.id, password: globalState.password, university: formData.university, course: formData.course, module: formData.modules, year: formData.year }))
+      let promise2 = new Promise((resolve, reject) => getAzure(resolve, '/api/updateFilters?', { username: globalState.user.id, password: globalState.password, university: formData.university, course: formData.course, modules: formData.modules, year: formData.year, language: formData.language }))
       let resp2 = (await promise2) as any
 
       if (resp2.result === false) {
@@ -96,8 +100,10 @@ export default function SetupView() {
 
   return (
     <div>
+    <Stack gap={3} className="setup-view-stack">
       {formDisplay()}
-      <Button className="mx-3" disabled={page === 0} onClick={() => setPage((currentPage) => currentPage - 1)}>
+      <div>
+      <Button className="mx-3 setup-view-buttons" disabled={page === 0} onClick={() => setPage((currentPage) => currentPage - 1)}>
         Back
       </Button>
       <Button
@@ -119,6 +125,8 @@ export default function SetupView() {
       >
         {page === FormTitles.length - 1 ? 'Submit' : 'Next'}
       </Button>
+      </div>
+      </Stack>
     </div>
   )
 }

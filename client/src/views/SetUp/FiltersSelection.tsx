@@ -18,10 +18,10 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   //Refreshes the drop downs with new data, when you leave this view and go back to it
   React.useEffect(() => {
     setupSelects()
-    if (formData.university != '') {
+    if (formData.university !== '') {
       getCourses(formData.university)
     }
-    if (formData.course != '') {
+    if (formData.course !== '') {
       getModules(formData.university, formData.course)
     }
   }, [])
@@ -40,7 +40,8 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   async function getCourses(university) {
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getCourses?', { text: '', university: university, n: 20 }))
     let x = (await promise) as any
-    setCourseList(x.courses)
+    setCourseList(x.courses.map(course => course.name))
+    setModuleList([])
 
     //uncomment below and comment out above for testing
     //const testArray = ["Math","Computer Science","Biology"]
@@ -50,7 +51,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   async function getModules(university, course) {
     let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getModules?', { text: '', university: university, course: course, n: 20 }))
     let x = (await promise) as any
-    setModuleList(x.modules)
+    setModuleList(x.modules.map(module => module.name))
 
     //uncomment below and comment out above for testing
     //const testArray = ["COMP221","COMP22","COMP3311"]
@@ -59,7 +60,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
 
   return (
     <Form>
-      <Form.Label>University</Form.Label>
+      <Form.Label className="setup-view-label">University</Form.Label>
       <Form.Select
         onChange={(e) => {
           setFormData({ ...formData, university: e.target.value })
@@ -75,8 +76,8 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         ))}
       </Form.Select>
 
-      <Form.Label>Course</Form.Label>
-      <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course}></Form.Control>
+      <Form.Label className="setup-view-label">Course</Form.Label>
+      <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course} placeholder="Enter New Course"></Form.Control>
       <Form.Select
         onChange={(e) => {
           setFormData({ ...formData, course: e.target.value })
@@ -84,7 +85,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         }}
         value={formData.course}
       >
-        <option> Choose a Course...</option>
+        <option>Or Choose An Existing Course...</option>
         {courseList.map((currentCourse, index) => (
           <option key={index} value={currentCourse}>
             {currentCourse}
@@ -92,7 +93,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         ))}
       </Form.Select>
 
-      <Form.Label>Module</Form.Label>
+      <Form.Label className="setup-view-label">Module</Form.Label>
       <CreatableSelect
         isMulti
         defaultValue={formData.modules.map((module) => ({ value: module, label: module }))}
@@ -102,8 +103,9 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         }}
       />
 
-      <Form.Label>Year</Form.Label>
+      <Form.Label className="setup-view-label">Year</Form.Label>
       <Form.Select onChange={(e) => setFormData({ ...formData, year: e.target.value })} value={formData.year}>
+        <option> Choose a Year...</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -112,8 +114,10 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         <option value="6">6</option>
         <option value="7">7</option>
       </Form.Select>
-      <Form.Label>Language</Form.Label>
+      
+      <Form.Label className="setup-view-label">Language</Form.Label>
     <Form.Select onChange={(e) => setFormData({ ...formData, language: e.target.value })} value={formData.language}>
+    <option> Choose a Language...</option>
       <option value="English">English</option>
       <option value="French">French</option>
       <option value="Chinese">Chinese</option>
