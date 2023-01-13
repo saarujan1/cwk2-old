@@ -6,13 +6,7 @@ export default function Content(props) {
   return (
     <>
       {/* REF1 */}
-      {/* <Container className={getPathDepth() - prevDepth >= 0 ? "container left" : "container right"}> */}
-
-      {/* .container-fluid for a full width container, spanning the entire width of the viewport. */}
-      {/* .col-lg-auto based on width of content, breakpoint at large */}
-      {/* .min-vh-100 min-height 100vw */}
       <Panel padding={4} width="col" height="vh-100" color="gradient">
-        {' '}
         <SwitchTransition>
           <CSSTransition
             key={props.location.pathname}

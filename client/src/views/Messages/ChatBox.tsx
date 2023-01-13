@@ -10,14 +10,7 @@ const profileIcon = require('../../assets/icons/home.svg').default as string
 export default function ChatBox(props) {
   const [globalState, dispatch] = useAppContext()
   let baseVal: Message[] = []
-  /*const ms = [
-    { sender: 'paty', time: new Date('2015-02-04'), content: 'ffrf' },
-    { sender: 'me', time: new Date('2015-02-04'), content: 'cscmc' },
-    { sender: 'paty', time: new Date('2015-02-05'), content: 'weffen' },
-    { sender: 'me', time: new Date('2015-02-08'), content: 'vvvvv' },
-    { sender: 'me', time: new Date('2015-02-08'), content: 'bj' },
-    { sender: 'me', time: new Date('2015-02-08'), content: 'gjh' },
-  ]*/
+
   const [messageToSend, setMessageToSend] = React.useState('') //message that will be sent
   const [messages, setMessages] = React.useState(baseVal) //current list of messages
   const [timerID, setTimerID] = React.useState(-1)
