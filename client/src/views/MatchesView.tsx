@@ -38,11 +38,12 @@ const MatchesView = () => {
   console.log(matchedAccounts)
 
   return (
-    <div className="matches-display">
+    <div>
       <h1 className="titlePage"> Matches</h1>
+      <div className="match-display">
       {matchedAccounts.map((account, index) => {
         return (
-          <div key={index} className="match-label">
+          <div id = "matches"key={index} className="match-label">
             <div className="col1">
               <p className="match-text-id">ID: {account.id}</p>
               <p className="match-text-left">Age: {account.age}</p>
@@ -60,6 +61,7 @@ const MatchesView = () => {
           </div>
         )
       })}
+      </div>
     </div>
   );
 }

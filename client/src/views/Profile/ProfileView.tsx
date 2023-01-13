@@ -1,12 +1,13 @@
 import { Form } from 'react-router-dom'
-import { useCallback } from 'react'
+import React,{ useCallback, useEffect } from 'react'
 import { useAppContext } from '../../store/UniContext'
 import Panel from '../../components/Panels/Panel'
 import DisplayVal from '../../components/Panels/DisplayVal'
 import PanelHeader from '../../components/Panels/PanelHeader'
+import { getAzure } from '../../store/helpers'
 
 export default function ProfileView() {
-  const [userData, updateUserDat] = useAppContext()
+  const [userData, dispatch] = useAppContext()
   console.log('globalState according to profile:' + JSON.stringify(userData))
 
   const confirmDeletion = useCallback((event) => {
