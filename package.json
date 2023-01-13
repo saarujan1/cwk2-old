@@ -6,8 +6,10 @@
     "node": "16.x"
   },
   "scripts": {
-    "build": "npm install && cd client && npm install && npm run build",
-    "start": "npm run start-server & npm run start-client",
+    "OLDbuild": "npm install && cd client && npm install && npm run build",
+    "OLDstart": "npm run start-server & npm run start-client",
+    "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build",
     "start-server": "node server/server.js",
     "start-client": "cd client && npm start",
     "gdeploy": "gcloud app deploy --version test"
