@@ -154,6 +154,8 @@ p {
 /* -------------- ^LABELS^ -------------- */
 
 .match-label {
+  width: 50%; /* half of the screen width */
+  text-align: left;
   display: block;
   padding: 0.5rem;
   margin-bottom: 1rem;
@@ -161,7 +163,6 @@ p {
   color: var(--light-cream);
   border-radius: 0.25rem;
   font-size: 1.25rem;
-  text-align: center;
 }
 
 /* -------------- ^BUTTONS^ -------------- */
