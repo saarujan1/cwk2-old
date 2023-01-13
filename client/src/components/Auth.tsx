@@ -97,6 +97,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       console.log("The filter info according to globalState in login: " + JSON.stringify(globalState.filters) )
       return true
     } else {
+      alert("Something Went Wrong - " + resp.msg)
       return false
     }
   }
@@ -121,8 +122,9 @@ const AuthModal: React.FC<AuthModalProps> = ({ setShowModal, isSignUp }) => {
       })
       return true
     } else {
-      const obj = JSON.parse(resp.message)
-      globalState.returnMessage = obj.message
+      alert("Something Went Wrong - " + resp.message.msg)
+      //const obj = JSON.parse(resp.message)
+      //globalState.returnMessage = obj.message
       return false
     }
   }

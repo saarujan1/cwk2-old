@@ -182,18 +182,18 @@ export default function DiscoverView() {
             <div className="card-container col" style={{ width: '300px', height: '500px' }}>
               <TinderCard className="swipe" key={feed[currentIndex].account.id} onSwipe={(dir) => swiped(dir, feed[currentIndex].account.id)} onCardLeftScreen={() => console.log('something leftscreen')}>
                 <div className={'card' + (currentIndex == feed.length - 1 ? ' front-card' : '')}>
-                  <h3>
+                  <h3 >
                     {feed[currentIndex].account.id} - {feed[currentIndex].account.age}
                   </h3>
-                  <h4>
+                  <h4 className='attribute-text'>
                     {feed[currentIndex].filters.university}
                   </h4>
-                  <h5>
+                  <h5 className='attribute-text'>
                     {feed[currentIndex].filters.course}
                   </h5>
                   <div className="attributes">
                     <p className="attribute-text">Bio: {feed[currentIndex].account.bio}</p>
-                    <p className="attribute-text">Hobbies: {feed[currentIndex].account.hobbies}</p>
+                    <p className="attribute-text">Hobbies: {feed[currentIndex].account.hobbies.join(', ')}</p>
                   </div>
                 </div>
               </TinderCard>
