@@ -1,5 +1,5 @@
 import { Form } from 'react-router-dom'
-import React,{ useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useAppContext } from '../../store/UniContext'
 import Panel from '../../components/Panels/Panel'
 import DisplayVal from '../../components/Panels/DisplayVal'
@@ -21,14 +21,6 @@ export default function ProfileView() {
 
   console.log(JSON.stringify(userData))
   // globalState according to profile:{"error":"","valid":true,"returnMessage":"","test":"","user":{"id":"123456789","password":"$2b$12$QKLEA9.B6FCf8dXHzVk.MewL4Sye6cZ.Evenl1NER1ggyrEGabxjy","email":"123456789@gmail.com","profile_pic_id":"","phone":"07455262299","bio":"123456789","hobbies":[],"accepted":["babdah","test123","damiantesting123","testingdamian"],"rejected":["test123","noahnoah"],"matched":["babdah","test123"],"communicationID":"8:acs:cecc501c-25ca-4b1c-a4fd-a786b9c9f431_00000016-46ad-6454-3f82-af3a0d004718"},"filters":{"id":"123456789","university":"Aga Khan University","course":"","year":"2","language":"","study_method":"","study_time":""},"password":""}
-
-  /* <p>{userData.user.university} </p>
-        <p>{userData.user.course} </p>
-        <p>{userData.user.year} </p>
-        <p>{userData.user.language} </p>
-        <p>{userData.user.email} </p>
-        <p>{userData.user.study_method} </p>
-        <p>{userData.user.study_time} </p> */
 
   return (
     <>
