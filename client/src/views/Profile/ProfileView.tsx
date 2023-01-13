@@ -15,7 +15,8 @@ export default function ProfileView() {
     }
   }, [])
   // userData.user.hobbies
-  const listHobbies = ['fghj', '345678', 'gfchvjbk', 'cvhgjbk'].map((hobby) => <button className="col-4 c-btn-purple">{hobby}</button>)
+  //Damian Changed this below
+  const listHobbies = userData.user.hobbies.map((hobby) => <button className="col-4 c-btn-purple">{hobby}</button>)
 
   console.log(JSON.stringify(userData))
   // globalState according to profile:{"error":"","valid":true,"returnMessage":"","test":"","user":{"id":"123456789","password":"$2b$12$QKLEA9.B6FCf8dXHzVk.MewL4Sye6cZ.Evenl1NER1ggyrEGabxjy","email":"123456789@gmail.com","profile_pic_id":"","phone":"07455262299","bio":"123456789","hobbies":[],"accepted":["babdah","test123","damiantesting123","testingdamian"],"rejected":["test123","noahnoah"],"matched":["babdah","test123"],"communicationID":"8:acs:cecc501c-25ca-4b1c-a4fd-a786b9c9f431_00000016-46ad-6454-3f82-af3a0d004718"},"filters":{"id":"123456789","university":"Aga Khan University","course":"","year":"2","language":"","study_method":"","study_time":""},"password":""}
