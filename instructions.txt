@@ -2,7 +2,7 @@ INSTRUCTIONS TO RUN - UNIMATCH - Group N
 
 To use the current version:
 
-Go to: <FRONTEND LINK>
+Go to: https://uni-match-373814.nw.r.appspot.com/
 Follow the on screen instructions to login / register.
 When logged in, you may be asked to submit your details and preferences, before going to the main page.
 Here you can accept or reject other users to match with. 
@@ -22,4 +22,5 @@ In the command line type $ func azure functionapp publish unimatch.
 2. Upload the frontend to GAE.
 Go to \comp3207-coursework2-frontend\server\shared.js.
 Replace the URI and APP_KEY with those from your Azure project.
-<REMAINING STEPS TO UPLOAD FRONTEND TO GAE>
+run "npm install" and then "npm run build" from root (Make sure the client is built after this command, it should be inside of client/build)
+run "npm run gdeploy"
