@@ -48,7 +48,7 @@ export default function ProfileView() {
         </Panel>
         <Panel padding={5} width="col-5" color="bg-bdg" shadow>
           <PanelHeader color="mb-3" noPadding>
-            <h3 className="c-heading">Interests</h3>
+            <h3 className="c-heading">Hobbies</h3>
           </PanelHeader>
           <div className="row w-100 row-cols-2 m-0 g-4">{userData ? listHobbies : ''}</div>
         </Panel>
