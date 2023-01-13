@@ -43,11 +43,9 @@ p {
   max-height: 80vh;
 }
 
-#chats {
+#matches {
   list-style-type: none;
   flex-direction: row;
-  display: flex;
-  overflow-x: scroll;
   max-width: 800px;
 }
 
@@ -164,8 +162,13 @@ p {
 
 /* -------------- ^LABELS^ -------------- */
 
+.match-display {
+  overflow-y: scroll;
+  max-height: 600px;
+}
+
 .match-label {
-  width: 50%; /* half of the screen width */
+  width: 90%; /* half of the screen width */
   text-align: left;
   display: block;
   padding: 0.5rem;
