@@ -9,7 +9,8 @@
     "build": "npm install && cd client && npm install && npm run build",
     "start": "npm run start-server & npm run start-client",
     "start-server": "node server/server.js",
-    "start-client": "cd client && npm start"
+    "start-client": "cd client && npm start",
+    "gdeploy": "gcloud app deploy --version test"
   },
   "keywords": [],
   "author": "",
