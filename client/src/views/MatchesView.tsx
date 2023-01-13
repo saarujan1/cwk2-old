@@ -1,6 +1,7 @@
 import { useAppContext } from '../store/UniContext'
 import { getAzure } from '../store/helpers'
 import { useState, useEffect } from 'react'
+import Panel from '../components/Panels/Panel'
 
 const MatchesView = () => {
   const [matchedAccounts, setMatchedAccounts] = useState<any[]>([])
@@ -40,12 +41,14 @@ const MatchesView = () => {
   return (
     <div>
       <h1 className="titlePage"> Matches</h1>
-      <div className="match-display">
+      <div className="match-display row row-cols-3 p-3">
+        
       {matchedAccounts.map((account, index) => {
         return (
+          <Panel padding={3} color="bg-bdg">
           <div id = "matches"key={index} className="match-label">
             <div className="col1">
-              <p className="match-text-id">ID: {account.id}</p>
+              <h3 className="match-text-id">ID: {account.id}</h3>
               <p className="match-text-left">Age: {account.age}</p>
               <p className="match-text-left">Bio: {account.bio}</p>
               <p className="match-text-left">Hobbies: {account.hobbies.join(', ')}</p>
@@ -59,10 +62,11 @@ const MatchesView = () => {
             </div>
             
           </div>
+          </Panel>
         )
-      })}
+      })}</div>
       </div>
-    </div>
+    
   );
 }
   
