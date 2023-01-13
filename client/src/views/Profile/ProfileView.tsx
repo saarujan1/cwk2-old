@@ -39,6 +39,8 @@ export default function ProfileView() {
             <h3 className="c-heading">Basic info</h3>
           </PanelHeader>
           <div className="">
+            <DisplayVal label="university">{userData.filters.university}</DisplayVal>
+            <DisplayVal label="course">{userData.filters.course}</DisplayVal>
             <DisplayVal label="bio">{userData.user.bio}</DisplayVal>
             <DisplayVal label="email">{userData.user.email}</DisplayVal>
             <DisplayVal label="phone">{userData.user.phone}</DisplayVal>
