@@ -360,8 +360,10 @@ p {
   background-color: transparent !important;
 }
 
+// changed message_content from light-cream to black so it's readable, theres probs a better color
+
 .cs-message__content {
-  color: var(--light-cream) !important;
+  color: black !important;
 }
 
 // REFERENCES
