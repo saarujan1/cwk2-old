@@ -196,7 +196,7 @@ export default function FiltersView() {
         {/* Make my panels here*/}
 
         {/* University */}
-        <Panel padding={3} color="bg-bdg" square>
+        <Panel padding={3} color="bg-bdg">
       <div>
         <h4 className="text-light-cream">University</h4>
         <Form.Select
@@ -218,7 +218,7 @@ export default function FiltersView() {
 
       {/* Course */}
 
-      <Panel padding={3} color="bg-bdg" square>
+      <Panel padding={3} color="bg-bdg">
       <div>
         <h4 className="text-light-cream">Course</h4>
         <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course} placeholder="Enter New Course"></Form.Control>
@@ -240,7 +240,7 @@ export default function FiltersView() {
     </Panel>
 
     {/* Module */}
-    <Panel padding={3} color="bg-bdg" square>
+    <Panel padding={3} color="bg-bdg">
       <div>
         <h4 className="text-light-cream">Module</h4>
         <CreatableSelect
@@ -256,7 +256,7 @@ export default function FiltersView() {
 
     {/* Year */}
 
-    <Panel padding={3} color="bg-bdg" square>
+    <Panel padding={3} color="bg-bdg">
       <div>
         <h4 className="text-light-cream">Year</h4>
         <Form.Select onChange={(e) => setFormData({ ...formData, year: e.target.value })} value={formData.year}>
@@ -274,7 +274,7 @@ export default function FiltersView() {
 
     {/* Language */}
 
-    <Panel padding={3} color="bg-bdg" square>
+    <Panel padding={3} color="bg-bdg">
       <div>
         <h4 className="text-light-cream">Language</h4>
         <Form.Select onChange={(e) => setFormData({ ...formData, language: e.target.value })} value={formData.language}>
