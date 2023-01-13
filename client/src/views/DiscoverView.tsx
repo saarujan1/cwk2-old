@@ -11,11 +11,12 @@ const acceptIcon = require('../assets/icons/accept.svg').default as string
 export default function DiscoverView() {
   const [globalState, dispatch] = useAppContext()
   let x: any[] = []
+  const [reRender,updateRender] = useState(false);
   const [feed, updateFeed] = useState(x)
   const [currentIndex, setCurrentIndex] = useState(0)
   const currentIndexRef = useRef(currentIndex)
   const [childRefs, changeChildRefs] = useState<RefObject<any>[]>()
-
+  
   async function acceptUser(TheirId) {
     let message = { id: globalState.user.id, accepted_id: TheirId }
     console.log('accpeting with message:' + JSON.stringify(message))
@@ -86,11 +87,14 @@ export default function DiscoverView() {
   }
 
   useEffect(() => {
-    //update Self
-
+    //jankycode to reRender
+    if(!reRender){
+      updateRender(true)
+    }
+    
     //getFeed
     getFiveUsers()
-  }, [])
+  }, [reRender])
 
   // console.log('user', user)
   /*const childRefs = useMemo(
