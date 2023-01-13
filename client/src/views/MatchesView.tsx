@@ -4,13 +4,13 @@ import { useState, useEffect } from 'react'
 
 const MatchesView = () => {
   const [matchedProfiles, setMatchedProfiles] = useState<string[]>([])
-  const [globalState] = useAppContext()
+  const [globalState,dispatch] = useAppContext()
 
   useEffect(() => {
     async function fetchData() {
       let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/lookupAccount?', {id : globalState.user.id}))
       let resp = (await promise) as any
-      setMatchedProfiles(resp.account.accepted)
+      setMatchedProfiles(resp.account.matched)
     }
     fetchData();
   }, []);
