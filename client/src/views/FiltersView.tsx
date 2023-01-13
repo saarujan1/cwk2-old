@@ -50,6 +50,12 @@ export default function FiltersView() {
   //   )
   // }
 
+  async function getUniversities() {
+    let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/getUniversities?', { text: '', n: 181 }))
+    let x = (await promise) as any
+    return x.unis.sort()
+  }
+
   const listFilters = Object.keys(localFilters).map((m) => (
     <Panel padding={3} color="bg-bdg" square>
       <div>

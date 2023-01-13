@@ -60,7 +60,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
 
   return (
     <Form>
-      <Form.Label>University</Form.Label>
+      <Form.Label className="setup-view-label">University</Form.Label>
       <Form.Select
         onChange={(e) => {
           setFormData({ ...formData, university: e.target.value })
@@ -76,7 +76,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         ))}
       </Form.Select>
 
-      <Form.Label>Course</Form.Label>
+      <Form.Label className="setup-view-label">Course</Form.Label>
       <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course}></Form.Control>
       <Form.Select
         onChange={(e) => {
@@ -93,7 +93,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         ))}
       </Form.Select>
 
-      <Form.Label>Module</Form.Label>
+      <Form.Label className="setup-view-label">Module</Form.Label>
       <CreatableSelect
         isMulti
         defaultValue={formData.modules.map((module) => ({ value: module, label: module }))}
@@ -103,7 +103,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         }}
       />
 
-      <Form.Label>Year</Form.Label>
+      <Form.Label className="setup-view-label">Year</Form.Label>
       <Form.Select onChange={(e) => setFormData({ ...formData, year: e.target.value })} value={formData.year}>
         <option> Choose a Year...</option>
         <option value="1">1</option>
@@ -115,7 +115,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         <option value="7">7</option>
       </Form.Select>
       
-      <Form.Label>Language</Form.Label>
+      <Form.Label className="setup-view-label">Language</Form.Label>
     <Form.Select onChange={(e) => setFormData({ ...formData, language: e.target.value })} value={formData.language}>
     <option> Choose a Language...</option>
       <option value="English">English</option>

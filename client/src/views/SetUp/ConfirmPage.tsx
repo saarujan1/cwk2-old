@@ -5,7 +5,7 @@ export default function ConfirmPage({ formData, setFormData }: FormDataProps) {
   return (
     <Form>
       <Form.Group controlId="formFile">
-        <Form.Check
+        <Form.Check className ="setup-view-label"
           onChange={(e) => {
             setFormData({ ...formData, dataConfirmed: !formData.dataConfirmed })
           }}

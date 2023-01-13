@@ -3,6 +3,7 @@ import CreatableSelect from 'react-select/creatable'
 import { FormDataProps } from './SetupView'
 import React, { useState } from 'react'
 import { MultiValue } from 'react-select/dist/declarations/src';
+import { Container } from 'react-bootstrap';
 
 export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
   //I have to map between reactState which uses the OptionType Object and a Array of hobbies string[]
@@ -22,24 +23,26 @@ export default function PersonalInfo({ formData, setFormData }: FormDataProps) {
   }
 
   return (
+
+
     <Form>
       <Form.Group className="mb-3" controlId="formPhone">
-        <Form.Label>Phone</Form.Label>
+        <Form.Label className="setup-view-label">Phone</Form.Label>
         <Form.Control onChange={(e) => setFormData({ ...formData, phone: e.target.value })} value={formData.phone} type="text" placeholder="Phone" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBio">
-        <Form.Label>Bio</Form.Label>
+        <Form.Label className="setup-view-label">Bio</Form.Label>
         <Form.Control onChange={(e) => setFormData({ ...formData, bio: e.target.value })} value={formData.bio} type="text" placeholder="Bio" as="textarea" rows={3} />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formAge">
-        <Form.Label>Age</Form.Label>
+        <Form.Label className="setup-view-label">Age</Form.Label>
         <Form.Control onChange={(e) => setFormData({ ...formData, age: e.target.value })} value={formData.age} type="number"/>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formHobbies">
-        <Form.Label>Hobbies - You can select up to 5</Form.Label>
+        <Form.Label className="setup-view-label">Hobbies - You can select up to 5</Form.Label>
         <CreatableSelect
           isMulti
           defaultValue={formData.hobbies.map((hobby) => ({ value: hobby, label: hobby }))}

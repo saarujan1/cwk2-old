@@ -5,6 +5,8 @@ import FiltersSelection from './FiltersSelection'
 import { useNavigate } from 'react-router-dom'
 import ConfirmPage from './ConfirmPage'
 import { useAppContext } from '../../store/UniContext'
+import { Container } from 'react-bootstrap';
+import Stack from 'react-bootstrap/Stack';
 
 import { getAzure } from '../../store/helpers'
 
@@ -99,8 +101,10 @@ export default function SetupView() {
 
   return (
     <div>
+    <Stack gap={3} className="setup-view-stack">
       {formDisplay()}
-      <Button className="mx-3" disabled={page === 0} onClick={() => setPage((currentPage) => currentPage - 1)}>
+      <div>
+      <Button className="mx-3 setup-view-buttons" disabled={page === 0} onClick={() => setPage((currentPage) => currentPage - 1)}>
         Back
       </Button>
       <Button
@@ -122,6 +126,8 @@ export default function SetupView() {
       >
         {page === FormTitles.length - 1 ? 'Submit' : 'Next'}
       </Button>
+      </div>
+      </Stack>
     </div>
   )
 }

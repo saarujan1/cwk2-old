@@ -7,6 +7,26 @@
   font-family: 'Patrick Hand SC', cursive;
 }
 
+/* -------------- ⌄SETUPVIEW (IDK CHANGE IF YOU WANT THE DEFAULT LABELS WERE TOO SMALL AND INVISIBLE ON THE BACKGROUND)⌄ -------------- */
+.setup-view-stack {
+  width: 50%;
+  background-color: #c3dbf0;
+  border-radius: 12px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 30px;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.setup-view-label {
+  color: #0B4071;
+  font-size: 24px!important;
+  font-weight: bold;
+}
+
 /* -------------- ⌄CHATS⌄ -------------- */
 #chat {
   list-style-type: none;
