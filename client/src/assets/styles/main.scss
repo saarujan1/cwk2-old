@@ -283,12 +283,24 @@
 .cs-message-input__content-editor-wrapper,
 .cs-message-input__content-editor {
   background-color: #000 !important;
-  color: var(--light-white) !important;
+  color: var(--light-cream) !important;
 }
 
 .no-bottom-radius {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+}
+
+.cs-message-input__content-editor[data-placeholder]:empty:before {
+  color: var(--light-cream) !important;
+}
+
+.cs-message-list__scroll-wrapper {
+  padding: 0 !important;
+}
+
+.cs-message-list {
+  background-color: transparent !important;
 }
 
 // REFERENCES

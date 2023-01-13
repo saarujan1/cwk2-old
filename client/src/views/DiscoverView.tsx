@@ -18,7 +18,7 @@ export default function DiscoverView() {
 
   async function acceptUser(TheirId) {
     let message = { id: globalState.user.id, accepted_id: TheirId }
-    console.log('accpeting with message:' + JSON.stringify(message))
+    console.log('accepting with message:' + JSON.stringify(message))
     try {
       let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/acceptUser?', message))
       let resp = (await promise) as any

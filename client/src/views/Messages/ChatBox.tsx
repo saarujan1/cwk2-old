@@ -36,30 +36,19 @@ export default function ChatBox(props) {
     }
   }, [props])
 
-  //hook for clicking enter
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      sendMessage()
-    }
-  }
-
-  const onChange = (e) => {
-    setMessageToSend(e.target.value)
-  }
-
   const calcMinutesAgo = (m: Message) => Math.abs(Math.round((Date.now() - m.time.getTime()) / 60000)).toString() + ' mins ago'
 
   const calcMessagesDirection = (m: Message) => {
-    console.log('sender: ', m.sender)
-    console.log('global: ', globalState)
+    // console.log('sender: ', m.sender)
+    // console.log('global: ', globalState)
     return m.sender === globalState.user.id ? 'outgoing' : 'incoming'
   }
 
-  async function sendMessage() {
-    console.log('trying to send message')
+  async function sendMessage(c) {
+    console.log('trying to send message: ', c)
 
     const sendMessageRequest = {
-      content: messageToSend,
+      content: c,
     }
 
     let sendMessageOptions = {
@@ -83,7 +72,7 @@ export default function ChatBox(props) {
       if (message.type === 'text') {
         newMessages.push({
           sender: message.senderDisplayName,
-          time: new Date(message.createdOn.getYear(), message.createdOn.getMonth(), message.createdOn.getDay(), message.createdOn.getHours(), message.createdOn.getMinutes(), message.createdOn.getSeconds(), 0),
+          time: new Date(message.createdOn.getFullYear(), message.createdOn.getMonth(), message.createdOn.getDate(), message.createdOn.getHours(), message.createdOn.getMinutes(), message.createdOn.getSeconds(), 0),
           content: message.content.message,
         })
         mCount++
@@ -93,11 +82,10 @@ export default function ChatBox(props) {
       }
     }
 
-    for (let i = messageLimit; i > mCount; i--) {
-      newMessages.push({ sender: '', time: new Date(0), content: '' })
-    }
-
-    setMessages(newMessages)
+    // for (let i = messageLimit; i >= mCount; i--) {
+    //   newMessages.push({ sender: '', time: new Date(0), content: '' })
+    // }
+    setMessages(newMessages.reverse())
   }
 
   const listMessages = messages.map((m, index, array) => {
@@ -110,7 +98,7 @@ export default function ChatBox(props) {
     }
     return (
       <>
-        {showMessageSeparator ? <MessageSeparator>{currentDate.toLocaleString('default', { month: 'long' }) + ' ' + currentDate.getDay() + ', ' + currentDate.getFullYear()}</MessageSeparator> : ''}
+        {showMessageSeparator ? <MessageSeparator>{currentDate.toLocaleString('default', { month: 'long' }) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear()}</MessageSeparator> : ''}
         <MessageComp
           model={{
             message: m.content,
@@ -131,10 +119,10 @@ export default function ChatBox(props) {
           <p className="fs-5">{props.chatTC.ChatName}</p>
         </div>
         <Panel padding={3} className="h80">
-          {listMessages}
+          <MessageList>{listMessages}</MessageList>
         </Panel>
         <div className="h10">
-          <MessageInput attachButton={false} placeholder="Type message here..." value={messageToSend} onChange={onChange} onKeyDown={handleKeyDown} className="form-input fixed-bottom" />
+          <MessageInput attachButton={false} placeholder="Type..." defaultValue="" value={messageToSend} onChange={(e, c, i, n) => setMessageToSend(c)} onSend={(e, c, i, n) => sendMessage(c)} sendOnReturnDisabled={false} className="form-input fixed-bottom" />
         </div>
       </Panel>
     </>

@@ -2,9 +2,9 @@ import { useAppContext } from '../../store/UniContext'
 import { ChatClient, ChatMessage, ChatThreadClient, ChatThreadItem } from '@azure/communication-chat'
 import { AzureCommunicationTokenCredential } from '@azure/communication-common'
 import ChatBox from './ChatBox'
+import Message from '../../store/Message'
 import React, { useState } from 'react'
 import { getAzure } from '../../store/helpers'
-import { rejects } from 'assert'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import Panel from '../../components/Panels/Panel'
 
@@ -50,33 +50,9 @@ export default function MessagesView() {
 
       theChatThreads.push(c)
     }
-
+    console.log('threads: ', theChatThreads)
     updateChatThreads(theChatThreads)
   }
-
-  async function getLastMessage(cli) {
-    const messages = cli.listMessages()
-    const collection: ChatMessage[] = []
-    for await (const message of messages) {
-      collection.push(message)
-    }
-    return collection.at(-1)?.content?.message
-  }
-
-  const listChats = (cli) =>
-    chatThreads.map(async (m, index) => (
-      <div
-        className="p-3"
-        onClick={() => {
-          newChat(index)
-        }}
-      >
-        <p className="text-light-white fw-bold m-0 fs-6">kef</p>
-        <p className="text-gray fs-8">(+1) 34567890987</p>
-        <p>{await getLastMessage(cli)}</p>
-        <p>{m.ChatName}</p>
-      </div>
-    ))
 
   async function getOtherUser(ctc: ChatThreadClient) {
     console.log('getting participants')
@@ -94,13 +70,18 @@ export default function MessagesView() {
     return 'unknown'
   }
 
+  const getLastMessage = () => {
+    // const messages = chatThreads[currentChat].ThreadCli.listMessages()
+    // const collection: ChatMessage[] = []
+    // for await (const message of messages) {
+    //   collection.push(message)
+    // }
+    // messages.at(-1)?.content
+  }
+
   console.log('checking chatThreads')
   if (chatThreads.length !== 0) {
     let chatThreadClient = chatThreads[currentChat]
-    // return (
-    //   <>
-    //
-    // )
 
     return (
       <>
@@ -109,7 +90,19 @@ export default function MessagesView() {
           <Panel padding={3} height="h95" color="bg-bg" shadow>
             <div className="row h-100">
               <div className="col-3 h-100">
-                <>{listChats(chatThreadClient.ThreadCli)}</>
+                {chatThreads.map((person, index) => (
+                  <div
+                    className="p-3 rounded-4"
+                    role="button"
+                    onClick={() => {
+                      newChat(index)
+                    }}
+                  >
+                    {/* <p className="text-light-white fw-bold m-0 fs-6">{person.ChatName}</p> */}
+                    <p className="text-light-white fw-bold m-0 fs-6">ff</p>
+                    {/* <p>{messages.at(-1)?.content}</p> */}
+                  </div>
+                ))}
               </div>
               <div className="col-9 h-100">
                 <ChatBox chatTC={chatThreadClient}></ChatBox>
@@ -121,7 +114,8 @@ export default function MessagesView() {
     )
   }
   return (
-    <><h1 className="pageTitle"> Your messages</h1>
+    <>
+      <h1 className="pageTitle"> Your messages</h1>
       <h3>No messages made yet...</h3>
     </>
   )
