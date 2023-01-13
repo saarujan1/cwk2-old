@@ -139,6 +139,19 @@
   @extend .text-light-white;
 }
 
+/* -------------- ^LABELS^ -------------- */
+
+.match-label {
+  display: block;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: var(--background-gray-darker);
+  color: var(--light-cream);
+  border-radius: 0.25rem;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
 /* -------------- ^BUTTONS^ -------------- */
 
 .nav-pills .nav-link.active,
