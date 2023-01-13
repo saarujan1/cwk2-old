@@ -2,35 +2,53 @@ import { Form } from 'react-router-dom'
 import { useCallback } from 'react'
 import { useAppContext } from '../../store/UniContext'
 import Panel from '../../components/Panels/Panel'
+import DisplayVal from '../../components/Panels/DisplayVal'
+import PanelHeader from '../../components/Panels/PanelHeader'
 
 export default function ProfileView() {
   const [userData, updateUserDat] = useAppContext()
-  console.log("globalState according to profile:" + JSON.stringify(userData))
+  console.log('globalState according to profile:' + JSON.stringify(userData))
 
   const confirmDeletion = useCallback((event) => {
     if (!window.confirm('Please confirm you want to delete this record.')) {
       event.preventDefault()
     }
   }, [])
-
-  const listHobbies = userData.user.hobbies.map((hobby) => <button className="c-btn-purple">{hobby}</button>)
+  // userData.user.hobbies
+  const listHobbies = ['fghj', '345678', 'gfchvjbk', 'cvhgjbk'].map((hobby) => <button className="col-4 c-btn-purple">{hobby}</button>)
 
   console.log(JSON.stringify(userData))
+  // globalState according to profile:{"error":"","valid":true,"returnMessage":"","test":"","user":{"id":"123456789","password":"$2b$12$QKLEA9.B6FCf8dXHzVk.MewL4Sye6cZ.Evenl1NER1ggyrEGabxjy","email":"123456789@gmail.com","profile_pic_id":"","phone":"07455262299","bio":"123456789","hobbies":[],"accepted":["babdah","test123","damiantesting123","testingdamian"],"rejected":["test123","noahnoah"],"matched":["babdah","test123"],"communicationID":"8:acs:cecc501c-25ca-4b1c-a4fd-a786b9c9f431_00000016-46ad-6454-3f82-af3a0d004718"},"filters":{"id":"123456789","university":"Aga Khan University","course":"","year":"2","language":"","study_method":"","study_time":""},"password":""}
+
+  /* <p>{userData.user.university} </p>
+        <p>{userData.user.course} </p>
+        <p>{userData.user.year} </p>
+        <p>{userData.user.language} </p>
+        <p>{userData.user.email} </p>
+        <p>{userData.user.study_method} </p>
+        <p>{userData.user.study_time} </p> */
+
   return (
     <>
-      <h2 className="text-light-cream">Welcome, {userData.user.id ? <span className="text-darker-gray fw-bold">{userData.user.id}</span> : <p>No Name</p>}</h2>
-      <Panel padding={3} width="col-4" color="bg-bdg" shadow>
-        <h3 className="c-heading fancy-font">Basic info</h3>
-        <p>Bio</p> {userData.user.bio && <p>{userData.user.bio}</p>}
-      </Panel>
-      <Panel padding={3} width="col-4" color="bg-bdg" shadow>
-        <h3 className="c-heading fancy-font">Interests</h3>
-        {userData ? listHobbies : ''}
-      </Panel>
-
-      <button type="button" className="c-btn-blue" onClick={confirmDeletion}>
-        Delete
-      </button>
+      <h2 className="c-heading text-light-white">Welcome, {userData.user.id ? <span className="fw-bold">{userData.user.id}</span> : <p>no Name</p>}</h2>
+      <div className="row">
+        <Panel padding={5} width="col-5" color="bg-bdg" className="d-flex" shadow>
+          <PanelHeader color="mb-3" noPadding>
+            <h3 className="c-heading">Basic info</h3>
+          </PanelHeader>
+          <div className="">
+            <DisplayVal label="bio">{userData.user.bio}</DisplayVal>
+            <DisplayVal label="email">{userData.user.email}</DisplayVal>
+            <DisplayVal label="phone">{userData.user.phone}</DisplayVal>
+          </div>
+        </Panel>
+        <Panel padding={5} width="col-5" color="bg-bdg" shadow>
+          <PanelHeader color="mb-3" noPadding>
+            <h3 className="c-heading">Interests</h3>
+          </PanelHeader>
+          <div className="row w-100 row-cols-2 m-0 g-4">{userData ? listHobbies : ''}</div>
+        </Panel>
+      </div>
     </>
   )
 }

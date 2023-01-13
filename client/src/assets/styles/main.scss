@@ -1,10 +1,17 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import './constants';
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 @import url(https://fonts.googleapis.com/css?family=Patrick+Hand+SC);
 
+body,
+html,
+p {
+  font-family: 'Poppins', sans-serif;
+}
+
 .fancy-font {
-  font-family: 'Patrick Hand SC', cursive;
+  font-family: 'Patrick Hand SC', cursive !important;
 }
 
 /* -------------- ⌄SETUPVIEW (IDK CHANGE IF YOU WANT THE DEFAULT LABELS WERE TOO SMALL AND INVISIBLE ON THE BACKGROUND)⌄ -------------- */
@@ -135,8 +142,13 @@
   background-color: transparent;
   border-color: var(--purple);
   border-radius: 13px;
-  border-width: 3px;
-  @extend .text-light-white;
+  border-width: 2px;
+  @extend .text-purple;
+}
+
+.c-btn-purple:hover {
+  border-color: var(--purple) !important;
+  color: var(--light-cream) !important;
 }
 
 /* -------------- ^LABELS^ -------------- */
@@ -316,12 +328,32 @@
 .cs-message-input__content-editor-wrapper,
 .cs-message-input__content-editor {
   background-color: #000 !important;
-  color: var(--light-white) !important;
+  color: var(--light-cream) !important;
 }
 
 .no-bottom-radius {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+}
+
+.cs-message-input__content-editor[data-placeholder]:empty:before {
+  color: var(--light-cream) !important;
+}
+
+.cs-message-list__scroll-wrapper {
+  padding: 0 !important;
+}
+
+.cs-message__content-wrapper {
+  @extend .p-1;
+}
+
+.cs-message-list {
+  background-color: transparent !important;
+}
+
+.cs-message__content {
+  color: var(--light-cream) !important;
 }
 
 // REFERENCES

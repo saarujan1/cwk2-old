@@ -190,7 +190,7 @@ export default function FiltersView() {
   return (
     <>
       <div className="p-3 col">
-        <h2 className="text-light-cream">Filters</h2>
+        <h2 className="c-heading text-light-white">Filters</h2>
       </div>
       <div className="row row-cols-3 p-3">
         {/* Make my panels here*/}

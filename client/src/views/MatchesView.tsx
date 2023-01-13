@@ -24,7 +24,7 @@ const MatchesView = () => {
         return <label key={index} className="match-label"> {match}</label>
       })}
     </div>
-  );
+  )
 }
-  
+
 export default MatchesView
