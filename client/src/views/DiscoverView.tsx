@@ -4,6 +4,7 @@ import { useAppContext } from '../store/UniContext'
 import { getAzure } from '../store/helpers'
 import { json } from 'stream/consumers'
 import Panel from '../components/Panels/Panel'
+import { Loader } from '@chatscope/chat-ui-kit-react'
 
 const rejectIcon = require('../assets/icons/reject.svg').default as string
 const acceptIcon = require('../assets/icons/accept.svg').default as string
@@ -203,8 +204,8 @@ export default function DiscoverView() {
   } else {
     return (
       <>
-        <div>
-          <p>loading..</p>
+        <div className="h-100 w-100 d-flex align-items-center justify-content-center">
+          <Loader style={{ scale: '3.5' }} />
         </div>
       </>
     )

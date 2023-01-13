@@ -4,6 +4,7 @@ import { useAppContext } from '../../store/UniContext'
 import Message from '../../store/Message'
 import Panel from '../../components/Panels/Panel'
 import { MainContainer, ChatContainer, MessageList, Message as MessageComp, MessageInput, ConversationHeader, MessageSeparator, Avatar } from '@chatscope/chat-ui-kit-react'
+import PanelHeader from '../../components/Panels/PanelHeader'
 const profileIcon = require('../../assets/icons/home.svg').default as string
 
 export default function ChatBox(props) {
@@ -93,7 +94,7 @@ export default function ChatBox(props) {
     const currentDate = m.time
     if (index !== 0) {
       const prevDate = array[index - 1].time.getTime()
-      const diff = (currentDate.getTime() - prevDate) / (1000 * 3600 * 24)
+      const diff = Math.round((((currentDate.getTime() - prevDate) / (1000 * 3600 * 24)) * 100) / 100)
       showMessageSeparator = diff > 0 ? true : false
     }
     return (
@@ -114,10 +115,10 @@ export default function ChatBox(props) {
 
   return (
     <>
-      <Panel color="bg-bdg" height="h-100" className="rounded-7">
-        <div className="h10 p-3 text-light-cream rounded-7 no-bottom-radius bg-bdsg">
-          <p className="fs-5">{props.chatTC.ChatName}</p>
-        </div>
+      <Panel innerPadding={3} color="bg-bdg" height="h-100" className="rounded-7">
+        <PanelHeader color="bg-bdsg">
+          <p className="fs-6 m-0">{props.chatTC.ChatName}</p>
+        </PanelHeader>
         <Panel padding={3} className="h80">
           <MessageList>{listMessages}</MessageList>
         </Panel>

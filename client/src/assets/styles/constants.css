@@ -7,7 +7,7 @@
   --panel-dark-gray: #2d3038;
   --panel-darker-gray: #191f26;
   --medium-blue: #afcae6;
-  --lighter-gray: #4f6b86;
+  --lighter-gray: #6c84a2;
   --background-gray: #20232a;
   --background-gray-darker: #1d1e24;
   --background-gray-darkest: #16171b;
@@ -52,6 +52,10 @@
 
 .text-medium-blue {
   color: var(--medium-blue);
+}
+
+.text-purple {
+  color: var(--purple);
 }
 
 .panel-outline {
@@ -117,21 +121,9 @@
 .gradient {
   background: hsla(230, 100%, 75%, 1);
 
-  background: linear-gradient(
-    225deg,
-    hsla(230, 100%, 75%, 1) 0%,
-    hsla(209, 59%, 60%, 1) 100%
-  );
+  background: linear-gradient(225deg, hsla(230, 100%, 75%, 1) 0%, hsla(209, 59%, 60%, 1) 100%);
 
-  background: -moz-linear-gradient(
-    225deg,
-    hsla(230, 100%, 75%, 1) 0%,
-    hsla(209, 59%, 60%, 1) 100%
-  );
+  background: -moz-linear-gradient(225deg, hsla(230, 100%, 75%, 1) 0%, hsla(209, 59%, 60%, 1) 100%);
 
-  background: -webkit-linear-gradient(
-    225deg,
-    hsla(230, 100%, 75%, 1) 0%,
-    hsla(209, 59%, 60%, 1) 100%
-  );
+  background: -webkit-linear-gradient(225deg, hsla(230, 100%, 75%, 1) 0%, hsla(209, 59%, 60%, 1) 100%);
 }

@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import { getAzure } from '../../store/helpers'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import Panel from '../../components/Panels/Panel'
+import { Loader } from '@chatscope/chat-ui-kit-react'
 
 const endpointURL = 'https://cw2comser.communication.azure.com/'
 
@@ -50,7 +51,7 @@ export default function MessagesView() {
 
       theChatThreads.push(c)
     }
-    console.log('threads: ', theChatThreads)
+    console.log('threads: ', threads)
     updateChatThreads(theChatThreads)
   }
 
@@ -85,21 +86,20 @@ export default function MessagesView() {
 
     return (
       <>
-        <h2 className="c-heading text-light-white">Matched</h2>
+        <h2 className="c-heading text-light-white">Chats</h2>
         <div className="container-fluid h-100">
           <Panel padding={3} height="h95" color="bg-bg" shadow>
             <div className="row h-100">
-              <div className="col-3 h-100">
+              <div className="col-3 h-100 d-flex flex-column" style={{ overflowY: 'scroll' }}>
                 {chatThreads.map((person, index) => (
                   <div
-                    className="p-3 rounded-4"
+                    className="mb-3 p-4 rounded-4 bg-bdsg"
                     role="button"
                     onClick={() => {
                       newChat(index)
                     }}
                   >
-                    {/* <p className="text-light-white fw-bold m-0 fs-6">{person.ChatName}</p> */}
-                    <p className="text-light-white fw-bold m-0 fs-6">ff</p>
+                    <p className="text-light-white fw-bold m-0 fs-6">{person.ChatName}</p>
                     {/* <p>{messages.at(-1)?.content}</p> */}
                   </div>
                 ))}
@@ -115,7 +115,6 @@ export default function MessagesView() {
   }
   return (
     <>
-      <h1 className="pageTitle"> Your messages</h1>
       <h3>No messages made yet...</h3>
     </>
   )
