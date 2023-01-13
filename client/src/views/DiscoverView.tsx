@@ -16,7 +16,6 @@ export default function DiscoverView() {
   const [feed, updateFeed] = useState(x)
   const [currentIndex, setCurrentIndex] = useState(0)
   const currentIndexRef = useRef(currentIndex)
-  const [childRefs, changeChildRefs] = useState<RefObject<any>[]>()
   
   async function acceptUser(TheirId) {
     let message = { id: globalState.user.id, accepted_id: TheirId }
@@ -57,7 +56,7 @@ export default function DiscoverView() {
 
   async function getFiveUsers() {
     try {
-      console.log('our id according to globalstate:' + JSON.stringify(globalState))
+      console.log('getting new feed');
       let promise = new Promise((resolve, reject) => getAzure(resolve, '/api/request?', { id: globalState.user.id, n: '5' }))
       let resp = (await promise) as any
       let temp: any = []
@@ -139,7 +138,7 @@ export default function DiscoverView() {
   const swipe = async (dir) => {
     //if able to swipe
     console.log('index:' + currentIndex.toString() + ' when swiping')
-    if (canSwipe && currentIndex < feed.length) {
+    if (canSwipe && currentIndex < feed.length-1) {
       //if succeeds
       console.log(dir)
       if (dir == 'left') {
@@ -156,7 +155,7 @@ export default function DiscoverView() {
           setCurrentIndex(currentIndex + 1)
         }
       }
-    } else if (currentIndex >= feed.length) {
+    } else if (currentIndex >= feed.length -1) {
       console.log('refreshing feed')
       setCurrentIndex(0)
       await getFiveUsers()
@@ -171,6 +170,8 @@ export default function DiscoverView() {
     // it happens multiple outOfFrame events are queued and the card disappear
     // during latest swipes. Only the last outOfFrame event should be considered valid
   }*/
+  console.log(currentIndex.toString())
+  console.log(feed.length.toString())
   if (feed.length != 0 && currentIndex != feed.length) {
     return (
       <>
@@ -181,7 +182,7 @@ export default function DiscoverView() {
           <Panel height="h70" width="col-12" padding={3} className="d-flex justify-content-center">
             <div className="card-container col" style={{ width: '300px', height: '500px' }}>
               <TinderCard className="swipe" key={feed[currentIndex].account.id} onSwipe={(dir) => swiped(dir, feed[currentIndex].account.id)} onCardLeftScreen={() => console.log('something leftscreen')}>
-                <div className={'card' + (currentIndex == feed.length - 1 ? ' front-card' : '')}>
+                <div className='card'>
                   <h3 >
                     {feed[currentIndex].account.id} - {feed[currentIndex].account.age}
                   </h3>
