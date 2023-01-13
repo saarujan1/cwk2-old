@@ -18,10 +18,10 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
   //Refreshes the drop downs with new data, when you leave this view and go back to it
   React.useEffect(() => {
     setupSelects()
-    if (formData.university != '') {
+    if (formData.university !== '') {
       getCourses(formData.university)
     }
-    if (formData.course != '') {
+    if (formData.course !== '') {
       getModules(formData.university, formData.course)
     }
   }, [])
@@ -77,7 +77,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
       </Form.Select>
 
       <Form.Label className="setup-view-label">Course</Form.Label>
-      <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course}></Form.Control>
+      <Form.Control onChange={(e) => setFormData({ ...formData, course: e.target.value })} value={formData.course} placeholder="Enter New Course"></Form.Control>
       <Form.Select
         onChange={(e) => {
           setFormData({ ...formData, course: e.target.value })
@@ -85,7 +85,7 @@ export default function InterestsSelection({ formData, setFormData }: FormDataPr
         }}
         value={formData.course}
       >
-        <option> Choose a Course...</option>
+        <option>Or Choose An Existing Course...</option>
         {courseList.map((currentCourse, index) => (
           <option key={index} value={currentCourse}>
             {currentCourse}

@@ -5,7 +5,6 @@ import FiltersSelection from './FiltersSelection'
 import { useNavigate } from 'react-router-dom'
 import ConfirmPage from './ConfirmPage'
 import { useAppContext } from '../../store/UniContext'
-import { Container } from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack';
 
 import { getAzure } from '../../store/helpers'
